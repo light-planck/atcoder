@@ -1,0 +1,68 @@
+{
+	// インポート
+	"deque": {
+		"prefix": "deque",
+		"body": [
+				"from collections import deque",
+		],
+		"description": ""
+	},
+
+	// 入力
+	"mapint": {
+		"prefix": "mapint",
+		"body": [
+				"map(int, input().split())",
+		],
+		"description": ""
+	},
+
+	"int": {
+		"prefix": "int",
+		"body": [
+				"int(input())",
+		],
+		"description": ""
+	},
+
+	"listint": {
+		"prefix": "listint",
+		"body": [
+				"list(map(int, input().split()))",
+		],
+		"description": ""
+	},
+
+	"input": {
+		"prefix": "input",
+		"body": [
+				"input()",
+		],
+		"description": ""
+	},
+
+	"yes": {
+		"prefix": "yes",
+		"body": [
+				"print(\"Yes\")",
+		],
+		"description": ""
+	},
+
+	"no": {
+		"prefix": "no",
+		"body": [
+				"print(\"No\")",
+		],
+		"description": ""
+	},
+
+	// 定数
+	"inf": {
+		"prefix": "inf",
+		"body": [
+				"INF = 10 ** 18",
+		],
+		"description": ""
+	},
+}
