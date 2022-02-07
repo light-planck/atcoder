@@ -8,6 +8,14 @@
 		"description": ""
 	},
 
+	"numpy": {
+		"prefix": "numpy",
+		"body": [
+				"import numpy as np",
+		],
+		"description": ""
+	},
+
 	// 入力
 	"mapint": {
 		"prefix": "mapint",
@@ -44,7 +52,7 @@
 	"yes": {
 		"prefix": "yes",
 		"body": [
-				"print(\"Yes\")",
+				"print('Yes')",
 		],
 		"description": ""
 	},
@@ -52,7 +60,7 @@
 	"no": {
 		"prefix": "no",
 		"body": [
-				"print(\"No\")",
+				"print('No')",
 		],
 		"description": ""
 	},

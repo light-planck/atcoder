@@ -36,7 +36,7 @@ while left < n and right >= 0:
     elif s[left] != 'a' and s[right] == 'a':
         right -= 1
     
-    # s[r] != s[l]の場合は回文でない
+    # 上記以外の場合でs[r] != s[l]の場合は回文でない
     else:
         break
 
