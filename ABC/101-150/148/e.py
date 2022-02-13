@@ -1,39 +1,26 @@
 '''
+10 = 2 * 5であるからn!!を素因数分解したときのmin(2の指数, 5の指数)が
+答えであり、明らかに5の指数の方が小さいのでn!!が5で何回割れるかが求める
+答えである。
+nが奇数のとき、素因数に2が含まれないので答えは0。
 nが偶数のとき
-n!! = 2 * 4 * 6 * 8 * ... * n
-n!! / 2 = 1 * 2 * 3 * 4 * ... * n/2 = (n/2)!
-
-nが奇数のとき
-n!! = n! / (n - 1)!!
-
-n!がpで何回割れるかを求める関数をg(n!, p)とすると
-g(n!, p) = n/p + g((n/p)!, p)
-
-n!!の末尾の0の個数はn!!を素因数分解したときの
-2と5の指数のうちの小さい方であるから
-ans = min(g(n!!, 2), g(n!!, 5))
-
-g(n!!, 2) = g((n/2)!, 2) + n/2
-g(n!!, 5) = g((n/5)!, 5) + n/5
+n!! = 2 * 4 * 6 * ...* (n-2) * n
+n!! / 2 = 1 * 2 * 3 * ...* n/2 - 1 * n/2 = (n/2)!
+なので、(n/2)!が何回5で割れるかを求めればよい。
 '''
 
 
-def count1(x, p):
-    if x == 0:
+def solve(n):
+    if n % 2 == 1:
         return 0
     
-    return x // p + count1(x // p, p)
-
-def count2(x, p):
-    if n % 2 == 1:
-        return count1(x, p) - count2(x-1, p)
-
-    res = count1(x // 2, p)
-    if p == 2:
-        res += x // 2
-    return res
+    n //= 2
+    cnt = 0
+    while n > 0:
+        cnt += n // 5
+        n //= 5
+    return cnt
 
 
 n = int(input())
-ans = min(count2(n, 2), count2(n, 5))
-print(ans)
+print(solve(n))
