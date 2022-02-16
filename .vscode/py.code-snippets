@@ -16,6 +16,23 @@
 		"description": ""
 	},
 
+	"setrecursionlimit": {
+		"prefix": "setrecursionlimit",
+		"body": [
+				"import sys",
+				"sys.setrecursionlimit(10 ** 6)",
+		],
+		"description": ""
+	},
+
+	"lrucache": {
+		"prefix": "lrucache",
+		"body": [
+				"from functools import lru_cache",
+		],
+		"description": ""
+	},
+
 	// 入力
 	"mapint": {
 		"prefix": "mapint",
@@ -70,6 +87,14 @@
 		"prefix": "inf",
 		"body": [
 				"INF = 10 ** 18",
+		],
+		"description": ""
+	},
+
+	"mod": {
+		"prefix": "mod",
+		"body": [
+				"MOD = 998244353",
 		],
 		"description": ""
 	},
