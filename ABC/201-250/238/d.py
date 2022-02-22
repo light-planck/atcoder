@@ -1,48 +1,31 @@
+"""
+x and y = a
+x + y = s
+
+aを2進数に変換したときの1となっている
+桁はx, yも1となる。x, yのそれ以外の桁は不明だが、それらを0
+とすると、x = y = aとなるので、x + y >= 2 * a。
+よって、条件はs >= 2 * a。
+x', y'を2進数表記のaが1となっている桁がともに0であり、
+x', y'が共に1となるような桁が存在しない数とすれば、
+x = x' + a, y = y' + a書け、
+x' + y' and a == 0となる。
+ここで、s = x + y = (x' + a) + (y' + a) = 2 * a + x' + y'より、
+x' + y' = s - 2 * aなので
+s >= 2 * a and s - 2 * a and a == 0
+がyesとなる条件である。
+"""
+
+
+def judge(a, s):
+    return s >= 2 * a and (s - 2 * a & a == 0)
+
+
 t = int(input())
 
 for _ in range(t):
     a, s = map(int, input().split())
-    
-    # x = 0
-    # y = s
-    # ok = False
-    # while y > 0:
-    #     if x & y == a:
-    #         ok = True
-    #         print(x, y)
-    #     x += 1
-    #     y -= 1
-    
-    # if ok:
-    #     print("Yes")
-    # else:
-    #     print("No")
-    
-    if a < s:
-        a_set = set()
-        idx = 0
-        while a > 0:
-            if a & 1:
-                a_set.add(idx)
-            a >>= 1
-            idx += 1
-        
-        s_set = set()
-        idx = 0
-        while s > 0:
-            if s & 1:
-                s_set.add(idx)
-            s >>= 1
-            idx += 1
-
-        ok = True
-        for ai in a_set:
-            if ai in s_set:
-                ok = False
-        
-        if ok:
-            print("Yes")
-        else:
-            print("No")
+    if judge(a, s):
+        print('Yes')
     else:
-        print("No")
+        print('No')
