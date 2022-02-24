@@ -4,7 +4,7 @@ using namespace std;
 #define all(x) (x).begin(),(x).end()
 using ll = long long;
 
-const int kMod =  998244353;
+const int MOD = 998244353;
 
 int main() {
   cin.tie(nullptr);
@@ -13,18 +13,7 @@ int main() {
   ll n;
   cin >> n;
 
-  vector<ll> a(n), b(n);
+  vector<int> a(n);
   rep(i, n) cin >> a[i];
-  rep(i, n) cin >> b[i];
-
-  ll ans = 1;
-  for (int ai = 0; ai < n; ++ai) {
-    for (int bi = 0; bi < n; ++bi) {
-      ans *= max(0, b[bi] - a[ai]);
-      ans %= kMod;
-    }
-  }
-
-  cout << ans << "\n";
   return 0;
 }
