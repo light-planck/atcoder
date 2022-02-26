@@ -9,6 +9,7 @@
 				"#define all(x) (x).begin(),(x).end()",
 				"using ll = long long;",
 				"",
+				"",
 				"int main() {",
 				"  cin.tie(nullptr);",
 				"  ios::sync_with_stdio(false);",
