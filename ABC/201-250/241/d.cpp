@@ -1,42 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 #define all(x) (x).begin(),(x).end()
-using ll = long long;
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
+
 
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int q;
+  ll q;
   cin >> q;
-  
-  set<ll> st;
-  priority_queue<ll, vector<ll>, greater<ll>> q1;
 
-  rep(i, q) {
-    ll t, x;
-    cin >> t >> x;
+  multiset<ll> mt;
+  while (q--) {
+    ll c, x;
+    cin >> c >> x;
 
-    if (t == 1) {
-      q1.push(x);
+    if (c == 1) {
+      mt.insert(x);
     }
-
     else {
-      int k;
+      ll k;
       cin >> k;
-      --k;
 
-      auto it = lower_bound(all(q1), x);
-      if (t == 2) advance(it, -k);
-      if (t == 3) advance(it, k);
+      ll ans = -1;
+      bool ok = true;
+      if (c == 2) {
+        auto itr = mt.upper_bound(x);
 
-      if (it == st.end()) {
-        cout << -1 << "\n";
+        rep(i, k) {
+          if (itr == mt.begin()) {
+            ok = false;
+            break;
+          }
+
+          --itr;
+        }
+
+        if (ok) ans = *itr;
       }
-      else {
-        cout << *it << "\n";
+      if (c == 3) {
+        auto itr = mt.lower_bound(x);
+        
+        rep(i, k-1) {
+          if (itr == mt.end()) {
+            ok = false;
+            break;
+          }
+
+          ++itr;
+        }
+
+        if (ok && itr != mt.end()) ans = *itr;
       }
+
+      cout << ans << "\n";
     }
   }
   return 0;
