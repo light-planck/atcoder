@@ -11,6 +11,22 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  string s;
+  cin >> s;
+
+  string ans = "";
+  map<char, int> mp;
+  rep(i, s.size()) {
+    ++mp[s[i]];
+  }
+
+  for (auto x : mp) {
+    char c = x.first;
+    int n = x.second;
+
+    rep(i, n) ans += c;
+  }
+
+  cout << ans << "\n";
   return 0;
 }

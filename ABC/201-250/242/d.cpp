@@ -11,6 +11,24 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  string s;
+  cin >> s;
+
+  ll q;
+  cin >> q;
+
+  while (q--) {
+    ll t, k;
+    cin >> t >> k;
+    // --k;
+
+    char ans = s[(k-1) % 3];
+    if (t != 0) {
+      ans = s[k % (2*t) - 1];
+    }
+
+    ans += t % 3;
+    cout << ans << "\n";
+  }
   return 0;
 }
