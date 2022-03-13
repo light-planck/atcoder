@@ -11,29 +11,27 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int v, a, b, c;
-  vector<int> sha(3);
-  cin >> v;
-  rep(i, 3) cin >> sha[i];
+  ll v, a, b, c;
+  cin >> v >> a >> b >> c;
 
-  while (v >= 0) {
-    rep(i, 3) {
-      if (v - sha[i] < 0) {
-        if (i == 0) {
-          cout << "F" << "\n";
-        }
-        else if (i == 1) {
-          cout << "M" << "\n";
-        }
-        else {
-          cout << "T" << "\n";
-        }
-        return 0;
-      }
-      else {
-        v -= sha[i];
-      }
+  while (true) {
+    if (v < a) {
+      cout << "F" << "\n";
+      break;
     }
+    v -= a;
+
+    if (v < b) {
+      cout << "M" << "\n";
+      break;
+    }
+    v -= b;
+
+    if (v < c) {
+      cout << "T" << "\n";
+      break;
+    }
+    v -= c;
   }
   return 0;
 }
