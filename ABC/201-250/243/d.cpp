@@ -13,22 +13,46 @@ int main() {
 
   ll n, x;
   cin >> n >> x;
-  
+
   string s;
   cin >> s;
 
-  for (int i = 0; i < n; i++) {
+  deque<ll> deq;
+  while (x) {
+    if (x & 1) deq.emplace_front(1);
+    else deq.emplace_front(0);
+
+    x >>= 1;
+  }
+
+  for (int i = 0; i < n; ++i) {
+
+    // 1/2
     if (s[i] == 'U') {
-      x /= 2;
+      deq.pop_back();
     }
+
+    // *2
     else if (s[i] == 'L') {
-      x *= 2;
+      deq.emplace_back(0);
     }
+
+    // *2 + 1
     else {
-      x = 2 * x + 1;
+      deq.emplace_back(1);
     }
   }
 
-  cout << x << "\n";
+  ll base = 1;
+  ll ans = 0;
+  while (deq.size()) {
+    ll d = deq.back();
+    deq.pop_back();
+
+    ans += d * base;
+    base <<= 1;
+  }
+
+  cout << ans << "\n";
   return 0;
 }
