@@ -11,22 +11,28 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
+  ll n;
   cin >> n;
-  vector<int> a(n), b(n);
+
+  vector<ll> a(n), b(n);
   rep(i, n) cin >> a[i];
   rep(i, n) cin >> b[i];
 
   ll cnt1 = 0;
-  ll cnt2 = 0;
   rep(i, n) {
     if (a[i] == b[i]) ++cnt1;
   }
-  rep(i, n) rep(j, n) {
-    if (a[i] == b[j]) ++cnt2;
+  
+  // <b_value, b_idx>
+  map<ll, ll> mp;
+  rep(i, n) mp[b[i]] = i;
+
+  ll cnt2 = 0;
+  rep(i, n) {
+    if (mp.count(a[i]) && mp[a[i]] != i) ++cnt2;
   }
 
   cout << cnt1 << "\n";
-  cout << cnt2 - cnt1 << "\n";
+  cout << cnt2 << "\n";
   return 0;
 }
