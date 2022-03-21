@@ -6,6 +6,13 @@ using ll = long long;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
+/*
+string + string => string
+string + char => string
+char + char => int(ascii code)
+string{char} + string{char} => string
+*/
+
 
 int main() {
   cin.tie(nullptr);
@@ -13,24 +20,22 @@ int main() {
 
   string s;
   rep(i, 3) {
-    string c;
+    char c;
     cin >> c;
     s += c;
   }
 
   string t;
   rep(i, 3) {
-    string c;
+    char c;
     cin >> c;
     t += c;
   }
-  
+
   vector<string> ans;
-  ans.push_back(s);
-  string s1 = s[1] + s[2] + s[0];
-  ans.push_back(s1);
-  string s2 = s[2] + s[0] + s[1];
-  ans.push_back(s2);
+  ans.emplace_back(s);
+  ans.emplace_back(string{s[1], s[2], s[0]});
+  ans.emplace_back(string{s[2], s[0], s[1]});
 
   rep(i, ans.size()) {
     if (ans[i] == t) {
