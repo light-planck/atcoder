@@ -1,17 +1,26 @@
 #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 #define all(x) (x).begin(),(x).end()
+using namespace std;
+using ll = long long;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
+#include <atcoder/all>
+using namespace atcoder;
+
 
 /*
-string + string => string
-string + char => string
-char + char => int(ascii code)
-string{char} + string{char} => string
+(r, g, b)からどれか2つを選び、奇数回だけ交換(互換)した場合、奇置換になる。
+逆に偶数回互換すると偶置換になる。
+奇置換：(g, r, b), (b, g, r), (r, b, g)
+偶置換：(r, g, b), (g, b, r), (b, r, g)
 */
+
+
+// sが(r, g, b)の偶置換かどうか
+bool is_even(string s) {
+  return s == "R G B" || s == "G B R" || s == "B R G";
+}
 
 
 int main() {
@@ -19,30 +28,12 @@ int main() {
   ios::sync_with_stdio(false);
 
   string s;
-  rep(i, 3) {
-    char c;
-    cin >> c;
-    s += c;
-  }
+  getline(cin, s);
 
   string t;
-  rep(i, 3) {
-    char c;
-    cin >> c;
-    t += c;
-  }
+  getline(cin, t);
 
-  vector<string> ans;
-  ans.emplace_back(s);
-  ans.emplace_back(string{s[1], s[2], s[0]});
-  ans.emplace_back(string{s[2], s[0], s[1]});
-
-  rep(i, ans.size()) {
-    if (ans[i] == t) {
-      cout << "Yes" << "\n";
-      return 0;
-    }
-  }
-  cout << "No" << "\n";
+  if (is_even(s) == is_even(t)) cout << "Yes" << "\n";
+  else cout << "No" << "\n";
   return 0;
 }
