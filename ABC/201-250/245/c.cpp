@@ -24,26 +24,34 @@ int main() {
   vector<ll> b(n);
   rep(i, n) cin >> b[i];
 
-  vector<vector<ll>> dp(n + 1, vector<ll>(2));
-  dp[1][0] = a[0];
-  dp[1][1] = b[0];
+  // dp_a[i]: xのi番目まで決めたとき、i番目にaを選ぶか
+  vector<bool> dp_a(n + 1);
+  dp_a[1] = true;
+
+  vector<bool> dp_b(n + 1);
+  dp_b[1] = true;
 
   for (int i = 1; i < n; ++i) {
-    rep(j, 2) {
-      rep(l, 2) {
-        ll x;
-        if (l == 0) x = a[i];
-        else x = b[i];
+    if (dp_a[i]) {
+      if (abs(a[i-1] - a[i]) <= k) {
+        dp_a[i + 1] = true;
+      }
+      if (abs(a[i-1] - b[i]) <= k) {
+        dp_b[i + 1] = true;
+      }
+    }
 
-        if (!dp[i][j]) continue;
-        if (abs(dp[i][j] - x) <= k) {
-          dp[i + 1][l] = x;
-        }
+    if (dp_b[i]) {
+      if (abs(b[i-1] - a[i]) <= k) {
+        dp_a[i + 1] = true;
+      }
+      if (abs(b[i-1] - b[i]) <= k) {
+        dp_b[i + 1] = true;
       }
     }
   }
 
-  if (dp[n][0] || dp[n][1]) cout << "Yes" << "\n";
+  if (dp_a[n] || dp_b[n]) cout << "Yes" << "\n";
   else cout << "No" << "\n";
   return 0;
 }
