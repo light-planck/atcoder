@@ -18,11 +18,19 @@ int main() {
   ll a, b, c, d;
   cin >> a >> b >> c >> d;
 
-  if (a * 60 + b > c * 60 + d) {
+  if (a < c) {
+    cout << "Takahashi" << "\n";
+  }
+  else if (a > c) {
     cout << "Aoki" << "\n";
   }
   else {
-    cout << "Takahashi" << "\n";
+    if (b <= d) {
+      cout << "Takahashi" << "\n";
+    }
+    else {
+      cout << "Aoki" << "\n";
+    }
   }
   return 0;
 }
