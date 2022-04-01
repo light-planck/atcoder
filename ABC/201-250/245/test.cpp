@@ -15,25 +15,8 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, m;
-  cin >> n >> m;
-
-  vector<ll> a(n + 1);
-  rep(i, n+1) cin >> a[i];
-
-  vector<ll> c(n + m + 1);
-  rep(i, n+m+1) cin >> c[i];
-
-  vector<ll> b(m + 1);
-
-  for (int i = m; i >= 0; --i) {
-    b[i] = c[n + i] / a[n];
-
-    rep(j, n+1) {
-      c[n + i - j] -= b[i] * a[n - j];
-    }
-  }
-
-  for (auto x : b) cout << x << "\n";
+  dsu uf(10);
+  uf.merge(1, 2);
+  if (uf.same(1, 2)) cout << "Yes" << endl;
   return 0;
 }
