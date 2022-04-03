@@ -1,4 +1,20 @@
-#include <bits/stdc++.h>
+#include <iostream> // cout, endl, cin
+#include <string> // string, to_string, stoi
+#include <vector> // vector
+#include <algorithm> // min, max, swap, sort, reverse, lower_bound, upper_bound
+#include <utility> // pair, make_pair
+#include <tuple> // tuple, make_tuple
+#include <cstdint> // int64_t, int*_t
+#include <cstdio> // printf
+#include <map> // map
+#include <queue> // queue, priority_queue
+#include <set> // set
+#include <stack> // stack
+#include <deque> // deque
+#include <unordered_map> // unordered_map
+#include <unordered_set> // unordered_set
+#include <bitset> // bitset
+#include <cctype> // isupper, islower, isdigit, toupper, tolower
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 #define all(x) (x).begin(),(x).end()
 using namespace std;
@@ -11,61 +27,47 @@ using mint = modint998244353;
 // using mint = modint1000000007;
 
 
-ll n, k, x;
-vector<ll> a;
-ll max_cnt = -1;
+/*
+商品の値段をaとすると
+1. a > x => -x
+2. 0 < a <= x => -a
+の2通りの割引パターンが存在する。
+1.の場合、aの値によらず割引額はxの定数倍である。
+*/
 
-// y = a[idx]のときの利用回数
-ll cnt(ll idx) {
-  ll res = 0;
-  ll y = a[idx];
-
-  for (ll i = idx; i < n; ++i) {
-    res += a[i] / x;
-    if (a[i] % x >= y) ++res;
-  }
-
-  return res;
-}
-
-// y = a[idx]のとき利用回数がk以下か
-bool is_ok(ll idx) {
-  if (cnt(idx) <= k )
-}
-
-// y円以上の品物にクーポンを使うとき
-// 利用回数 <= kとなるような
-// aのidxを返す
-ll bs() {
-  ll ng = -1;
-  ll ok = n;
-
-  while (abs(ok - ng) > 1) {
-    ll mid = (ok + ng) / 2;
-
-    if (is_ok(mid)) ok = mid;
-    else ng = mid;
-  }
-
-  return ok;
-}
 
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
+  ll n, k, x;
   cin >> n >> k >> x;
 
-  a.resize(n);
+  vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  sort(all(a));
-
-  ll y = bs();
+  // クーポンを利用しない場合の合計金額
   ll ans = 0;
+  rep(i, n) ans += a[i];
+
+  // 無限にクーポンが使えるならば
+  // sigma(a[i]/x) * x円割引される
+  ll cnt = 0;
+  rep(i, n) cnt += a[i] / x;
+  chmin(cnt, k);
+  ans -= cnt * x;
+  k -= cnt;
+
+  // まだクーポンを使えるならば
+  // 商品の価格はa[i] % xであるから
+  // それらの大きい順に割引していく
+  rep(i, n) a[i] %= x;
+  sort(a.rbegin(), a.rend());
   rep(i, n) {
-    if (a[i] >= y) ans += y;
-    else ans += a[i];
+    if (k == 0) break;
+    
+    ans -= a[i];
+    --k;
   }
 
   cout << ans << "\n";
