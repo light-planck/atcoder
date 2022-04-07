@@ -56,15 +56,14 @@ int main() {
   auto dfs = [&](auto dfs, ll v, ll p) -> void {
     if (cnt[c[v]] == 0) good[v] = true;
 
+    ++cnt[c[v]];
     for (auto to : edge[v]) {
       if (to == p) continue;
 
-      ++cnt[c[to]];
-
       dfs(dfs, to, v);
-
-      --cnt[c[to]];
     }
+
+    --cnt[c[v]];
   };
   
   dfs(dfs, 0, -1);
