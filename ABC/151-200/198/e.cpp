@@ -50,32 +50,24 @@ int main() {
   // 良い頂点か
   vector<bool> good(n);
   
-  // 頂点の色の集合
-  set<ll> seen_color;
+  map<ll, ll> cnt;
 
-  // bfs
-  vector<ll> dist(n, -1);
-  dist[0] = 0;
-  queue<ll> que;
-  que.push(0);
-  
-  while (que.size()) {
-    ll v = que.front();
-    que.pop();
-
-    // 良い頂点か判定
-    if (!seen_color.count(c[v])) {
-      good[v] = true;
-      seen_color.insert(c[v]);
-    }
+  // dfs
+  auto dfs = [&](auto dfs, ll v, ll p) -> void {
+    if (cnt[c[v]] == 0) good[v] = true;
 
     for (auto to : edge[v]) {
-      if (dist[to] != -1) continue;
+      if (to == p) continue;
 
-      dist[to] = dist[v] + 1;
-      que.push(to);
+      ++cnt[c[to]];
+
+      dfs(dfs, to, v);
+
+      --cnt[c[to]];
     }
-  }
+  };
+  
+  dfs(dfs, 0, -1);
 
   rep(i, n) {
     if (good[i]) cout << i+1 << "\n";
