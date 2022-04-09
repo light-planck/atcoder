@@ -38,9 +38,9 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  // 0~160000までの整数の集合
+  // 0~nまでの整数の集合
   set<ll> st;
-  rep(i, 160010) st.insert(i);
+  rep(i, n+1) st.insert(i);
 
   // aの出現回数
   map<ll, ll> mp;
@@ -53,23 +53,19 @@ int main() {
       st.erase(a[i]);
     }
   }
-  ll ans = 1e9;
+  ll ans = n;
   chmin(ans, *st.begin());
 
   // am ~ an-mまで見る
-  for (int i = m; i <= n - m; ++i) {
+  for (int i = m; i < n; ++i) {
     ll prev = a[i - m];
     ll now = a[i];
 
-    // 左端を追加
-    if (mp[prev] == 1) {
-      st.insert(a[i-m]);
-    }
-    --mp[prev];
+    --mp[prev]; ++mp[now];
 
-    // aiを削除
-    if (st.count(now)) {
-      st.erase(now);
+    if (now != prev) {
+      if (mp[prev] == 0) st.insert(prev);
+      if (st.count(now)) st.erase(now);
     }
 
     // 更新
