@@ -38,22 +38,44 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
+  // 0~160000までの整数の集合
   set<ll> st;
-  rep(i, 1500000) st.insert(i+1);
+  rep(i, 160010) st.insert(i);
 
+  // aの出現回数
+  map<ll, ll> mp;
+
+  // a0 ~ am-1のmexを求める
+  rep(i, m) {
+    ++mp[a[i]];
+
+    if (st.count(a[i])) {
+      st.erase(a[i]);
+    }
+  }
   ll ans = 1e9;
-  for (int left = 0; left < n; ++left) {
-    int right = left;
-    
-    if (!left) {
-      while (right < n && right < left + m) {
-        st.erase(a[right]);
-        ++right;
-      }
+  chmin(ans, *st.begin());
+
+  // am ~ an-mまで見る
+  for (int i = m; i <= n - m; ++i) {
+    ll prev = a[i - m];
+    ll now = a[i];
+
+    // 左端を追加
+    if (mp[prev] == 1) {
+      st.insert(a[i-m]);
+    }
+    --mp[prev];
+
+    // aiを削除
+    if (st.count(now)) {
+      st.erase(now);
     }
 
+    // 更新
     chmin(ans, *st.begin());
-    st.insert(a[left]);
   }
+
+  cout << ans << "\n";
   return 0;
 }
