@@ -28,6 +28,22 @@ using mint = modint998244353;
 // using mint = modint1000000007;
 
 
+/*
+制約をしっかり読んでるか
+aの値でなくmexの値に着目できるか
+
+mex = 0となるときは
+
+0となるaが複数個存在するとき
+ai = aj = 0となるようなi, j(i < j)が存在し
+j - i >= m + 1のときである。
+
+0となるaが唯一存在するとき
+ai = 0とすると
+左端からi、iから右端までの長さがm+1以上のときである。
+*/
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -35,43 +51,27 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  vector<ll> a(n);
-  rep(i, n) cin >> a[i];
-
-  // 0~nまでの整数の集合
-  set<ll> st;
-  rep(i, n+1) st.insert(i);
-
-  // aの出現回数
-  map<ll, ll> mp;
-
-  // a0 ~ am-1のmexを求める
-  rep(i, m) {
-    ++mp[a[i]];
-
-    if (st.count(a[i])) {
-      st.erase(a[i]);
-    }
-  }
-  ll ans = n;
-  chmin(ans, *st.begin());
-
-  // am ~ an-mまで見る
-  for (int i = m; i < n; ++i) {
-    ll prev = a[i - m];
-    ll now = a[i];
-
-    --mp[prev]; ++mp[now];
-
-    if (now != prev) {
-      if (mp[prev] == 0) st.insert(prev);
-      if (st.count(now)) st.erase(now);
-    }
-
-    // 更新
-    chmin(ans, *st.begin());
+  vector<vector<ll>> a_idx(n);
+  rep(i, n) {
+    ll a;
+    cin >> a;
+    a_idx[a].emplace_back(i);
   }
 
-  cout << ans << "\n";
+  for (ll mex = 0; mex < n; ++mex) {
+    a_idx[mex].emplace_back(n);
+    ll prev = -1;
+
+    for (auto next : a_idx[mex]) {
+      if (next - prev >= m + 1) {
+        cout << mex << "\n";
+        return 0;
+      }
+
+      prev = next;
+    }
+  }
+
+  cout << n << "\n";
   return 0;
 }
