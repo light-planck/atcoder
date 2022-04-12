@@ -29,7 +29,6 @@ using mint = modint998244353;
 // using mint = modint1000000007;
 
 
-const ll inf = 1e18;
 struct Edge {
   ll to;
   ll cost;
@@ -40,13 +39,10 @@ struct Edge {
 
 
 void dijkstra(vector<vector<Edge>>& edges, ll s, vector<ll>& dist) {
-  ll n = edges.size();
-
-  dist.resize(n, inf);
   dist[s] = 0;
 
   priority_queue<P, vector<P>, greater<P>> heap;
-  heap.emplace(dist[s], s);
+  heap.emplace(0, s);
 
   while (!heap.empty()) {
     ll v = heap.top().second;
@@ -54,14 +50,18 @@ void dijkstra(vector<vector<Edge>>& edges, ll s, vector<ll>& dist) {
     heap.pop();
 
     // 更新しない
-    if (dist_v > dist[v]) continue;
+    if (dist[v] < dist_v) continue;
 
-    for (auto &edge : edges[v]) {
-      ll new_dist = edge.k * (dist_v + edge.k - 1) / edge.k + edge.to;
-      if (dist[edge.to] > new_dist) {
-        dist[edge.to] = new_dist;
-        heap.emplace(dist[edge.to], edge.to);
-      }
+    for (auto edge : edges[v]) {
+
+      // 切り上げは最初に計算する
+      ll new_dist = ((dist_v + edge.k - 1) / edge.k) * edge.k + edge.cost;
+
+      // 更新しない
+      if (dist[edge.to] <= new_dist) continue;
+
+      dist[edge.to] = new_dist;
+      heap.emplace(dist[edge.to], edge.to);
     }
   }
 }
@@ -85,12 +85,12 @@ int main() {
     edges[b].emplace_back(a, t, k);
   }
 
-  vector<ll> dist;
+  const ll inf = 1e18;
+  vector<ll> dist(n, inf);
 
   dijkstra(edges, x, dist);
 
-  ll ans = dist[y];
-  if (ans == inf) ans = -1;
-  cout << ans << "\n";
+  if (dist[y] == inf) cout << -1 << "\n";
+  else cout << dist[y] << "\n";
   return 0;
 }
