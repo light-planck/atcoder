@@ -1,46 +1,36 @@
-#include <iostream> // cout, endl, cin
-#include <string> // string, to_string, stoi
-#include <vector> // vector
-#include <algorithm> // min, max, swap, sort, reverse, lower_bound, upper_bound
-#include <utility> // pair, make_pair
-#include <tuple> // tuple, make_tuple
-#include <cstdint> // int64_t, int*_t
-#include <cstdio> // printf
-#include <map> // map
-#include <queue> // queue, priority_queue
-#include <set> // set
-#include <stack> // stack
-#include <deque> // deque
-#include <unordered_map> // unordered_map
-#include <unordered_set> // unordered_set
-#include <bitset> // bitset
-#include <cctype> // isupper, islower, isdigit, toupper, tolower
-#include <cmath> // abs, sqrt, cos, ...
-#define rep(i, n) for (int i = 0; i < (int)(n); ++i)
-#define all(x) (x).begin(),(x).end()
+#include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using P = pair<long long, long long>;
-template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-// #include <atcoder/all>
-// using namespace atcoder;
-// using mint = modint998244353;
-// using mint = modint1000000007;
+
+
+/*
+0 ~ 9までの10個の数字のうち、9文字の文字列で
+登場しなかった数字を求めたい。
+*/
 
 
 int main() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-
   string s;
   cin >> s;
 
-  set<ll> st;
-  rep(i, 10) st.insert(i);
-  rep(i, 9) {
-    st.erase(s[i] - '0');
+  // 0 ~ 9の数字で出現した数
+  // trueは出現、falseは出現していないことを表す
+  // seen[2] = true => 2は出現した
+  vector<bool> seen(10, false);
+
+  for (int i = 0; i < 9; ++i) {
+    // s[i]を数字に変換
+    int num = s[i] - '0';
+
+    // 出現したらtrueにする
+    seen[num] = true;
   }
-  cout << *begin(st) << "\n";
+
+  for (int i = 0; i < 10; ++i) {
+
+    // 出現していない数字を出力
+    if (seen[i] == false) {
+      cout << i << endl;
+    }
+  }
   return 0;
 }
