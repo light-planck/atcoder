@@ -53,7 +53,7 @@ int main() {
 
     if (a_idx[x].size()) {
       ll li = lower_bound(all(a_idx[x]), l) - a_idx[x].begin();
-      ll ri = lower_bound(all(a_idx[x]), r) - a_idx[x].begin();
+      ll ri = lower_bound(all(a_idx[x]), r + 1) - a_idx[x].begin();
       cout << ri - li << "\n";
     }
     else cout << 0 << "\n";
