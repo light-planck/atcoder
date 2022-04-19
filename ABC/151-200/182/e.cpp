@@ -36,31 +36,96 @@ int main() {
   ll h, w, n, m;
   cin >> h >> w >> n >> m;
 
-  set<ll> light_i;
-  set<ll> light_j;
+  vector<vector<int>> grid(h, vector<int>(w));
+
+  // light
   rep(i, n) {
     ll a, b;
     cin >> a >> b;
     --a; --b;
-    light_i.insert(a);
-    light_j.insert(b);
+    grid[a][b] = 1;
   }
 
-  set<pair<ll, ll>> wall;
+  // wall
   rep(i, m) {
-    ll c, d;
-    cin >> c >> d;
-    --c; --d;
-    wall.insert({c, d});
+    ll a, b;
+    cin >> a >> b;
+    --a; --b;
+    grid[a][b] = 2;
+  }
+
+  // 光が届いたか
+  vector<vector<bool>> lighten(h, vector<bool>(w));
+
+  vector<vector<int>> tmp;
+
+  // 下
+  tmp = grid;
+  for (int j = 0; j < w; ++j) {
+    for (int i = 0; i < h; ++i) {
+      if (tmp[i][j] == 2) continue;
+
+      if (i - 1 >= 0 && tmp[i - 1][j] == 1) {
+        tmp[i][j] = 1;
+      }
+
+      if (tmp[i][j] == 1) {
+        lighten[i][j] = true;
+      }
+    }
+  }
+
+  // 上
+  tmp = grid;
+  for (int j = 0; j < w; ++j) {
+    for (int i = h-1; i >= 0; --i) {
+      if (tmp[i][j] == 2) continue;
+
+      if (i + 1 < h && tmp[i + 1][j] == 1) {
+        tmp[i][j] = 1;
+      }
+
+      if (tmp[i][j] == 1) {
+        lighten[i][j] = true;
+      }
+    }
+  }
+
+  // 右
+  tmp = grid;
+  for (int i = 0; i < h; ++i) {
+    for (int j = 0; j < w; ++j) {
+      if (tmp[i][j] == 2) continue;
+
+      if (j - 1 >= 0 && tmp[i][j - 1] == 1) {
+        tmp[i][j] = 1;
+      }
+
+      if (tmp[i][j] == 1) {
+        lighten[i][j] = true;
+      }
+    }
+  }
+
+  // 左
+  tmp = grid;
+  for (int i = 0; i < h; ++i) {
+    for (int j = w - 1; j >= 0; --j) {
+      if (tmp[i][j] == 2) continue;
+
+      if (j + 1 < w && tmp[i][j + 1] == 1) {
+        tmp[i][j] = 1;
+      }
+
+      if (tmp[i][j] == 1) {
+        lighten[i][j] = true;
+      }
+    }
   }
 
   ll ans = 0;
   rep(i, h) rep(j, w) {
-    // 壁ならスキップ
-    if (wall.count({i, j})) continue;
-
-    // (a, b)の
-    if (light_i.count(i) || light_j.count(j)) ++ans;
+    if (lighten[i][j]) ++ans;
   }
 
   cout << ans << "\n";
