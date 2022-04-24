@@ -36,33 +36,19 @@ int main() {
   ll n;
   cin >> n;
 
-  vector<P> xy;
+  // t: x+y, u: x-y
+  vector<ll> t(n), u(n);
   rep(i, n) {
     ll x, y;
     cin >> x >> y;
-    xy.emplace_back(x, y);
-  }
-  sort(all(xy));
-
-  ll ans = -1;
-  rep(i, n) {
-    ll tmp = abs(xy[0].first - xy[i].first) + abs(xy[0].second - xy[i].second);
-    chmax(ans, tmp);
+    t[i] = x + y;
+    u[i] = x - y;
   }
 
-  vector<P> yx;
-  rep(i, n) {
-    ll x, y;
-    x = xy[i].first; y = xy[i].second;
-    yx.emplace_back(y, x);
-  }
-  sort(all(yx));
-  
-  rep(i, n) {
-    ll tmp = abs(yx[0].first - yx[i].first) + abs(yx[0].second - yx[i].second);
-    chmax(ans, tmp);
-  }
+  sort(all(t)); sort(all(u));
 
+  // ans = max(max_t - min_t, max_u - min_u)
+  ll ans = max(t.back() - t[0], u.back() - u[0]);
   cout << ans << "\n";
   return 0;
 }
