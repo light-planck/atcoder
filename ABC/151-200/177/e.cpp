@@ -42,12 +42,12 @@ vector<pair<long long, long long>> prime_factorize(long long n) {
       n /= i;
     }
 
-    primes.emplace_back(make_pair(i, exponent));
+    primes.emplace_back(i, exponent);
   }
 
   // 上の処理後にnが1でないならnは素数
   if (n != 1) {
-    primes.emplace_back(make_pair(n, 1));
+    primes.emplace_back(n, 1);
   }
 
   return primes;
