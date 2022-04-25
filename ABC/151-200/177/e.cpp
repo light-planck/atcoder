@@ -82,8 +82,6 @@ int main() {
     for (auto p_ex : primes) {
       ll p = p_ex.first;
 
-      if (p == 1) continue;
-
       ++cnt[p];
       if (cnt[p] >= 2) {
         cout << "setwise coprime" << "\n";
