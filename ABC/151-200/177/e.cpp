@@ -29,20 +29,28 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-// 約数列挙
-vector<long long> enumerate_divs(long long n) {
-  vector<long long> divs;
+// 素因数分解
+vector<pair<long long, long long>> prime_factorize(long long n) {
+  vector<pair<long long, long long>> primes;
 
-  for (long long i = 1; i * i <= n; i++) {
+  for (long long i = 2; i * i <= n; ++i) {
     if (n % i != 0) continue;
-    divs.emplace_back(i);
 
-    // n = i * iの場合を除いて、もう一方の約数を追加
-    if (n / i != i) divs.push_back(n / i);
+    long long exponent = 0;
+    while (n % i == 0) {
+      ++exponent;
+      n /= i;
+    }
+
+    primes.emplace_back(make_pair(i, exponent));
   }
-  sort(divs.begin(), divs.end());
 
-  return divs;
+  // 上の処理後にnが1でないならnは素数
+  if (n != 1) {
+    primes.emplace_back(make_pair(n, 1));
+  }
+
+  return primes;
 }
 
 
@@ -64,16 +72,20 @@ int main() {
     return 0;
   }
 
-  // <div, cnt>
+  // <prime, cnt>
   map<ll, ll> cnt;
-  rep(i, n) {
-    auto divs = enumerate_divs(a[i]);
-    
-    for (auto d : divs) {
-      if (d == 1) continue;
 
-      ++cnt[d];
-      if (cnt[d] >= 2) {
+  // 重複する素因数があるか確認
+  rep(i, n) {
+    auto primes = prime_factorize(a[i]);
+    
+    for (auto p_ex : primes) {
+      ll p = p_ex.first;
+
+      if (p == 1) continue;
+
+      ++cnt[p];
+      if (cnt[p] >= 2) {
         cout << "setwise coprime" << "\n";
         return 0;
       }
