@@ -66,5 +66,6 @@ int main() {
   fill(last, last + TYPE, -1);
 
   ll score = calc_score();
+  cout << score << "\n";
   return 0;
 }
