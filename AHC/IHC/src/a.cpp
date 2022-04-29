@@ -33,47 +33,51 @@ ll t[400];
 ll last[TYPE];
 
 
-ll decrease_score(ll d) {
-  ll res = 0;
+ll choose_greedy(ll d) {
 
-  for (ll i = 0; i < TYPE; ++i) {
-    res += c[i] * (d - last[i]);
-  }
-
-  return res;
-}
-
-
-ll choose_next(ll d) {
-  ll max_s = -1e18;
-
-  ll type = 0;
-  for (ll j = 0; j < TYPE; ++j) {
-    if (max_s < s[d][j]) {
-      type = j;
-    }
-  }
-
-  return type;
 }
 
 
 ll compute_score() {
-  ll score = 0;
+  ll res = 0;
 
   for (ll d = 0; d < D; ++d) {
-    ll type = t[d];
-    score += s[d][type];
+
+    // d日目に開催するコンテストの種類
+    ll type = 0;
+
+    for (ll i = 0; i < TYPE; ++i) {
+      ll tmp = last[i];
+      last[i] = d;
+
+      // 満足度の減少の計算
+      ll sub_score = 0;
+      for (ll j = 0; j < TYPE; ++j) {
+        sub_score += c[j] * (d - last[j]);
+      }
+
+      ll tmp_score = s[d][i] - sub_score;
+      if (res < tmp_score) {
+        res = tmp_score;
+        type = i;
+      }
+
+      // lastを最初に戻す
+      last[i] = tmp;
+    }
+
+    ll type = choose_greedy(d);
+    res += s[d][type];
 
     last[type] = d;
 
-    score -= decrease_score(d);
-
-    // 次のコンテストはs[d+1][j]が最大のjを選ぶ
-    t[d + 1] = choose_next(d + 1);
+    // 満足度の減少の計算
+    for (ll i = 0; i < TYPE; ++i) {
+      res += c[i] * (d - last[i]);
+    }
   }
 
-  return score;
+  return res;
 }
 
 
@@ -84,10 +88,8 @@ int main() {
   cin >> D;
   rep(i, TYPE) cin >> c[i];
   rep(i, D) rep(j, TYPE) cin >> s[i][j];
-  fill(last, last + TYPE, -1);
 
-  // 初日は係数cが大きい種類のコンテストを開催する
-  t[0] = choose_next(0);
+  rep(i, TYPE) last[i] = -1;
 
   ll score = compute_score();
 
