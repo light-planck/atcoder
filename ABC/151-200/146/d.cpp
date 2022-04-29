@@ -29,25 +29,6 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-// struct Edge{
-//   ll to, id;
-
-//   Edge(ll to, ll id) : to(to), id(id) {};
-// };
-
-
-void print_vec1(string name, vector<ll> v) {
-  cout << name << ": ";
-  
-  for (ll i = 0; i < (ll)v.size(); i++) {
-    if (i) cout << " ";
-    cout << v[i];
-  }
-
-  cout << "\n";
-}
-
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -64,48 +45,35 @@ int main() {
     edge[b].emplace_back(a, i);
   }
 
-  vector<ll> ans(n - 1, 0);
-
-  ll cnt = 0;
-  vector<ll> tmp(1);
+  vector<ll> edge_color(n - 1);
 
 
-  auto dfs = [&](auto dfs, ll v, ll p, ll p_color) -> void {
-    ++cnt;
-    tmp[0] = cnt;
-    // cout << "v: " << v << "\n";
-
+  // dfs
+  auto dfs = [&](auto dfs, ll v, ll p=-1, ll p_color=-1) -> void {
     ll color = 1;
     if (color == p_color) ++color;
 
-    for (auto u : edge[v]) {
-      ll to = u.first;
-      ll id = u.second;
+    for (auto w : edge[v]) {
+      ll to = w.first;
+      ll id = w.second;
 
       if (to == p) continue;
 
-      // cout << "to: " << to << "\n";
-
-      ans[id] == color;
-
-      print_vec1("ans", ans);
-
+      edge_color[id] = color;
       dfs(dfs, to, v, color);
 
       ++color;
       if (color == p_color) ++color;
     }
   };
+  dfs(dfs, 0);
 
 
-  dfs(dfs, 0, -1, 0);
-
-  // 最大次数
+  // 最大次数を計算
   ll k = 0;
   rep(i, n) chmax(k, (ll)edge[i].size());
   cout << k << "\n";
 
-  // for (auto c : ans) cout << c << "\n";
-  cout << tmp[0] << "\n";
+  rep(i, n - 1) cout << edge_color[i] << "\n";
   return 0;
 }
