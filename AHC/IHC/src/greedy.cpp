@@ -72,7 +72,7 @@ void greedy() {
 }
 
 
-int main() {
+void input() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
@@ -81,6 +81,11 @@ int main() {
   rep(i, D) rep(j, TYPE) cin >> s[i][j];
 
   rep(i, TYPE) last[i] = -1;
+}
+
+
+int main() {
+  input();
 
   greedy();
 
