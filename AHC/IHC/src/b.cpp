@@ -33,7 +33,7 @@ ll t[400];
 ll last[TYPE];
 
 
-ll calc_score() {
+ll compute_score() {
   ll score = 0;
 
   for (ll d = 0; d < D; ++d) {
@@ -65,7 +65,7 @@ int main() {
   }
   fill(last, last + TYPE, -1);
 
-  ll score = calc_score();
+  ll score = compute_score();
   cout << score << "\n";
   return 0;
 }
