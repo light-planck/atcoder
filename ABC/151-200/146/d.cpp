@@ -48,32 +48,32 @@ int main() {
   vector<ll> edge_color(n - 1);
 
 
-  // dfs
-  auto dfs = [&](auto dfs, ll v, ll p=-1, ll p_color=-1) -> void {
+  auto dfs = [&](auto dfs, ll v, ll p=-1, ll p_color=0) -> void {
     ll color = 1;
     if (color == p_color) ++color;
 
-    for (auto w : edge[v]) {
-      ll to = w.first;
-      ll id = w.second;
+    for (auto nv : edge[v]) {
+      ll to = nv.first;
+      ll id = nv.second;
 
       if (to == p) continue;
 
-      edge_color[id] = color;
-      dfs(dfs, to, v, color);
-
-      ++color;
       if (color == p_color) ++color;
+      edge_color[id] = color;
+
+      dfs(dfs, to, v, color);
+      
+      ++color;
     }
   };
   dfs(dfs, 0);
 
 
-  // 最大次数を計算
+  // 最大次数
   ll k = 0;
   rep(i, n) chmax(k, (ll)edge[i].size());
   cout << k << "\n";
 
-  rep(i, n - 1) cout << edge_color[i] << "\n";
+  for (auto c : edge_color) cout << c << "\n";
   return 0;
 }
