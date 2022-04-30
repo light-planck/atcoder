@@ -16,6 +16,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <random>
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 #define all(x) (x).begin(),(x).end()
 using namespace std;
@@ -33,37 +34,6 @@ ll t[400];
 ll last[TYPE];
 
 
-void greedy() {
-  for (ll d = 0; d < D; ++d) {
-    ll score = -2e18;
-    ll type = 0;
-
-    for (ll i = 0; i < TYPE; ++i) {
-      ll tmp = last[i];
-      last[i] = d;
-
-      // 満足度の減少の計算
-      ll sub_score = 0;
-      for (ll j = 0; j < TYPE; ++j) {
-        sub_score += c[j] * (d - last[j]);
-      }
-
-      ll tmp_score = s[d][i] - sub_score;
-      if (score < tmp_score) {
-        score = tmp_score;
-        type = i;
-      }
-
-      // lastを最初に戻す
-      last[i] = tmp;
-    }
-
-    t[d] = type;
-    last[type] = d;
-  }
-}
-
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -74,8 +44,12 @@ int main() {
 
   rep(i, TYPE) last[i] = -1;
 
-  greedy();
+  random_device seed_gen;
+  default_random_engine engine(seed_gen());
 
-  rep(i, D) cout << t[i] + 1 << "\n";
+  uniform_int_distribution<> dist(1, TYPE);
+  rep(i, D) {
+    cout << dist(engine) << "\n";
+  }
   return 0;
 }
