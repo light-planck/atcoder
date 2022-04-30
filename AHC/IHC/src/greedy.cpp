@@ -48,7 +48,6 @@ void greedy() {
         sub_score += c[j] * (d - last[j]);
       }
 
-      // スコアの更新
       ll tmp_score = s[d][i] - sub_score;
       if (score < tmp_score) {
         score = tmp_score;
