@@ -33,24 +33,32 @@ ll t[400];
 ll last[TYPE];
 
 
+// d日目にコンテストiを選んだときのスコア
+ll compute_score(ll d, ll i) {
+  ll res = s[d][i];
+
+  for (ll j = 0; j < TYPE; ++j) {
+    res -= c[j] * (d - last[j]);
+  }
+
+  return res;
+}
+
+
 void greedy() {
   for (ll d = 0; d < D; ++d) {
-    ll score = -2e18;
+    ll max_score = -2e18;
     ll type = 0;
 
     for (ll i = 0; i < TYPE; ++i) {
       ll tmp = last[i];
       last[i] = d;
 
-      // 満足度の減少の計算
-      ll sub_score = 0;
-      for (ll j = 0; j < TYPE; ++j) {
-        sub_score += c[j] * (d - last[j]);
-      }
+      ll score = compute_score(d, i);
 
-      ll tmp_score = s[d][i] - sub_score;
-      if (score < tmp_score) {
-        score = tmp_score;
+      // スコアの更新
+      if (max_score < score) {
+        max_score = score;
         type = i;
       }
 
