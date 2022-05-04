@@ -33,6 +33,18 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n, k;
+  cin >> n >> k;
+
+  string s;
+  cin >> s;
+
+  ll score = 0;
+  rep(i, n - 1) {
+    if (s[i] == s[i + 1]) ++score;
+  }
+
+  ll ans = min(score + 2*k, n-1);
+  cout << ans << "\n";
   return 0;
 }
