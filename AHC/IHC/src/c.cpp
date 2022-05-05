@@ -57,7 +57,6 @@ ll compute_score() {
 
   for (ll d = 0; d < D; ++d) {
     score += compute_day_score(d, t[d]);  
-    cout << score << "\n";
   }
 
   return score;
@@ -75,11 +74,11 @@ void greedy() {
       ll tmp = last[i];
       last[i] = d;
 
-      // ll now_score = compute_score(d, i);
+      ll now_score = compute_day_score(d, i);
 
       // スコアの更新
-      if (max_score < score) {
-        max_score = score;
+      if (max_score < now_score) {
+        max_score = now_score;
         type = i;
       }
 
@@ -106,7 +105,8 @@ void local_search() {
     ll tmp_t = t[d];
     t[d] = q[i];
 
-    // ll now_score = compute_score(d, q[i]);
+    ll now_score = compute_score();
+    cout << now_score << "\n";
 
     // if (score < now_score) {
     //   score = now_score;
@@ -116,10 +116,9 @@ void local_search() {
     //   t[d] = tmp_t;
     // }
 
-    // cout << now_score << "\n";
 
-    // last[q[i]] = tmp_last;
-    // t[d] = tmp_t;
+    last[q[i]] = tmp_last;
+    t[d] = tmp_t;
   }
 }
 
@@ -132,19 +131,13 @@ void input() {
   rep(i, TYPE) cin >> c[i];
   rep(i, D) rep(j, TYPE) cin >> s[i][j];
 
-  // b問題
-  rep(i, D) {
-    cin >> t[i];
-    --t[i];
-  }
-
   // c問題
-  // rep(i, D) cin >> t[i];
-  // cin >> m;
-  // rep(i, m) {
-  //   cin >> rd[i] >> q[i];
-  //   --rd[i]; --q[i];
-  // }
+  rep(i, D) cin >> t[i];
+  cin >> m;
+  rep(i, m) {
+    cin >> rd[i] >> q[i];
+    --rd[i]; --q[i];
+  }
 }
 
 
@@ -154,7 +147,7 @@ void init() {
 
 
 void output() {
-  // rep(i, D) cout << t[i] + 1 << "\n";
+  rep(i, D) cout << t[i] + 1 << "\n";
 }
 
 
@@ -162,9 +155,7 @@ int main() {
   input();
   init();
 
-  ll tmp = compute_score();
-  // greedy();
-  // local_search();
+  local_search();
 
   // output();
   return 0;

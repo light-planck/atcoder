@@ -33,19 +33,39 @@ ll t[400];
 ll last[TYPE];
 
 
+// c問題
+ll m;
+ll rd[100010];
+ll q[100010];
+
+
 // d日目にコンテストiを選んだときのスコア
-ll compute_score(ll d, ll i) {
-  ll res = s[d][i];
+ll compute_day_score(ll d, ll i) {
+  ll score = s[d][i];
+  last[i] = d;
 
   for (ll j = 0; j < TYPE; ++j) {
-    res -= c[j] * (d - last[j]);
+    score -= c[j] * (d - last[j]);
   }
 
-  return res;
+  return score;
+}
+
+
+ll compute_score() {
+  ll score = 0;
+
+  for (ll d = 0; d < D; ++d) {
+    score += compute_day_score(d, t[d]);  
+  }
+
+  return score;
 }
 
 
 void greedy() {
+  ll score = 0;
+
   for (ll d = 0; d < D; ++d) {
     ll max_score = -2e18;
     ll type = 0;
@@ -54,11 +74,11 @@ void greedy() {
       ll tmp = last[i];
       last[i] = d;
 
-      ll score = compute_score(d, i);
+      ll now_score = compute_day_score(d, i);
 
       // スコアの更新
-      if (max_score < score) {
-        max_score = score;
+      if (max_score < now_score) {
+        max_score = now_score;
         type = i;
       }
 
@@ -68,6 +88,7 @@ void greedy() {
 
     t[d] = type;
     last[type] = d;
+    score += max_score;
   }
 }
 
@@ -79,16 +100,25 @@ void input() {
   cin >> D;
   rep(i, TYPE) cin >> c[i];
   rep(i, D) rep(j, TYPE) cin >> s[i][j];
+}
 
+
+void init() {
   rep(i, TYPE) last[i] = -1;
+}
+
+
+void output() {
+  rep(i, D) cout << t[i] + 1 << "\n";
 }
 
 
 int main() {
   input();
+  init();
 
   greedy();
 
-  rep(i, D) cout << t[i] + 1 << "\n";
+  output();
   return 0;
 }
