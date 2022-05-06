@@ -33,92 +33,55 @@ ll t[400];
 ll last[TYPE];
 
 
-// c問題
-ll m;
-ll rd[100010];
-ll q[100010];
+void init_last() {
+  rep(i, TYPE) last[i] = -1;
+}
 
 
-// d日目にコンテストiを選んだときのスコア
-ll compute_day_score(ll d, ll i) {
-  ll score = s[d][i];
-  last[i] = d;
+// d日目にコンテストt[d]を選んだときのスコア
+ll compute_day_score(ll d) {
+  ll day_score = s[d][t[d]];
+  last[t[d]] = d;
 
-  for (ll j = 0; j < TYPE; ++j) {
-    score -= c[j] * (d - last[j]);
+  for (ll i = 0; i < TYPE; ++i) {
+    day_score -= c[i] * (d - last[i]);
   }
 
-  return score;
+  return day_score;
 }
 
 
 ll compute_score() {
   ll score = 0;
 
+  init_last();
+
   for (ll d = 0; d < D; ++d) {
-    score += compute_day_score(d, t[d]);  
+    score += compute_day_score(d);  
   }
 
   return score;
 }
 
 
-void greedy() {
-  ll score = 0;
-
-  for (ll d = 0; d < D; ++d) {
-    ll max_score = -2e18;
-    ll type = 0;
-
-    for (ll i = 0; i < TYPE; ++i) {
-      ll tmp = last[i];
-      last[i] = d;
-
-      ll now_score = compute_day_score(d, i);
-
-      // スコアの更新
-      if (max_score < now_score) {
-        max_score = now_score;
-        type = i;
-      }
-
-      // lastを最初に戻す
-      last[i] = tmp;
-    }
-
-    t[d] = type;
-    last[type] = d;
-    score += max_score;
+void solve_c() {
+  rep(i, D) {
+    cin >> t[i];
+    --t[i];
   }
-}
 
+  ll m;
+  cin >> m;
 
-void local_search() {
   rep(i, m) {
+    ll d, q;
+    cin >> d >> q;
+    --d; --q;
 
-    // rd[i]日目のコンテストタイプをq[i]に変更する
-    ll d = rd[i];
+    t[d] = q;
 
-    ll tmp_last = last[q[i]];
-    last[q[i]] = d;
-
-    ll tmp_t = t[d];
-    t[d] = q[i];
-
-    ll now_score = compute_score();
-    cout << now_score << "\n";
-
-    // if (score < now_score) {
-    //   score = now_score;
-    // }
-    // else {
-    //   last[q[i]] = tmp_last;
-    //   t[d] = tmp_t;
-    // }
-
-
-    last[q[i]] = tmp_last;
-    t[d] = tmp_t;
+    ll score = compute_score();
+    cout << score << "\n";
   }
 }
 
@@ -130,19 +93,6 @@ void input() {
   cin >> D;
   rep(i, TYPE) cin >> c[i];
   rep(i, D) rep(j, TYPE) cin >> s[i][j];
-
-  // c問題
-  rep(i, D) cin >> t[i];
-  cin >> m;
-  rep(i, m) {
-    cin >> rd[i] >> q[i];
-    --rd[i]; --q[i];
-  }
-}
-
-
-void init() {
-  rep(i, TYPE) last[i] = -1;
 }
 
 
@@ -153,9 +103,8 @@ void output() {
 
 int main() {
   input();
-  init();
 
-  local_search();
+  solve_c();
 
   // output();
   return 0;
