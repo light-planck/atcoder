@@ -120,15 +120,5 @@ int main() {
   }
 
   cout << ans << "\n";
-
-  if (debug) {
-    rep(i, h) {
-      rep(j, w) {
-        if (j) cout << " ";
-        cout << light[i][j].up;
-      }
-      cout << "\n";
-    }
-  }
   return 0;
 }
