@@ -57,6 +57,7 @@ int main() {
       // 直線上の点
       vector<ll> points = {i, j};
 
+      // 同一線上にあるか判定
       for (ll k = j + 1; k < n; ++k) {
         ll s = (x[j] - x[i]) * (y[k] - y[i]) - (x[k] - x[i]) * (y[j] - y[i]);
         if (s == 0) {
@@ -64,14 +65,15 @@ int main() {
         }
       }
 
-      for (ll l = 0; l < points.size(); ++l) {
-        for (ll m = l + 1; m < points.size(); ++m) {
+      // 一度見た点の組み合わせは今後見ない
+      for (ll l = 0; l < (ll)points.size(); l++) {
+        for (ll m = l + 1; m < (ll)points.size(); ++m) {
           seen[points[l]][points[m]] = true;
           seen[points[m]][points[l]] = true;
         }
       }
 
-      if (points.size() >= k) ++ans;
+      if ((ll)points.size() >= k) ++ans;
     }
   }
 
