@@ -38,7 +38,6 @@ void init_last() {
 }
 
 
-// d日目にコンテストt[d]を選んだときのスコア
 ll compute_day_score(ll d) {
   ll day_score = s[d][t[d]];
   last[t[d]] = d;
