@@ -1,4 +1,14 @@
+use proconio::input;
+
+
 fn main() {
-    println!("5 - 2 = {}", 5 - 2); // 3
-    println!("3 * 4 = {}", 3 * 4); // 12
+    input! {
+        x: i32,
+    }
+
+    if x < 10 {
+        println!("10 未満");
+    }
+
+    println!("終了");
 }
