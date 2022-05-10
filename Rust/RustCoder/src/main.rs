@@ -1,14 +1,8 @@
-use proconio::input;
-
-
 fn main() {
-    input! {
-        x: i32,
-    }
-
-    if x < 10 {
-        println!("10 未満");
-    }
-
-    println!("終了");
+    let primes = [2, 3, 5, 7];
+    println!("{:p}", &primes[0]);
+    println!("{:p}", &primes[1]);
+    println!("{:p}", &primes[2]);
+    println!("{:p}", &primes[3]);
+    println!("{:p}", &primes);
 }

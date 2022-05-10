@@ -1,1 +1,1 @@
-/mnt/c/AtCoder/Rust/rustcoder/target/debug/rustcoder: /mnt/c/AtCoder/Rust/rustcoder/src/main.rs
+/mnt/c/AtCoder/Rust/RustCoder/target/debug/rustcoder: /mnt/c/AtCoder/Rust/RustCoder/src/main.rs
