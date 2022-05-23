@@ -32,38 +32,6 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-struct Combination {
-  vector<long long> fact, fact_inv, inv;
-  int size;
-
-  Combination(int size)
-      : size(size),
-        fact(vector<long long>(size + 10)),
-        fact_inv(vector<long long>(size + 10)), 
-        inv(vector<long long>(size + 10)) {
-  }
-
-  void init() {
-    fact[0] = fact[1] = 1;
-    fact_inv[0] = fact_inv[1] = 1;
-    inv[1] = 1;
-
-    for (int i = 2; i < size + 10; ++i) {
-      fact[i] = fact[i - 1] * i % MOD;
-      inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;
-      fact_inv[i] = fact_inv[i - 1] * inv[i] % MOD;
-    }
-  }
-
-  long long comb(int n, int k) {
-    if (n < k) return 0;
-    if (n < 0 || k < 0) return 0;
-
-    return fact[n] * (fact_inv[k] * fact_inv[n - k] % MOD) % MOD;
-  }
-};
-
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -71,17 +39,23 @@ int main() {
   ll n;
   cin >> n;
 
-  map<ll, ll> mp;
   vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+
+  sort(rng(a));
+
+  ll ans = 0;
   rep(i, n) {
-    cin >> a[i];
-    ++mp[a[i]];
+
+    // a[i]未満の個数
+    ll left = lower_bound(rng(a), a[i]) - a.begin();
+
+    // a[i]より大きい個数
+    ll right = upper_bound(rng(a), a[i]) - a.begin();
+
+    ans += left * (n - right);
   }
 
-  Combination c;
-  ll cnt = mp.size();
-  ll ans = c.comb(cnt, 3);
-  ans *= 
-  cout <<  << "\n";
+  cout << ans << "\n";
   return 0;
 }
