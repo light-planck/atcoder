@@ -43,64 +43,27 @@ int main() {
   rep(i, n) cin >> s[i];
 
   ll ans = 1e18;
+
+  // 止める番号i
   for (ll i = 0; i <= 9; ++i) {
 
-    vector<ll> idx;
+    // 出現idxのカウント
+    map<ll, ll> idx_cnt;
 
-    // s[j]
     rep(j, n) {
-      
       rep(k, 10) {
         if (s[j][k] == '0' + i) {
-          idx.emplace_back(k);
-          break;
+          ++idx_cnt[k];
         }
       }
     }
 
-    sort(rng(idx));
-
-    // cout << i << ": ";
-    // rep(l, n) {
-    //   if (l) cout << " ";
-
-    //   cout << idx[l];
-    // }
-    // cout << endl;
-
-    // cout << i << ": ";
-
-    set<ll> st;
-    // ll t = 0;
-
-    map<ll, ll> mp;
-
-    vector<ll> idx2;
-
-    ll max_t = 0;
-    for (auto x : idx) {
-      ll t = x + 10 * mp[x];
-      chmax(max_t, t);
-
-      ++mp[x];
+    ll slot_time = 0;
+    for (auto [idx, cnt] : idx_cnt) {
+      chmax(slot_time, idx + 10*(cnt-1));
     }
 
-    // for (auto x : idx) {
-    //   if (st.count(x)) {
-    //     t += 10;
-    //   }
-    //   else {
-    //     st.insert(x);
-
-    //     if (t > x) t += x;
-    //     else t = x;
-    //   }
-
-    //   cout << t << " ";
-    // }
-    // cout << endl;
-
-    chmin(ans, max_t);
+    chmin(ans, slot_time);
   }
 
   cout << ans << "\n";
