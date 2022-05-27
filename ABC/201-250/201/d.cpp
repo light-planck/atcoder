@@ -101,16 +101,8 @@ int main() {
     }
   }
 
-  // if (dp[0][0] > 0) cout << "Takahashi" << "\n";
-  // else if (dp[0][0] < 0) cout << "Aoki" << "\n";
-  // else cout << "Draw" << "\n";
-
-  rep(i, h) {
-    rep(j, w) {
-      if (j) cout << " ";
-      cout << dp[i][j];
-    }
-    cout << "\n";
-  }
+  if (dp[0][0] > 0) cout << "Takahashi" << "\n";
+  else if (dp[0][0] < 0) cout << "Aoki" << "\n";
+  else cout << "Draw" << "\n";
   return 0;
 }
