@@ -57,16 +57,18 @@ int main() {
     }
   }
 
+  // dp[i][j]: マス(i, j)からゴールまでに最適な行動を取ったときに得られる点数
   vector<vector<ll>> dp(h, vector<ll>(w));
-  for (ll i = h-1; i >= 0; --i) {
-    for (ll j = w-1; j >= 0; --j) {
-      if (i == h-1 && j == w-1) continue;
+  constexpr ll inf = 1e18;
+  for (ll i = h-1; i >= 0; i--) {
+    for (ll j = w-1; j >= 0; j--) {
+      if (i == h-1 and j == w-1) continue;
 
-      bool takahashi = ((i+j) % 2) == 0;
-      constexpr ll inf = 1e18;
+      bool takahashi = (i+j) % 2 == 0;
 
+      // 右に移動
       ll left;
-      // 範囲外
+      // 範囲外のとき
       if (j + 1 >= w) {
         if (takahashi) left = -inf;
         else left = inf;
@@ -78,13 +80,13 @@ int main() {
         else left -= a[i][j + 1];
       }
 
+      // 下に移動
       ll down;
       // 範囲外
       if (i + 1 >= h) {
         if (takahashi) down = -inf;
         else down = inf;
       }
-      // 範囲内
       else {
         down = dp[i + 1][j];
         if (takahashi) down += a[i + 1][j];
@@ -92,12 +94,8 @@ int main() {
       }
 
       // 更新
-      if (takahashi) {
-        dp[i][j] = max(left, down);
-      }
-      else {
-        dp[i][j] = min(left, down);
-      }
+      if (takahashi) dp[i][j] = max(left, down);
+      else dp[i][j] = min(left, down);
     }
   }
 
