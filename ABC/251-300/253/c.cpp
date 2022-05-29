@@ -39,36 +39,28 @@ int main() {
   ll q;
   cin >> q;
 
-  set<ll> st;
-  map<ll, ll> cnt;
+  multiset<ll> st;
   while (q--) {
-    ll type;
-    cin >> type;
-    
-    if (type == 1) {
+    ll t;
+    cin >> t;
+
+    if (t == 1) {
       ll x;
       cin >> x;
-
-      ++cnt[x];
       st.insert(x);
     }
-    else if (type == 2) {
+    else if (t == 2) {
       ll x, c;
       cin >> x >> c;
-
-      cnt[x] -= min(c, cnt[x]);
-
-      if (cnt[x] == 0) st.erase(x);
+      
+      while (c > 0 and (st.find(x) != st.end())) {
+        st.erase(st.find(x));
+        --c;
+      }
     }
     else {
-      cout << *rbegin(st) - *begin(st) << "\n";
+      cout << *st.rbegin() - *st.begin() << "\n";
     }
-
-    // cout << "q: " << q << "\n";
-    // for (auto x : st) {
-    //   cout << x << " ";
-    // }
-    // cout << "\n";
   }
   return 0;
 }

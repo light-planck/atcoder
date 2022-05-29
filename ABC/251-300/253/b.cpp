@@ -39,19 +39,18 @@ int main() {
   ll h, w;
   cin >> h >> w;
 
-  vector<string> s(h);
-  rep(i, h) cin >> s[i];
-
-  vector<ll> x;
-  vector<ll> y;
+  vector<P> ij;
   rep(i, h) rep(j, w) {
-    if (s[i][j] == 'o') {
-      x.emplace_back(i);
-      y.emplace_back(j);
+    char c;
+    cin >> c;
+    if (c == 'o') {
+      ij.emplace_back(i, j);
     }
   }
 
-  ll ans = abs(x[0] - x[1]) + abs(y[0] - y[1]);
+  auto [i1, j1] = ij[0];
+  auto [i2, j2] = ij[1];
+  ll ans = abs(i1 - i2) + abs(j1 - j2);
   cout << ans << "\n";
   return 0;
 }

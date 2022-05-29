@@ -32,13 +32,6 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-ll calc_sum(ll x, ll cnt) {
-  ll res = cnt * (cnt+1) / 2;
-  res *= x;
-  return res;
-}
-
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -47,31 +40,15 @@ int main() {
   cin >> n >> a >> b;
 
   ll sum = n * (n+1) / 2;
-  ll ans;
 
-  ll g = gcd(a, b);
-  if (!(g == a || g == b)) {
-    ll cnt_a = n/a;
-    ll sum_a = calc_sum(a, cnt_a);
 
-    ll cnt_b = n/b;
-    ll sum_b = calc_sum(b, cnt_b);
+  auto calc_sum = [&](ll x) {
+    ll cnt = n / x;
+    return x * cnt * (cnt+1) / 2;
+  };
 
-    ll ab = lcm(a, b);
-    ll cnt_ab = n / ab;
-    ll sum_ab = calc_sum(ab, cnt_ab);
 
-    ans = sum - sum_a - sum_b + sum_ab;
-  }
-  else {
-    ll x = min(a, b);
-
-    ll cnt_x = n/x;
-    ll sum_x = calc_sum(x, cnt_x);
-
-    ans = sum - sum_x;
-  }
-
+  ll ans = sum - calc_sum(a) - calc_sum(b) + calc_sum(lcm(a, b));
   cout << ans << "\n";
   return 0;
 }

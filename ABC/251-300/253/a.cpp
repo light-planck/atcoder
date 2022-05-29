@@ -36,14 +36,12 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  vector<ll> a(3);
-  ll x;
-  rep(i, 3) {
-    cin >> a[i];
-    if (i == 1) x = a[i];
+  ll a, b, c;
+  cin >> a >> b >> c;
+
+  if ((a <= b and b <= c) or (c <= b and b <= a)) {
+    cout << "Yes" << "\n";
   }
-  sort(rng(a));
-  if (a[1] == x) cout << "Yes" << "\n";
   else cout << "No" << "\n";
   return 0;
 }
