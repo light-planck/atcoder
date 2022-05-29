@@ -42,6 +42,41 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  
+  ll m = min(8, (int)a.size());
+  map<ll, vector<vector<ll>>> mp;
+
+  for (ll bit = 1; bit < (1 << m); ++bit) {
+    vector<ll> idx;
+    ll sum = 0;
+
+    for (ll i = 0; i < m; ++i) {
+      if ((bit >> i) & 1) {
+        sum += a[i];
+        idx.emplace_back(i + 1);
+      }
+    }
+
+    sum %= 200;
+    mp[sum].emplace_back(idx);
+  }
+
+  for (auto [r, idx] : mp) {
+    if (idx.size() >= 2) {
+      cout << "Yes" << "\n";
+
+      rep(j, 2) {
+        cout << idx[j].size() << " ";
+
+        for (auto i : idx[j]) {
+          cout << i << " ";
+        }
+        cout << "\n";
+      }
+
+      return 0;
+    }
+  }
+
+  cout << "No" << "\n";
   return 0;
 }
