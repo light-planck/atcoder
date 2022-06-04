@@ -42,39 +42,16 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  map<ll, set<ll>> pos;
-  rep(i, n) {
-    pos[a[i]].insert(i);
-  }
+  vector<vector<ll>> b(k);
+  rep(i, n) b[i % k].emplace_back(a[i]);
 
-  vector<ll> b = a;
-  sort(rng(b));
+  rep(i, k) sort(rng(b[i]));
 
-  rep(i, n) {
-    if (a[i] == b[i]) continue;
+  vector<ll> ans;
+  rep(i, n) ans.emplace_back(b[i % k][i / k]);
 
-    bool ok = false;
-    for (auto idx : pos[b[i]]) {
-      for (auto j : pos[a[i]]) {
-        if (abs(idx - j) % k == 0) {
-          pos[b[i]].erase(idx);
-          pos[b[i]].insert(j);
-
-          pos[a[i]].erase(j);
-          pos[a[i]].insert(idx);
-
-          ok = true;
-          break;
-        }
-      }
-    }
-
-    if (ok) continue;
-
-    cout << "No" << "\n";
-    return 0;
-  }
-
-  cout << "Yes" << "\n";
+  sort(rng(a));
+  if (a == ans) cout << "Yes" << "\n";
+  else cout << "No" << "\n";
   return 0;
 }
