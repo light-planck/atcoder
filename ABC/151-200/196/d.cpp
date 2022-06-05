@@ -32,15 +32,6 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-void dfs(ll i, ll bit, ll a, ll b) {
-  if (i == h * w)
-  if (a) {
-
-  }
-  if (b) {
-    
-  }
-}
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -48,38 +39,54 @@ int main() {
   ll h, w, a, b;
   cin >> h >> w >> a >> b;
 
-  
+  vector<vector<bool>> seen(h, vector<bool>(w));
   ll ans = 0;
-  auto dfs = [&](auto dfs, ll i, ll bit, ll x, ll y) -> void {
-    if (i == h*w) {
+
+
+  // func
+  auto dfs = [&](auto dfs, ll i, ll j, ll x, ll y) -> void {
+    if (x < 0 || y < 0) return;
+
+    if (j == w) {
+      ++i;
+      j = 0;
+    }
+
+    if (i == h) {
       ++ans;
-      return 0;
+      return;
     }
 
-    // iのマスが既に埋まっている
-    if (bit & (1 << i)) dfs(dfs, i+1, bit, x, y);
-
-    // 1畳
-    if (x) {
-      // 横にはみ出る
-      if (i % w < w) {
-        dfs(dfs, i+1, bit + (i << w), x-1, y);
-      }
-
-      // 下にはみ出る
-      if ((i << w) < h) {
-        dfs(dfs, i+1, bit + (), x-1, y);
-      }
+    // スキップ
+    if (seen[i][j]) {
+      dfs(dfs, i, j+1, x, y);
+      return;
     }
+
+    seen[i][j] = true;
 
     // 半畳
-    if (y) {
-      dfs(dfs, i+1, bit + (1 << i), a, b-1);
+    dfs(dfs, i, j+1, x, y-1);
+
+    // 1畳
+    // 右
+    if (j+1 < w && !seen[i][j + 1]) {
+      seen[i][j + 1] = true;
+      dfs(dfs, i, j+1, x-1, y);
+      seen[i][j + 1] = false;
     }
+    // 下
+    if (i+1 < h && !seen[i + 1][j]) {
+      seen[i + 1][j] = true;
+      dfs(dfs, i, j+1, x-1, y);
+      seen[i + 1][j] = false;
+    }
+
+    seen[i][j] = false;
   };
   dfs(dfs, 0, 0, a, b);
 
-  
+
   cout << ans << "\n";
   return 0;
 }
