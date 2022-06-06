@@ -39,11 +39,34 @@ int main() {
   ll n, m, k;
   cin >> n >> m >> k;
 
-  vector<vector<mint>> dp(n+1, vector<mint>(m+1));
-  for (ll i = 0; i < n; ++i) {
-    for (ll j = 1; j <= m; ++j) {
+  if (k == 0) {
+    mint ans = mint(m).pow(n);
+    cout << ans.val() << "\n";
+    return 0;
+  }
 
+  vector<vector<mint>> dp(n+1, vector<mint>(m + 1));
+  rep(j, m+1) dp[1][j] = 1;
+  // dp[0][0] = 0;
+
+  for (ll i = 1; i < n; ++i) {
+    vector<mint> s(m + 1);
+    for (ll j = 0; j < m; ++j) s[j + 1] = s[j] + dp[i][j+1];
+
+    auto sum = [&](ll l, ll r) -> mint {
+      if (l > r) return 0;
+      return s[r + 1] - s[l];
+    };
+
+    for (ll j = 1; j <= m; ++j) {
+      ll l = max(1LL, j-k+1);
+      ll r = min(m, j+k-1);
+      dp[i + 1][j] = s.back() - (s[r] - s[l - 1]);
     }
   }
+
+  mint ans = 0;
+  for (ll j = 1; j <= m; ++j) ans += dp[n][j];
+  cout << ans.val() << "\n";
   return 0;
 }
