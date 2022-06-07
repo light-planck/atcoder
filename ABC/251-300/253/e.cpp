@@ -45,23 +45,20 @@ int main() {
     return 0;
   }
 
-  vector<vector<mint>> dp(n+1, vector<mint>(m + 1));
+  vector<vector<mint>> dp(n+1, vector<mint>(m+1));
   rep(j, m+1) dp[1][j] = 1;
-  // dp[0][0] = 0;
 
   for (ll i = 1; i < n; ++i) {
-    vector<mint> s(m + 1);
-    for (ll j = 0; j < m; ++j) s[j + 1] = s[j] + dp[i][j+1];
 
-    auto sum = [&](ll l, ll r) -> mint {
-      if (l > r) return 0;
-      return s[r + 1] - s[l];
-    };
+    // dp[i][1] ~ dp[i][m]のm個の配列の累積和を作成
+    vector<mint> s(m + 1);
+    for (ll j = 0; j < m; ++j) s[j + 1] = s[j] + dp[i][j + 1];
 
     for (ll j = 1; j <= m; ++j) {
-      ll l = max(1LL, j-k+1);
-      ll r = min(m, j+k-1);
-      dp[i + 1][j] = s.back() - (s[r] - s[l - 1]);
+      // sのidxは一個ずれる
+      // sum(l, r) = s[(r-1) + 1] - s[l - 1];
+      if (j - k >= 1) dp[i + 1][j] += s[j - k];
+      if (j + k <= m) dp[i + 1][j] += s[m] - s[j + k - 1];
     }
   }
 
