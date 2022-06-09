@@ -39,7 +39,6 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  // <to, cost>
   vector<vector<P>> edge(n);
   rep(i, m) {
     ll a, b, c;
@@ -53,7 +52,12 @@ int main() {
     vector<ll> dist(n, inf);
     priority_queue<P, vector<P>, greater<P>> heap;
 
-    for (auto e : edge[i]) heap.emplace(e.second, e.first);
+    // 頂点iに隣接する頂点を追加
+    for (auto e : edge[i]) {
+      ll to = e.first;
+      ll cost = e.second;
+      heap.emplace(cost, to);
+    }
 
     while (!heap.empty()) {
       auto [d, v] = heap.top(); heap.pop();
@@ -61,12 +65,16 @@ int main() {
       if (dist[v] <= d) continue;
 
       dist[v] = d;
-      for (auto e : edge[v]) heap.emplace(d+e.second, e.first);
+      
+      for (auto e : edge[v]) {
+        ll to = e.first;
+        ll cost = e.second;
+        heap.emplace(d+cost, to);
+      }
     }
 
-    ll ans = dist[i];
-    if (ans == inf) ans = -1;
-    cout << ans << "\n";
+    if (dist[i] == inf) cout << -1 << "\n";
+    else cout << dist[i] << "\n";
   }
   return 0;
 }
