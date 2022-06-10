@@ -36,41 +36,23 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, k;
-  cin >> n >> k;
+  ll n;
+  cin >> n;
 
-  vector<ll> a(n);
-  rep(i, n) cin >> a[i];
+  ll ans = 0;
 
-  if (k == 1) {
-    cout << "Yes" << "\n";
-    return 0;
-  }
+  for (ll i = 1; i <= n; ++i) {
+    ll x = i;
 
-  auto b = a;
-  sort(rng(b));
-
-  rep(i, n) {
-    if (a[i] == b[i]) continue;
-
-    bool ok = false;
-    for (ll j = i + k; j < n; j += k) {
-      if (a[j] == b[i]) {
-        swap(a[i], a[j]);
-        ok = true;
-        break;
-      }
+    // iを平方数で割れるだけ割った値をxとする
+    for (ll k = 2; k*k <= i; ++k) {
+      while (x % (k*k) == 0) x /= k*k;
     }
 
-    // for (auto x : a) cout << x << " ";
-    // cout << endl;
-
-    if (ok) continue;
-
-    cout << "No" << "\n";
-    return 0;
+    // j = x * k * k <= n
+    for (ll k = 1; x*k*k <= n; ++k) ++ans;
   }
 
-  cout << "Yes" << "\n";
+  cout << ans << "\n";
   return 0;
 }
