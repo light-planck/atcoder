@@ -36,6 +36,34 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll x, a, d, n;
+  cin >> x >> a >> d >> n;
+
+  bool dec = false;
+  if (d < 0) dec = true;
+
+  ll ok = n;
+  ll ng = -1;
+  if (dec) swap(ok, ng);
+
+  auto s = [&](ll t) -> ll {
+    return a + t*d;
+  };
+
+  // x以上の範囲を見つける
+  while (abs(ok - ng) > 1) {
+    ll mid = (ok + ng) / 2;
+    if (s(mid) >= x) ok = mid;
+    else ng = mid;
+  }
+
+  // sにx以上の範囲が含まれなかった場合
+  if (dec and ok == -1) ok = 0;
+  if (not dec and ok == n) ok = n - 1;
+
+  ll ans = abs(s(ok) - x);
+  if (ok - 1 >= 0) chmin(ans, abs(s(ok-1) - x));
+  if (ok + 1 < n) chmin(ans, abs(s(ok+1) - x));
+  cout << ans << "\n";
   return 0;
 }

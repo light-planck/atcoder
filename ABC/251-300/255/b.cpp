@@ -53,7 +53,7 @@ int main() {
 
   rep(i, n) {
     for (auto j : a) {
-      double d = (x[i]-x[j])*(x[i]-x[j]) + (y[i] - y[j])*(y[i] - y[j]);
+      double d = (x[i]-x[j])*(x[i]-x[j]) + (y[i]-y[j])*(y[i]-y[j]);
 
       chmin(dist[i][j], d);
     }
