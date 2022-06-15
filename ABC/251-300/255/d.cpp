@@ -36,6 +36,28 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n, q;
+  cin >> n >> q;
+
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+  sort(rng(a));
+
+  vector<ll> s(n + 1);
+  rep(i, n) s[i + 1] = s[i] + a[i];
+
+  while (q--) {
+    ll x;
+    cin >> x;
+
+    ll ok = n-1;
+    ll ng = 0;
+
+    ll idx = lower_bound(rng(a), x) - a.begin();
+
+    ll ans = idx*x - s[idx];
+    ans += -(n - idx)*x + (s[n] - s[idx]);
+    cout << ans << "\n";
+  }
   return 0;
 }
