@@ -26,8 +26,8 @@ using ll = long long;
 using P = pair<long long, long long>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-// #include <atcoder/all>
-// using namespace atcoder;
+#include <atcoder/all>
+using namespace atcoder;
 // using mint = modint998244353;
 // using mint = modint1000000007;
 
@@ -36,41 +36,25 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, k;
-  cin >> n >> k;
+  ll n;
+  cin >> n;
 
-  vector<ll> a(k);
-  rep(i, k) {
-    cin >> a[i];
-    --a[i];
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+
+  fenwick_tree<ll> bit(n);
+  ll ans = 0;
+
+  // aの転倒数を計算
+  rep(i, n) {
+    ans += bit.sum(a[i], n);
+    bit.add(a[i], 1);
   }
-
-  vector<double> x(n), y(n);
-  rep(i, n) cin >> x[i] >> y[i];
-
-  constexpr double inf = 1e18;
-  vector<vector<double>> dist(n, vector<double>(n, inf));
 
   rep(i, n) {
-    for (auto j : a) {
-      double d = (x[i]-x[j])*(x[i]-x[j]) + (y[i]-y[j])*(y[i]-y[j]);
-
-      chmin(dist[i][j], d);
-    }
+    cout << ans << "\n";
+    ans -= a[i];
+    ans += n - 1 - a[i];
   }
-
-  double ans = 0;
-  rep(i, n) {
-    double tmp = inf;
-
-    for (auto j : a) {
-      chmin(tmp, dist[i][j]);
-    }
-
-    chmax(ans, tmp);
-  }
-
-  ans = sqrt(ans);
-  printf("%.10f\n", ans);
   return 0;
 }
