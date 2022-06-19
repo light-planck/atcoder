@@ -32,7 +32,22 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-double dp[101][101][101];
+double memo[101][101][101];
+
+
+double rec(ll x, ll y, ll z) {
+  if (x == 100 or y == 100 or z == 100) return 0;
+
+  if (memo[x][y][z] >= 0) return memo[x][y][z];
+
+  double res = 0;
+  res += x * (rec(x+1, y, z)+1);
+  res += y * (rec(x, y+1, z)+1);
+  res += z * (rec(x, y, z+1)+1);
+  res /= x + y + z;
+
+  return memo[x][y][z] = res;
+}
 
 
 int main() {
@@ -42,19 +57,8 @@ int main() {
   ll a, b, c;
   cin >> a >> b >> c;
 
-  for (ll i = 99; i >= 0; --i) {
-    for (ll j = 99; j >= 0; --j) {
-      for (ll k = 99; k >= 0; --k) {
-        if (i+j+k == 0) continue;
+  rep(i, 101) rep(j, 101) rep(k, 101) memo[i][j][k] = -1;
 
-        dp[i][j][k] += i * (dp[i + 1][j][k]+1);
-        dp[i][j][k] += j * (dp[i][j + 1][k]+1);
-        dp[i][j][k] += k * (dp[i][j][k + 1]+1);
-        dp[i][j][k] /= i + j + k;
-      }
-    }
-  }
-
-  printf("%.10f\n", dp[a][b][c]);
+  printf("%.10f\n", rec(a, b, c));
   return 0;
 }
