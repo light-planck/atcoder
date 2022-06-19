@@ -32,7 +32,8 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
-double dp[110][110][110];
+double dp[101][101][101];
+
 
 int main() {
   cin.tie(nullptr);
@@ -41,19 +42,19 @@ int main() {
   ll a, b, c;
   cin >> a >> b >> c;
 
-  for (ll i = 99; i >= 0; i--) {
-    for (ll j = 99; j >= 0; j--) {
-      for (ll k = 99; k >= 0; k--) {
+  for (ll i = 99; i >= 0; --i) {
+    for (ll j = 99; j >= 0; --j) {
+      for (ll k = 99; k >= 0; --k) {
         if (i+j+k == 0) continue;
-        
-        dp[i][j][k] += (dp[i + 1][j][k]+1) * (double)i / (i+j+k);
-        dp[i][j][k] += (dp[i][j + 1][k]+1) * (double)j / (i+j+k);
-        dp[i][j][k] += (dp[i][j][k + 1]+1) * (double)k / (i+j+k);
+
+        dp[i][j][k] += i * (dp[i + 1][j][k]+1);
+        dp[i][j][k] += j * (dp[i][j + 1][k]+1);
+        dp[i][j][k] += k * (dp[i][j][k + 1]+1);
+        dp[i][j][k] /= i + j + k;
       }
     }
   }
 
-  double ans = dp[a][b][c];
-  printf("%.10f\n", ans);
+  printf("%.10f\n", dp[a][b][c]);
   return 0;
 }
