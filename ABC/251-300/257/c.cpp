@@ -42,41 +42,23 @@ int main() {
   string s;
   cin >> s;
 
-  vector<P> w;
-  rep(i, n) {
-    ll wi;
-    cin >> wi;
-    w.emplace_back(wi, s[i]-'0');
-  }
-  sort(rng(w));
+  vector<ll> w(n);
+  rep(i, n) cin >> w[i];
 
-  ll ok = -1;
-  ll ng = n;
-  ll ans = 0;
-  while (abs(ok - ng) > 1) {
-    ll mid = (ok + ng) / 2;
+  map<ll, vector<ll>> mp;
+  rep(i, n) mp[w[i]].emplace_back(i);
 
+  ll now = 0;
+  rep(i, n) if (s[i] == '1') ++now;
 
-    auto check = [&]() -> bool {
-      ll cnt = 0;
+  ll ans = now;
+  for (auto [_, idx] : mp) {
+    for (auto i : idx) {
+      if (s[i] == '0') ++now;
+      else --now;
+    }
 
-      for (auto [weight, is_adult] : w) {
-        if (weight >= w[mid].first and is_adult) ++cnt;
-        if (weight < w[mid].first and not is_adult) ++cnt;
-      }
-      
-      if (cnt > ans) {
-        ans = cnt;
-        return true;
-      }
-      else return false;
-    };
-
-
-    if (check()) ng = mid;
-    else ok = mid;
-
-    cout << w[ok].first << "\n";
+    chmax(ans, now);
   }
 
   cout << ans << "\n";
