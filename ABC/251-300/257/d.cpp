@@ -36,6 +36,51 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
+  ll n;
+  cin >> n;
+
+  vector<ll> x(n), y(n), p(n);
+  rep(i, n) cin >> x[i] >> y[i] >> p[i];
+
   
+  auto judge = [&](ll s) -> bool {
+    rep(i, n) {
+      deque<ll> que;
+      que.emplace_back(i);
+
+      set<ll> seen;
+      seen.insert(i);
+
+      while (!que.empty()) {
+        ll v = que.front();
+        que.pop_front();
+
+        rep(to, n) {
+          if (to == v) continue;
+          if (seen.count(to)) continue;
+
+          if (p[v]*s >= abs(x[v]-x[to]) + abs(y[v]-y[to])) {
+            seen.insert(to);
+            que.emplace_back(to);
+          }
+        }
+      }
+
+      if (seen.size() == n) return true;
+    }
+
+    return false;
+  };
+
+
+  ll ng = 0;
+  ll ok = 4e9;
+  while (abs(ok-ng) > 1) {
+    ll mid = (ng+ok) / 2;
+    if (judge(mid)) ok = mid;
+    else ng = mid;
+  }
+
+  cout << ok << "\n";
   return 0;
 }
