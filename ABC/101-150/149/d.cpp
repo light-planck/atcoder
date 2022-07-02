@@ -59,12 +59,17 @@ int main() {
 
       // ロボットが前回と同じ手を出すとき
       if (i - k >= 0 and t[i] == t[i - k]) {
+        
+        // 前回負けたら今回は勝てる
         if (not win) {
           ans += score(i);
           win = true;
         }
+        
+        // 前回勝ったら今回は負ける
         else win = false;
       }
+      // 異なる手なら絶対勝てる
       else {
         ans += score(i);
         win = true;
