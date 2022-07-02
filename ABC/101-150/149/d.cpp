@@ -1,17 +1,36 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <cstdint>
+#include <deque>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
+#define rng(a) (a).begin(),(a).end()
+#define rrng(a) (a).rbegin(),(a).rend()
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); ++i)
-#define all(x) (x).begin(),(x).end()
 using ll = long long;
+using P = pair<long long, long long>;
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
+// #include <atcoder/all>
+// using namespace atcoder;
+// using mint = modint998244353;
+// using mint = modint1000000007;
 
-const int kInf = 1e9;
-
-bool win(string& t, int day, int hand) {
-  if (t[day] == 'r' && hand == 2) return true;
-  else if (t[day] == 's' && hand == 0) return true;
-  else if (t[day] == 'p' && hand == 1) return true;
-  else return false;
-}
 
 int main() {
   cin.tie(nullptr);
@@ -21,35 +40,38 @@ int main() {
   cin >> n >> k;
 
   ll r, s, p;
-  vector<ll> point(3);
-  rep(i, 3) cin >> point[i];
+  cin >> r >> s >> p;
 
   string t;
   cin >> t;
 
-  // dp[i][j] i日目にjの手を出したときの
-  // それまでの点数の合計の最大値
-  vector<vector<ll>> dp(n + 1, vector<ll>(3));
-  rep(i, n) {
-    if (i - k < 0) continue;
+  auto score = [&](ll idx) {
+    if (t[idx] == 'r') return p;
+    if (t[idx] == 's') return r;
+    else return s;
+  };
 
-    // i - k日目に手jを出した
-    rep(j, 3) {
-      rep(l, 3) {
-        if (j == l) continue;
+  ll ans = 0;
+  rep(ik, k) {
+    bool win = false;
 
-        if (win(t, i, l)) {
-          dp[i][l] = dp[i - k][j] + point[l];
+    for (ll i = ik; i < n; i += k) {
+
+      // ロボットが前回と同じ手を出すとき
+      if (i - k >= 0 and t[i] == t[i - k]) {
+        if (not win) {
+          ans += score(i);
+          win = true;
         }
-        else {
-          dp[i][l] = dp[i - k][j];
-        }
+        else win = false;
+      }
+      else {
+        ans += score(i);
+        win = true;
       }
     }
   }
 
-  ll ans = 0;
-  rep(i, 3) ans = max(ans, dp[n - 1][i]);
   cout << ans << "\n";
   return 0;
 }
