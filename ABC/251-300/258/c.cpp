@@ -42,15 +42,17 @@ int main() {
   string s;
   cin >> s;
 
+  ll start = 0;
   while (q--) {
     ll t, x;
     cin >> t >> x;
 
     if (t == 1) {
-      string t = s.substr(n-x) + s.substr(0, n-x);
-      swap(t, s);
+      start = start - x + n;
+      start %= n;
+      cout << start << "\n";
     }
-    else cout << s[x-1] << "\n";
+    // else cout << s[x-1] << "\n";
   }
   return 0;
 }
