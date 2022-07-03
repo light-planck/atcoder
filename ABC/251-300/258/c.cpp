@@ -14,8 +14,6 @@
 #include <stack>
 #include <string>
 #include <tuple>
-#include <unordered_map>
-#include <unordered_set>
 #include <utility>
 #include <vector>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
@@ -41,18 +39,21 @@ int main() {
 
   string s;
   cin >> s;
-
+  
   ll start = 0;
+
   while (q--) {
     ll t, x;
     cin >> t >> x;
 
     if (t == 1) {
-      start = start - x + n;
-      start %= n;
-      cout << start << "\n";
+      start = (start - x + n) % n;
     }
-    // else cout << s[x-1] << "\n";
+    else {
+      --x;
+      ll idx = (start + x) % n;
+      cout << s[idx] << "\n";
+    }
   }
   return 0;
 }
