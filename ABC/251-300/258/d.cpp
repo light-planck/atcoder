@@ -14,8 +14,6 @@
 #include <stack>
 #include <string>
 #include <tuple>
-#include <unordered_map>
-#include <unordered_set>
 #include <utility>
 #include <vector>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
@@ -36,6 +34,21 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n, x;
+  cin >> n >> x;
+
+  vector<ll> a(n), b(n);
+  rep(i, n) cin >> a[i] >> b[i];
+
+  ll ans = 2e18;
+  ll prev = 0;
+  for (ll i = 0; i < n; ++i) {
+    prev += a[i] + b[i];
+    if (x - 1 - i < 0) break;
+    ll now = prev + b[i] * (x - 1 - i);
+    chmin(ans, now);
+  }
+
+  cout << ans << "\n";
   return 0;
 }
