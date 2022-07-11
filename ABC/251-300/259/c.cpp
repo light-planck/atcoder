@@ -43,20 +43,14 @@ int main() {
   auto compress = [](string str) -> vector<pair<char, ll>> {
     vector<pair<char, ll>> res;
 
-    char prev = '0';
-    ll cnt = 0;
     for (auto c : str) {
-      if (c == prev) ++cnt;
-      else {
-        if (prev != '0') {
-          res.emplace_back(prev, cnt);
-        }
-
-        prev = c;
-        cnt = 1;
+      if (res.size() > 0) {
+        auto& [prev, cnt] = res.back();
+        if (c == prev) ++cnt;
+        else res.emplace_back(c, 1);
       }
+      else res.emplace_back(c, 1);
     }
-    res.emplace_back(prev, cnt);
 
     return res;
   };
@@ -76,10 +70,6 @@ int main() {
     auto [c1, cnt1] = s1[i];
     auto [c2, cnt2] = t1[i];
 
-    // cout << "c1: " << c1 << ", cnt1: " << cnt1 << "\n";
-    // cout << "c2: " << c2 << ", cnt2: " << cnt2 << "\n";
-
-
     bool ng = false;
     if (c1 != c2) ng = true;
     if (cnt1 > cnt2) ng = true;
@@ -92,11 +82,5 @@ int main() {
   }
 
   cout << "Yes" << "\n";
-  // for (auto [c, cnt] : s1) {
-  //   cout << c << " " << cnt << "\n";
-  // }
-
-  // char c = '';
-  // cout << c << "\n";
   return 0;
 }
