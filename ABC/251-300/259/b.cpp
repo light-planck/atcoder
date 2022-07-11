@@ -39,8 +39,12 @@ int main() {
 
   double pi = acos(-1);
   d = d * pi / 180;
-  double x = a*cos(d) - b*sin(d);
-  double y = a*sin(d) + b*cos(d);
+
+  double theta = atan2(b, a) + d;
+  double r = hypot(a, b);
+  
+  double x = r * cos(theta);
+  double y = r * sin(theta);
 
   printf("%.10f\n", x);
   printf("%.10f\n", y);
