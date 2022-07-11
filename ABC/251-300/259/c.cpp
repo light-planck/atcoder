@@ -40,43 +40,63 @@ int main() {
   string t;
   cin >> t;
 
-  ll n = s.size();
-  ll m = t.size();
+  auto compress = [](string str) -> vector<pair<char, ll>> {
+    vector<pair<char, ll>> res;
 
-  if (n > m) {
+    char prev = '0';
+    ll cnt = 0;
+    for (auto c : str) {
+      if (c == prev) ++cnt;
+      else {
+        if (prev != '0') {
+          res.emplace_back(prev, cnt);
+        }
+
+        prev = c;
+        cnt = 1;
+      }
+    }
+    res.emplace_back(prev, cnt);
+
+    return res;
+  };
+
+  auto s1 = compress(s);
+  auto t1 = compress(t);
+
+  ll n = s1.size();
+  ll m = t1.size();
+
+  if (n != m) {
     cout << "No" << "\n";
     return 0;
   }
 
-  ll i = 0;
-  ll j = 0;
-  while (j < m) {
-    if (i == n) {
-      while (j < m) {
-        if (s[i-1] == t[j]) ++j;
-        else {
-          cout << "No" << "\n";
-          return 0;
-        }
-      }
-    }
-    else {
-      if (s[i] == t[j]) {
-        ++i;
-        ++j;
-      }
-      else {
-        if (i - 2 >= 0 and s[i - 1] == s[i - 2] and t[j] == s[i - 1] and t[j] == s[i - 2]) ++j;
-        else {
-          cout << "No" << "\n";
-          return 0;
-        }
-      }
-    }
+  rep(i, n) {
+    auto [c1, cnt1] = s1[i];
+    auto [c2, cnt2] = t1[i];
 
+    // cout << "c1: " << c1 << ", cnt1: " << cnt1 << "\n";
+    // cout << "c2: " << c2 << ", cnt2: " << cnt2 << "\n";
+
+
+    bool ng = false;
+    if (c1 != c2) ng = true;
+    if (cnt1 > cnt2) ng = true;
+    if (cnt1 == 1 and cnt2 >= 2) ng = true;
+
+    if (ng) {
+      cout << "No" << "\n";
+      return 0;
+    }
   }
 
-  if (i == n and j == m) cout << "Yes" << "\n";
-  else cout << "No" << "\n";
+  cout << "Yes" << "\n";
+  // for (auto [c, cnt] : s1) {
+  //   cout << c << " " << cnt << "\n";
+  // }
+
+  // char c = '';
+  // cout << c << "\n";
   return 0;
 }
