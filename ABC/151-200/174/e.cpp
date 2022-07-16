@@ -39,7 +39,6 @@ int main() {
 
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
-  sort(rng(a));
 
   ll ng = 0;
   ll ok = 1e9 + 1;
