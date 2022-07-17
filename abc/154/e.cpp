@@ -44,12 +44,9 @@ int main() {
 
   ll ans = 0;
 
-  for (ll len = 1; len <= n; ++len) {
+  for (ll len = 1; len < n; ++len) {
     if (len < k) continue;
-    if (len == n) {
-      break;
-    }
-    
+
     if (k == 1) {
       ans += 9;
     }
