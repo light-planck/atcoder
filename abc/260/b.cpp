@@ -65,7 +65,7 @@ int main() {
   for (auto [ai, idx] : a_idx) {
     if (x == 0) break;;
     idx = -1*idx + 1;
-    if (seen.count(-idx)) continue;
+    if (seen.count(idx)) continue;
 
     seen.insert(idx);
     // cout << "a: " << idx << "\n";

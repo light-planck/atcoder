@@ -37,62 +37,35 @@ int main() {
   ll n, k;
   cin >> n >> k;
 
-  vector<ll> p(n);
-  rep(i, n) {
-    cin >> p[i];
-    --p[i];
-  }
-
-  priority_queue<ll, vector<ll>, greater<ll>> heap;
-  ll cnt = 0;
   vector<ll> ans(n, -1);
-  dsu uf(n);
+  vector<ll> under(n, -1);
   set<ll> st;
-  
-  vector<vector<ll>> group(n, vector<ll>());
+  dsu uf(n);
+
   rep(i, n) {
-    heap.emplace(p[i]);
-    st.insert(p[i]);
+    ll p;
+    cin >> p;
+    --p;
 
-    // if (not heap.empty()) {
-    //   ll u = heap.top();
-    //   if (p[i] < u) {
-    //     uf.merge(u, p[i]);
-    //     // if (uf.size(u) == k) {
-    //     //   cnt = k;
-    //     //   while(cnt) {
-    //     //     auto v = heap.top();
-    //     //     heap.pop();
-    //     //     --cnt;
-    //     //     ans[v] = i + 1;
-    //     //   }
-    //     // }
+    auto itr = st.lower_bound(p);
+    if (itr == st.end()) {
+      st.emplace(p);
+    }
+    else {
+      under[p] = *itr;
+      uf.merge(*itr, p);
+      st.erase(*itr);
+      st.emplace(p);
+    }
 
-    //       ll leader = uf.leader(u);
-    //     if (uf.size(u) == k) {
-    //       for (auto v : group[leader]) {
-    //         ans[v] = i + 1;
-    //       }
-    //     }
-    //     else {
-    //       group[leader].emplace_back(p[i]);
-    //     }
-    //   }
-    // }
+    if (uf.size(p) == k) {
+      ll now = p;
+      st.erase(p);
+      ll j = k;
 
-    if (not st.empty()) {
-      ll min_p = *st.begin();
-      auto itr = st.lower_bound(p[i]);
-      if (itr != st.end()) {
-        uf.merge(*itr, p[i]);
-        if (uf.size(*itr) == k) {
-          cnt = k;
-          for (; itr != st.end() or k; ++itr) {
-            ans[*itr] = i + 1;
-            st.erase(*itr);
-            --cnt;
-          }
-        }
+      while (j--) {
+        ans[now] = i + 1;
+        now = under[now];
       }
     }
   }
