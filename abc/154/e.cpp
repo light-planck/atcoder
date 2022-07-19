@@ -30,6 +30,9 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
+ll dp[101][4][2];
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -41,21 +44,27 @@ int main() {
   cin >> k;
 
   ll n = s.size();
+  dp[0][0][0] = 1;
 
-  ll ans = 0;
+  rep(i, n) rep(cnt, 4) rep(is_less, 2) {
+    rep(d, 10) {
+      ll nd = s[i] - '0';
+      ll next_cnt = cnt;
+      ll next_is_less = is_less;
 
-  for (ll len = 1; len < n; ++len) {
-    if (len < k) continue;
+      if (not d == 0) ++next_cnt;
+      if (next_cnt > k) continue;
 
-    if (k == 1) {
-      ans += 9;
-    }
-    if (k == 2) {
-      ans += 99;
-    }
-    else {
+      if (not is_less) {
+        if (d > nd) continue;
+        if (d < nd) next_is_less = true;
+      }
 
+      dp[i + 1][next_cnt][next_is_less] += dp[i][cnt][is_less];
     }
   }
+
+  ll ans = dp[n][k][0] + dp[n][k][1];
+  cout << ans << "\n";
   return 0;
 }
