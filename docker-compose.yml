@@ -4,4 +4,4 @@ services:
     build: .
     tty: true
     volumes:
-      - .:/AtCoder
+      - .:/atcoder
