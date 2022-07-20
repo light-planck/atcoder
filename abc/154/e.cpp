@@ -30,6 +30,8 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
+// dp[i][j][l]: i番目まで決めたとき、0でない数字がj個であるときの場合の数。
+// ただし、その数がn以下であるかどうか確定しているか(l = false or true)の情報を持つ。
 ll dp[101][4][2];
 
 
@@ -48,16 +50,25 @@ int main() {
 
   rep(i, n) rep(cnt, 4) rep(is_less, 2) {
     rep(d, 10) {
-      ll nd = s[i] - '0';
+      ll si = s[i] - '0';
       ll next_cnt = cnt;
       ll next_is_less = is_less;
 
+      // 0でない数字をカウントし、kを超えたらスキップ
       if (not d == 0) ++next_cnt;
       if (next_cnt > k) continue;
 
+      // n以下が確定している場合、その後もn以下であるので
+      // n以下であるか不明の場合のみを考える。
       if (not is_less) {
-        if (d > nd) continue;
-        if (d < nd) next_is_less = true;
+
+        // nより大きくなる場合はスキップ
+        if (d > si) continue;
+
+        // nより小さくなる場合はis_less = true
+        if (d < si) next_is_less = true;
+
+        // d == siの場合は現時点ではn以下になることが保証されない
       }
 
       dp[i + 1][next_cnt][next_is_less] += dp[i][cnt][is_less];
