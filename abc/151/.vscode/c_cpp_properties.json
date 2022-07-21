@@ -3,8 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                // "${workspaceFolder}/**"
-                // "/usr/include"
+                "${workspaceFolder}/**",
+                "/usr/include"
                 // "/opt/ac-library"
             ],
             "defines": [],
@@ -13,7 +13,7 @@
             "cppStandard": "gnu++17",
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
-                // "-std=c++17",
+                "-std=c++17",
                 "-g",
                 "-Wall",
                 "-Wextra",
