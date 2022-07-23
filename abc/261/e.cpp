@@ -34,6 +34,33 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  // ll n, c;
+  // cin >> n >> c;
+
+  // vector<ll> t(n), a(n);
+  // rep(i, n) cin >> t[i] >> a[i];
+
+  // vector<ll> ans = {c};
+  // ll prev = c;
+  // rep(i, n) {
+  //   ll now = 0;
+
+  //   if (t[i] == 1) {
+  //     now = ans.back() & a[i];
+  //   }
+  //   if (t[i] == 2) {
+  //     now = ans.back() | a[i];
+  //   }
+  //   if (t[i] == 3) {
+  //     now = ans.back() ^ a[i];
+  //   }
+
+  //   cout << now << "\n";
+  //   ans.emplace_back(now);
+  //   prev = now;
+  // }
+
+  ll res = (9 ^ 3) | 5;
+  cout << res << "\n";
   return 0;
 }

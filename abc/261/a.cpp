@@ -34,6 +34,23 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  vector<ll> l(2);
+  vector<ll> r(2);
+  cin >> l[0] >> r[0];
+  cin >> l[1] >> r[1];
+
+  vector<ll> line(101);
+  rep(i, 2) {
+    for (ll j = l[i]; j <= r[i]; ++j) {
+      ++line[j];
+    }
+  }
+
+  ll ans = 0;
+  rep(i, 101) {
+    if (line[i] == 2) ++ans;
+  }
+
+  cout << max(0LL, ans-1) << "\n";
   return 0;
 }

@@ -34,6 +34,27 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n;
+  cin >> n;
+
+  vector<string> a(n);
+  rep(i, n) cin >> a[i];
+
+  rep(i, n) rep(j, n) {
+    if (i == j) continue;
+
+    bool ng = false;
+
+    if (a[i][j] == 'W' and a[j][i] != 'L') ng = true;
+    if (a[i][j] == 'L' and a[j][i] != 'W') ng = true;
+    if (a[i][j] == 'D' and a[j][i] != 'D') ng = true;
+    
+    if (ng) {
+      cout << "incorrect" << "\n";
+      return 0;
+    }
+  }
+
+  cout << "correct" << "\n";
   return 0;
 }

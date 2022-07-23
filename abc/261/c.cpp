@@ -34,6 +34,23 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n;
+  cin >> n;
+
+  vector<string> s(n);
+  rep(i, n) cin >> s[i];
+
+  set<string> st;
+  map<string, ll> cnt;
+  rep(i, n) {
+    if (st.count(s[i])) {
+      ++cnt[s[i]];
+      cout << s[i] << "(" << cnt[s[i]] << ")\n";
+    }
+    else {
+      st.insert(s[i]);
+      cout << s[i] << "\n";
+    }
+  }
   return 0;
 }
