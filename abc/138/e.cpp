@@ -40,26 +40,25 @@ int main() {
   string t;
   cin >> t;
 
+  map<char, vector<ll>> pos;
   ll n = s.size();
-  map<char, set<ll>> pos;
-  rep(i, n) {
-    pos[s[i]].insert(i);
-    pos[s[i]].insert(i + n);
-  }
+  rep(i, n) pos[s[i]].emplace_back(i);
 
-  ll ans = 0;
   ll now = 0;
-
-  for (auto c : t) {
+  ll ans = 0;
+  for (char c : t) {
     if (pos[c].size() == 0) {
       cout << -1 << "\n";
       return 0;
     }
 
-    now = *pos[c].lower_bound(now) + 1;
-    if (now >= n) {
+    auto itr = lower_bound(rng(pos[c]), now);
+    if (itr == pos[c].end()) {
       ans += n;
-      now -= n;
+      now = pos[c][0] + 1;
+    }
+    else {
+      now = *itr + 1;
     }
   }
 
