@@ -39,42 +39,12 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 // using mint = modint1000000007;
 
 
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, c;
-  cin >> n >> c;
-
-  vector<P> ta;
-  rep(_, n) {
-    ll t, a;
-    cin >> t >> a;
-    ta.emplace_back(t, a);
-  }
-
-  vector<ll> ans(n);
-  rep(k, 30) {
-    ll x_dig = (c>>k) & 1;
-    ll composite[] = {0, 1};
-
-    rep(i, n) {
-      auto [t, a] = ta[i];
-      ll a_dig = (a>>k) & 1;
-      ll f[2];
-
-      rep(j, 2) {
-        if (t == 1) f[j] = j & a_dig;
-        if (t == 2) f[j] = j | a_dig;
-        if (t == 3) f[j] = j ^ a_dig;
-      }
-
-      rep(j, 2) composite[j] = f[composite[j]];
-      x_dig = composite[x_dig];
-      ans[i] |= x_dig << k;
-    }
-  }
-
-  print(ans);
+  
   return 0;
 }
