@@ -28,8 +28,8 @@ template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x
 template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << " "; } print(); }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-#include <atcoder/all>
-using namespace atcoder;
+// #include <atcoder/all>
+// using namespace atcoder;
 // using mint = modint998244353;
 // using mint = modint1000000007;
 
@@ -41,39 +41,53 @@ int main() {
   ll m;
   cin >> m;
 
-  constexpr ll n = 9;
-  vector edge(n, vector<ll>());
-  dsu uf(n);
+  ll n = 9;
+
+  vector<vector<ll>> edge(n);
   rep(i, m) {
     ll u, v;
     cin >> u >> v;
     --u; --v;
     edge[u].emplace_back(v);
     edge[v].emplace_back(u);
-    uf.merge(u, v);
   }
 
-  constexpr ll k = 8;
-  vector<ll> p(k);
+  vector<ll> start(n, -1);
+  ll k = 8;
   rep(i, k) {
-    cin >> p[i];
-    --p[i];
+    ll p;
+    cin >> p;
+    --p;
+    start[p] = i;
   }
 
-  rep(j, k) {
-    bool ng = false;
+  vector<ll> goal(n, -1);
+  rep(i, k) goal[i] = i;
 
-    if (uf.size(j) == 1) {
-      if (not (j == p[j])) ng = true;
-    }
-    else {
-      if (not uf.same(j, p[j])) ng = true;
-    }
+  map<vector<ll>, ll> dist;
+  dist[start] = 0;
 
-    if (ng) {
-      print(-1);
-      return 0;
+  deque<vector<ll>> que;
+  que.emplace_back(start);
+  while (!que.empty()) {
+    auto state = que.front(); que.pop_front();
+    ll d = dist[state];
+    rep(v, n) {
+      if (state[v] == -1) {
+        for (auto to : edge[v]) {
+          swap(state[v], state[to]);
+          if (not dist.count(state)) {
+            dist[state] = d + 1;
+            que.push_back(state);
+          }
+
+          swap(state[v], state[to]);
+        }
+      }
     }
   }
+
+  if (not dist.count(goal)) print(-1);
+  else print(dist[goal]);
   return 0;
 }
