@@ -52,42 +52,42 @@ int main() {
     edge[v].emplace_back(u);
   }
 
-  vector<ll> start(n, -1);
   ll k = 8;
+  vector<ll> s(n, -1);
   rep(i, k) {
     ll p;
     cin >> p;
     --p;
-    start[p] = i;
+    s[p] = i;
   }
 
-  vector<ll> goal(n, -1);
-  rep(i, k) goal[i] = i;
-
   map<vector<ll>, ll> dist;
-  dist[start] = 0;
+  dist[s] = 0;
 
   deque<vector<ll>> que;
-  que.emplace_back(start);
-  while (!que.empty()) {
-    auto state = que.front(); que.pop_front();
-    ll d = dist[state];
-    rep(v, n) {
-      if (state[v] == -1) {
-        for (auto to : edge[v]) {
-          swap(state[v], state[to]);
-          if (not dist.count(state)) {
-            dist[state] = d + 1;
-            que.push_back(state);
-          }
+  que.emplace_back(s);
 
-          swap(state[v], state[to]);
-        }
-      }
+  while (not que.empty()) {
+    auto state = que.front(); que.pop_front();
+
+    // コマがない頂点
+    ll v = 0;
+    rep(i, n) if (state[i] == -1) v = i;
+
+    for (auto to : edge[v]) {
+      auto next_state = state;
+      swap(next_state[v], next_state[to]);
+      if (dist.count(next_state)) continue;
+
+      dist[next_state] = dist[state] + 1;
+      que.emplace_back(next_state);
     }
   }
 
-  if (not dist.count(goal)) print(-1);
-  else print(dist[goal]);
+  vector<ll> t(n, -1);
+  rep(i, k) t[i] = i;
+
+  if (not dist.count(t)) print(-1);
+  else print(dist[t]);
   return 0;
 }
