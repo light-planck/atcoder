@@ -16,7 +16,7 @@
 #define rrng(a) (a).rbegin(),(a).rend()
 using namespace std;
 using ll = long long;
-using P = pair<long long, long long>;
+using P = pair<ll, ll>;
 void print() { cout << "\n"; }
 template<class T> void print(const T& value) { cout << value << "\n"; }
 template<class T, class... A> void print(const T& first, const A&... tail) { cout << first << " "; print(tail...); }
@@ -28,26 +28,13 @@ template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x
 template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << " "; } print(); }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
+inline bool chmax(ll& a, ll b) { if (a < b) { a = b; return 1; } return 0; }
+inline bool chmin(ll& a, ll b) { if (a > b) { a = b; return 1; } return 0; }
 // #include <atcoder/all>
 // using namespace atcoder;
 // using mint = modint998244353;
 // using mint = modint1000000007;
 
-
-// xをn進数から10進数に変換する
-auto n2ten(string s, __int128_t n) {
-  __int128_t res = 0;
-  reverse(rng(s));
-  __int128_t base = 1;
-
-  for (auto c : s) {
-    ll d = c - '0';
-    res += d * base;
-    base *= n;
-  }
-
-  return res;
-}
 
 int main() {
   cin.tie(nullptr);
@@ -59,16 +46,29 @@ int main() {
   ll m;
   cin >> m;
 
+  if (s.size() == 1) {
+    if (stoll(s) <= m) print(1);
+    else print(0);
+    return 0;
+  }
+
   ll d = 0;
-  for (auto c : s) chmax(d, ll(c-'0'));
+  for (auto c : s) chmax(d, c-'0');
 
   ll ok = d;
   ll ng = m + 1;
   while (abs(ok-ng) > 1) {
-    ll mid = (ok+ng) / 2;
+    ll mid = min(ok, ng) + abs(ok-ng)/2;
   
     auto check = [&]() {
-      return n2ten(s, mid) <= m;
+      ll res = 0;
+
+      for (auto c : s) {
+        if (res > m/mid) res = m + 1;
+        else res = res*mid + (c-'0');
+      }
+
+      return res <= m;
     };
   
     if (check()) ok = mid;
