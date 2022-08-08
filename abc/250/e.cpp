@@ -1,34 +1,23 @@
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstdint>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <string>
-#include <stack>
-#include <tuple>
-#include <unordered_map>
-#include <unordered_set>
-#include <utility>
-#include <vector>
-#define rep(i, n) for (int i = 0; i < (int)(n); ++i)
-#define all(x) (x).begin(),(x).end()
+#include <bits/stdc++.h>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
-using P = pair<long long, long long>;
-template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-// #include <atcoder/all>
-// using namespace atcoder;
-// using mint = modint998244353;
-// using mint = modint1000000007;
+
+
+struct custom_hash {
+  static ll splitmix64(ll x) {
+    x += 0x9e3779b97f4a7c15;
+    x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+    x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+    return x ^ (x >> 31);
+  }
+
+  ll operator() (ll x) const {
+      static const ll FIXED_RANDOM =    
+          chrono::steady_clock::now().time_since_epoch().count();
+      return splitmix64(x + FIXED_RANDOM);
+    }
+} rng;
 
 
 int main() {
@@ -38,35 +27,31 @@ int main() {
   ll n;
   cin >> n;
 
-  vector<ll> a(n), b(n);
-  rep(i, n) cin >> a[i] >> b[i];
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
 
-  set<ll> sa, sb;
-
-  set<P> ans;
-
-  // iを固定
-  for (ll i = 0; i < n; ++i) {
-
-    // jを動かす
-    
-    for (ll j = 0; j < n; ++j) {
-      if (a[i] != b[j]) {
-        sa.insert(a[i]);
-        sb.insert(b[j]);
-        break;
-      }
-      else {
-        ans.insert({i, j});
-      }
-
-      // 集合が一致していたら(i, j)を記録
-
-      // しなかったらiを動かす
-      
+  vector<ll> hash_a(n + 1);
+  rep(i, n) {
+    set<ll> st;
+    if (st.count(a[i])) hash_a[i + 1] = hash_a[i];
+    else {
+      st.emplace(a[i]);
+      hash_a[i + 1] = hash_a[i] ^ rng(a[i]);
     }
   }
-  
+
+  vector<ll> b(n);
+  rep(i, n) cin >> b[i];
+
+  vector<ll> hash_b(n + 1);
+  rep(i, n) {
+    set<ll> st;
+    if (st.count(b[i])) hash_b[i + 1] = hash_b[i];
+    else {
+      st.emplace(b[i]);
+      hash_b[i + 1] = hash_b[i] ^ rng(b[i]);
+    }
+  }
 
   ll q;
   cin >> q;
@@ -74,11 +59,8 @@ int main() {
   while (q--) {
     ll x, y;
     cin >> x >> y;
-    --x; --y;
-    if (ans.count({x, y})) {
-      cout << "Yes" << "\n";
-    }
-    else cout << "No" << "\n";
+
+    if (hash_a[x] == hash_b[y]) cout << "Yes" << '\n';
+    else cout << "No" << '\n';
   }
-  return 0;
 }
