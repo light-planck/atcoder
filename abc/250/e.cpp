@@ -30,25 +30,25 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
+  vector<ll> b(n);
+  rep(i, n) cin >> b[i];
+
   vector<ll> hash_a(n + 1);
+  set<ll> set_a;
   rep(i, n) {
-    set<ll> st;
-    if (st.count(a[i])) hash_a[i + 1] = hash_a[i];
+    if (set_a.count(a[i])) hash_a[i + 1] = hash_a[i];
     else {
-      st.emplace(a[i]);
+      set_a.emplace(a[i]);
       hash_a[i + 1] = hash_a[i] ^ rng(a[i]);
     }
   }
 
-  vector<ll> b(n);
-  rep(i, n) cin >> b[i];
-
   vector<ll> hash_b(n + 1);
+  set<ll> set_b;
   rep(i, n) {
-    set<ll> st;
-    if (st.count(b[i])) hash_b[i + 1] = hash_b[i];
+    if (set_b.count(b[i])) hash_b[i + 1] = hash_b[i];
     else {
-      st.emplace(b[i]);
+      set_b.emplace(b[i]);
       hash_b[i + 1] = hash_b[i] ^ rng(b[i]);
     }
   }
