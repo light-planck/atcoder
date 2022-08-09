@@ -38,53 +38,38 @@ using mint = modint998244353;
 // using mint = modint1000000007;
 
 
-auto round(ll a, ll b) {
-  return (a + b - 1) / b;
-}
-
-
-auto pow(ll x, ll n) {
-  ll res = 1;
-  while (n > 0) {
-    if (n & 1) res *= x;
-    x *= x;
-    n >>= 1;
-  }
-  return res;
-}
-
-
-void solve() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-
-  ll n;
-  cin >> n;
-
-  string s;
-  cin >> s;
-
-  ll l = round(n, 2);
-  mint ans = 0;
-
-  rep(i, l) {
-    ll x = s[i] - 'A';
-    ans += mint(26).pow(l-i-1) * x;
-  }
-
-  string t = s.substr(0, n-l);
-  reverse(rng(t));
-  t = s.substr(0, l) + t;
-
-  if (t <= s) ++ans;
-  print(ans.val());
-}
+auto round(ll a, ll b) { return (a + b - 1) / b; }
 
 
 int main() {
+  cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+
   ll t;
   cin >> t;
 
-  while (t--) solve();
+  while (t--) {
+    ll n;
+    cin >> n;
+
+    string s;
+    cin >> s;
+
+    ll len = round(s.size(), 2);
+    mint ans = 0;
+
+    rep(i, len) {
+      ll rem = len - 1 - i;
+      ll cnt = s[i] - 'A';
+      ans += cnt * mint(26).pow(rem);
+    }
+
+    string x = s.substr(0, len);
+    string y = s.substr(0, n-len);
+    reverse(rng(y));
+    if (x+y <= s) ++ans;
+
+    print(ans.val());
+  }
   return 0;
 }
