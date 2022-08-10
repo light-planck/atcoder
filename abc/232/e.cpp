@@ -32,9 +32,9 @@ inline bool chmax(ll& a, ll b) { if (a < b) { a = b; return 1; } return 0; }
 inline bool chmin(ll& a, ll b) { if (a > b) { a = b; return 1; } return 0; }
 auto max(ll a, ll b) { if (a > b) return a; else return b; }
 auto min(ll a, ll b) { if (a < b) return a; else return b; }
-// #include <atcoder/all>
-// using namespace atcoder;
-// using mint = modint998244353;
+#include <atcoder/all>
+using namespace atcoder;
+using mint = modint998244353;
 // using mint = modint1000000007;
 
 
@@ -42,6 +42,31 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll h, w, k;
+  cin >> h >> w >> k;
+
+  ll si, sj, ti, tj;
+  cin >> si >> sj >> ti >> tj;
+
+  vector dp(2, vector<mint>(2));
+  dp[si == ti][sj == tj] = 1;
+
+  rep(l, k) {
+    vector prev(2, vector<mint>(2));
+    swap(dp, prev);
+
+    rep(j, 2) {
+      dp[0][j] += prev[0][j] * (h-2);
+      dp[1][j] += prev[0][j];
+      dp[0][j] += prev[1][j] * (h-1);
+    }
+    rep(i, 2) {
+      dp[i][0] += prev[i][0] * (w-2);
+      dp[i][1] += prev[i][0];
+      dp[i][0] += prev[i][1] * (w-1);
+    }
+  }
+
+  print(dp[1][1].val());
   return 0;
 }
