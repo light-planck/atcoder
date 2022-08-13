@@ -38,6 +38,9 @@ auto min(ll a, ll b) { if (a < b) return a; else return b; }
 // using mint = modint1000000007;
 
 
+auto round(ll a, ll b) { return (a + b - 1) / b; }
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
@@ -47,43 +50,47 @@ int main() {
 
   rep(i, n/2) {
     rep(j, n/2) {
-      if (i == 0) grid[i][j] = 1;
-      else if (i == 1 and (j == 0 or j == n-1)) grid[i][j] = 1;
-      else if (i == 2) {
-        if (j == 1 or j == n-2) continue;
-        grid[i][j] = 1;
-      }
-      else if (i == 3) {
-        if (j == 0 or j == 2 or j == n-3 or j == n-1) grid[i][j] = 1;
-      }
-      else if (i == 4) {
-        if (j == 1 or j == 3 or j == n-4 or j == n-2) continue;
-        grid[i][j] = 1;
-      }
-      else if (i == 5) {
-        if (j == 0 or j == 4 or j == n-5 or j == n-3 or j == n-1) {
-          grid[i][j] = 1;
+      if (i % 2 == 0) {
+        for (ll k = i; k <= n-1-i; ++k) {
+          grid[i][k] = 1;
         }
       }
-      else if (i == 6) {
-        if (j == 1 or j == 3 or j == 5 or j == n-6 or j == n-4 or j == n-2) {
-          continue;
-        }
-        grid[i][j] = 1;
+
+      for (ll k = 0; k < i; k += 2) {
+        grid[i][0 + k] = 1;
       }
-      else {
-        if (j % 2 == 0) grid[i][j] = 1;
+      for (ll k = 0; k < i; k += 2) {
+        grid[i][n-1 - k] = 1;
       }
     }
   }
 
+  rep(i, n/2) {
+    rep(j, n/2) {
+      if (i % 2 == 0) {
+        for (ll k = i; k <= n-1-i; ++k) {
+          grid[n-1 - i][n-1- k] = 1;
+        }
+      }
+
+      for (ll k = 0; k < i; k += 2) {
+        grid[n-1 - i][n-1 - k] = 1;
+      }
+      for (ll k = 0; k < i; k += 2) {
+        grid[n-1 - i][0 + k] = 1;
+      }
+    }
+  }
+
+  rep(j, n) {
+    if (j % 2 == 0) grid[7][j] = 1;
+  }
+
+  // print(grid);
+
   ll r, c;
   cin >> r >> c;
   --r; --c;
-  if (r > n/2) {
-    r = n - 1 - r;
-  }
-
   if (grid[r][c]) print("black");
   else print("white");
   return 0;

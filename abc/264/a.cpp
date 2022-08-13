@@ -42,6 +42,11 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll l, r;
+  cin >> l >> r;
+  --l; --r;
+
+  string ans = "atcoder";
+  print(ans.substr(l, r-l+1));
   return 0;
 }

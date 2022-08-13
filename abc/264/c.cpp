@@ -42,6 +42,50 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll h1, w1;
+  cin >> h1 >> w1;
+  vector<vector<ll>> a(h1, vector<ll>(w1));
+  rep(i, h1) rep(j, w1) cin >> a[i][j];
+
+  ll h2, w2;
+  cin >> h2 >> w2;
+  vector<vector<ll>> b(h2, vector<ll>(w2));
+  rep(i, h2) rep(j, w2) cin >> b[i][j];
+
+  auto dfs = [&](auto dfs, vector<vector<ll>> x) -> void {
+    ll h = x.size();
+    ll w = x[0].size();
+
+    if (h == h2 and w == w2) {
+      if (x == b) {
+        cout << "Yes" << '\n';
+        return;
+      }
+    }
+    if (h < h2 or w < w2) return;
+
+    rep(hi, h) {
+      vector<vector<ll>> y;
+      rep(i, h) {
+        if (hi == i) continue;
+        rep(j, w) {
+          y.emplace_back(x[i]);
+        }
+      }
+      dfs(dfs, y);
+    }
+
+    rep(wi, w) {
+      vector<vector<ll>> y;
+      rep(j, w) {
+        if (j == wi) continue;
+        rep(i, h) y[i].emplace_back(x[i][j]);
+      }
+      dfs(dfs, y);
+    }
+  };
+
+  dfs(dfs, a);
+  cout << "No" << '\n';
   return 0;
 }
