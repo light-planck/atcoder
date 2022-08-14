@@ -42,49 +42,11 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n = 15;
-  vector<vector<ll>> grid(n, vector<ll>(n));
-
-  rep(i, n/2) {
-    rep(j, n/2) {
-      if (i == 0) grid[i][j] = 1;
-      else if (i == 1 and (j == 0 or j == n-1)) grid[i][j] = 1;
-      else if (i == 2) {
-        if (j == 1 or j == n-2) continue;
-        grid[i][j] = 1;
-      }
-      else if (i == 3) {
-        if (j == 0 or j == 2 or j == n-3 or j == n-1) grid[i][j] = 1;
-      }
-      else if (i == 4) {
-        if (j == 1 or j == 3 or j == n-4 or j == n-2) continue;
-        grid[i][j] = 1;
-      }
-      else if (i == 5) {
-        if (j == 0 or j == 4 or j == n-5 or j == n-3 or j == n-1) {
-          grid[i][j] = 1;
-        }
-      }
-      else if (i == 6) {
-        if (j == 1 or j == 3 or j == 5 or j == n-6 or j == n-4 or j == n-2) {
-          continue;
-        }
-        grid[i][j] = 1;
-      }
-      else {
-        if (j % 2 == 0) grid[i][j] = 1;
-      }
-    }
-  }
-
   ll r, c;
   cin >> r >> c;
-  --r; --c;
-  if (r > n/2) {
-    r = n - 1 - r;
-  }
 
-  if (grid[r][c]) print("black");
-  else print("white");
+  ll d = max(abs(8-r), abs(8-c));
+  if (d % 2 == 0) print("white");
+  else print("black");
   return 0;
 }

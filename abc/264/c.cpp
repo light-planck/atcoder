@@ -44,48 +44,43 @@ int main() {
 
   ll h1, w1;
   cin >> h1 >> w1;
-  vector<vector<ll>> a(h1, vector<ll>(w1));
+  vector a(h1, vector<ll>(w1));
   rep(i, h1) rep(j, w1) cin >> a[i][j];
 
   ll h2, w2;
   cin >> h2 >> w2;
-  vector<vector<ll>> b(h2, vector<ll>(w2));
+  vector b(h2, vector<ll>(w2));
   rep(i, h2) rep(j, w2) cin >> b[i][j];
 
-  auto dfs = [&](auto dfs, vector<vector<ll>> x) -> void {
-    ll h = x.size();
-    ll w = x[0].size();
+  for (ll h_bit = 0; h_bit < (1<<h1); ++h_bit) {
+    for (ll w_bit = 0; w_bit < (1<<w1); ++w_bit) {
+      vector<ll> is, js;
+      rep(i, h1) {
+        if ((h_bit >> i) & 1) is.emplace_back(i);
+      }
+      rep(j, w1) {
+        if ((w_bit >> j) & 1) js.emplace_back(j);
+      }
 
-    if (h == h2 and w == w2) {
-      if (x == b) {
+      ll h3 = is.size();
+      ll w3 = js.size();
+
+      if (h3 != h2) continue;
+      if (w3 != w2) continue;
+
+      vector c(h3, vector<ll>(w3));
+      bool ok = true;
+      rep(i, h3) rep(j, w3) {
+        if (a[is[i]][js[j]] != b[i][j]) ok = false;
+      }
+
+      if (ok) {
         cout << "Yes" << '\n';
-        return;
+        return 0;
       }
     }
-    if (h < h2 or w < w2) return;
+  }
 
-    rep(hi, h) {
-      vector<vector<ll>> y;
-      rep(i, h) {
-        if (hi == i) continue;
-        rep(j, w) {
-          y.emplace_back(x[i]);
-        }
-      }
-      dfs(dfs, y);
-    }
-
-    rep(wi, w) {
-      vector<vector<ll>> y;
-      rep(j, w) {
-        if (j == wi) continue;
-        rep(i, h) y[i].emplace_back(x[i][j]);
-      }
-      dfs(dfs, y);
-    }
-  };
-
-  dfs(dfs, a);
   cout << "No" << '\n';
   return 0;
 }
