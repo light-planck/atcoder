@@ -38,10 +38,40 @@ auto min(ll a, ll b) { if (a < b) return a; else return b; }
 // using mint = modint1000000007;
 
 
+// s[l, r)
+auto Slice(string& s, ll l, ll r) { return s.substr(l, r-l); }
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  string s;
+  cin >> s;
+
+  ll n = s.size();
+  string t = "atcoder";
+  ll s_cur = 0;
+  ll t_cur = 0;
+  ll ans = 0;
+
+  while (t_cur < n) {
+    if (s[s_cur] == t[t_cur]) {
+      ++s_cur;
+      ++t_cur;
+      continue;
+    }
+
+    while (s[s_cur] != t[t_cur]) {
+      ++s_cur;
+    }
+
+    ans += s_cur - t_cur;
+    s = Slice(t, 0, t_cur+1) + Slice(s, t_cur, s_cur) + Slice(s, s_cur+1, n);
+    ++t_cur;
+    s_cur = t_cur;
+  }
+
+  print(ans);
   return 0;
 }
