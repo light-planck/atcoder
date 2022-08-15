@@ -32,10 +32,20 @@ inline bool chmax(ll& a, ll b) { if (a < b) { a = b; return 1; } return 0; }
 inline bool chmin(ll& a, ll b) { if (a > b) { a = b; return 1; } return 0; }
 auto max(ll a, ll b) { if (a > b) return a; else return b; }
 auto min(ll a, ll b) { if (a < b) return a; else return b; }
-// #include <atcoder/all>
-// using namespace atcoder;
+#include <atcoder/all>
+using namespace atcoder;
 // using mint = modint998244353;
 // using mint = modint1000000007;
+
+
+ll op(ll a, ll b) {
+  return gcd(a, b);
+}
+
+
+ll e() {
+  return 0;
+}
 
 
 int main() {
@@ -48,15 +58,10 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  vector<ll> left(n + 1);
-  rep(i, n) left[i + 1] = gcd(left[i], a[i]);
-
-  vector<ll> right(n + 1);
-  rep(i, n) right[i + 1] = gcd(right[i], a[n-1 - i]);
-
+  segtree<ll, op, e> seg(a);
   ll ans = 0;
   rep(i, n) {
-    ll g = gcd(left[i], right[n-1-i]);
+    ll g = gcd(seg.prod(0, i), seg.prod(i+1, n));
     chmax(ans, g);
   }
 
