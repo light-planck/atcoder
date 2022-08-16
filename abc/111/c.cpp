@@ -42,6 +42,31 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n;
+  cin >> n;
+
+  vector<ll> v(n);
+  rep(i, n) cin >> v[i];
+
+  map<ll, P> cnt;
+  rep(i, n) {
+    auto& [even, odd] = cnt[v[i]];
+
+    if (i%2 == 0) ++even;
+    else ++odd;
+  }
+
+  vector<ll> swaps;
+  for (auto [a, p] : cnt) {
+    auto [even, odd] = p;
+
+    ll swp = min(n/2 - even, n/2 - odd);
+    swaps.emplace_back(swp);
+  }
+
+  sort(rng(swaps));
+  ll ans = n/2;
+  if (swaps.size() > 1) ans = swaps[0] + swaps[1];
+  print(ans);
   return 0;
 }
