@@ -26,6 +26,7 @@ template<class T> void print(vector<vector<T>>& vec2d) { for (auto& vec : vec2d)
 void print(vector<string>& grid) { for (const auto& row : grid) print(row); }
 template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x, y] : mp) { print(x, y); } }
 template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << " "; } print(); }
+void print(vector<P>& vp) { for (auto [x, y] : vp) print(x, y); }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 inline bool chmax(ll& a, ll b) { if (a < b) { a = b; return 1; } return 0; }
@@ -48,25 +49,42 @@ int main() {
   vector<ll> v(n);
   rep(i, n) cin >> v[i];
 
-  map<ll, P> cnt;
+  // 偶数番目と奇数番目の値の出現回数をチェック
+  // [v, cnt]
+  map<ll, ll> even_cnt; map<ll, ll> odd_cnt;
   rep(i, n) {
-    auto& [even, odd] = cnt[v[i]];
-
-    if (i%2 == 0) ++even;
-    else ++odd;
+    if (i & 1) ++odd_cnt[v[i]];
+    else ++even_cnt[v[i]];
   }
 
-  vector<ll> swaps;
-  for (auto [a, p] : cnt) {
-    auto [even, odd] = p;
+  // 出現回数が多い順にソート
+  // [cnt, v]
+  vector<P> even; vector<P> odd;
+  for (auto [x, cnt] : even_cnt) even.emplace_back(cnt, x);
+  for (auto [x, cnt] : odd_cnt) odd.emplace_back(cnt, x);
+  even.emplace_back(0, 0);
+  odd.emplace_back(0, 0);
+  sort(rrng(even)); sort(rrng(odd));
 
-    ll swp = min(n/2 - even, n/2 - odd);
-    swaps.emplace_back(swp);
+  // 出現頻度の多い値が異なるならばそれを書き換える
+  if (even[0].second != odd[0].second) {
+    print(n/2 - even[0].first + n/2 - odd[0].first);
+    return 0;
   }
 
-  sort(rng(swaps));
-  ll ans = n/2;
-  if (swaps.size() > 1) ans = swaps[0] + swaps[1];
+  // そうでないならば偶数と奇数番目の値の頻度の高い2つの値から
+  // 最小の操作回数となるような組み合わせを見つける
+  constexpr ll inf = 9e18;
+  ll ans = inf;
+  rep(i, 2) rep(j, 2) {
+    if (i == 0 and j == 0) continue;
+
+    auto [cnt1, e] = even[i];
+    auto [cnt2, o] = odd[j];
+    ll tmp = n/2 - cnt1 + n/2 - cnt2;
+    chmin(ans, tmp);
+  }
+
   print(ans);
   return 0;
 }
