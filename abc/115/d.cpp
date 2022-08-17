@@ -38,10 +38,41 @@ auto min(ll a, ll b) { if (a < b) return a; else return b; }
 // using mint = modint1000000007;
 
 
+// 1. 全探索できるか
+// 2. 何が分かれば答えが求まるか
+// 3. 数式に落とし込めるか
+// 4. 重複する計算はあるか
+
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n, x;
+  cin >> n >> x;
+
+  vector<ll> a(n + 1);
+  a[0] = 1;
+  vector<ll> p(n + 1);
+  p[0] = 1;
+  rep(i, n) {
+    a[i + 1] = 2*a[i] + 3;
+    p[i + 1] = 2*p[i] + 1;
+  }
+
+  auto f = [&](auto f, ll level, ll i) -> ll {
+    if (level == 0) return 1;
+
+    ll len = a[level - 1];
+    ll num = p[level - 1];
+
+    if (i == 1) return 0;
+    else if (i <= len + 1) return f(f, level-1, i-1);
+    else if (i == len + 2) return num + 1;
+    else if (i <= 2*len + 2) return num + 1 + f(f, level-1, i-len-2);
+    else return 2*num + 1;
+  };
+
+  print(f(f, n, x));
   return 0;
 }
