@@ -43,6 +43,45 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n;
+  cin >> n;
+
+  vector<ll> aims(3);
+  rep(i, 3) cin >> aims[i];
+
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+
+  ll left = 0; ll right = 0;
+  ll cur = 0; ll aim = aims[cur];
+  ll sum = 0;
+  while (right < n) {
+    sum += a[right];
+
+    if (sum > aim) {
+      while (sum > aim and left < n) {
+        sum -= a[left];
+        ++left;
+      }
+
+      aim = aims[cur];
+    }
+
+    if (sum == aim) {
+      if (cur == 2) {
+        cout << "Yes" << '\n';
+        return 0;
+      }
+
+      sum = 0;
+      ++cur;
+      aim = aims[cur];
+      left = right + 1;
+    }
+
+    ++right;
+  }
+
+  cout << "No" << '\n';
   return 0;
 }

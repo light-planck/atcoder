@@ -43,6 +43,40 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll n, m, t;
+  cin >> n >> m >> t;
+
+  vector<ll> a(n);
+  for (ll i = 1; i < n; ++i) cin >> a[i];
+
+  map<ll, ll> xy;
+  rep(i, m) {
+    ll x, y;
+    cin >> x >> y;
+    --x;
+    xy[x] = y;
+  }
+
+  // for (ll i = 1; i < n; ++i) {
+  //   t += xy[i];
+  //   t -= a[i];
+  //   if (t <= 0) {
+  //     print("No");
+  //     return 0;
+  //   }
+  // }
+
+  rep(i, n-1) {
+    t -= a[i + 1];
+
+    if (t <= 0) {
+      print("No");
+      return 0;
+    }
+
+    t += xy[i + 1];
+  }
+
+  print("Yes");
   return 0;
 }

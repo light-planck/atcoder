@@ -43,6 +43,11 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll x, y, n;
+  cin >> x >> y >> n;
+
+  ll r = n % 3;
+  ll ans = min((n/3)*y + r*x, n*x);
+  print(ans);
   return 0;
 }

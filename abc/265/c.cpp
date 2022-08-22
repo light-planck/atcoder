@@ -43,6 +43,43 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  
+  ll h, w;
+  cin >> h >> w;
+
+  vector<string> grid(h);
+  rep(i, h) cin >> grid[i];
+
+  set<P> st;
+  ll i = 0; ll j = 0;
+  while (1) {
+    if (st.count({i, j})) {
+      print(-1);
+      return 0;
+    }
+
+    st.emplace(i, j);
+    bool stop = false;
+
+    if (grid[i][j] == 'U') {
+      if (i - 1 < 0) stop = true;
+      else --i;
+    }
+    if (grid[i][j] == 'D') {
+      if (i + 1 >= h) stop = true;
+      else ++i;
+    }
+    if (grid[i][j] == 'L') {
+      if (j - 1 < 0) stop = true;
+      else --j;
+    }
+    if (grid[i][j] == 'R') {
+      if (j + 1 >= w) stop = true;
+      else ++j;
+    }
+
+    if (stop) break;
+  }
+
+  print(i+1, j+1);
   return 0;
 }
