@@ -4,9 +4,6 @@ using namespace std;
 using ll = long long;
 
 
-auto Slice(string& s, ll l, ll r) { return s.substr(l, r-l); }
-
-
 int main() {
   string s;
   cin >> s;
@@ -17,15 +14,11 @@ int main() {
   ll n = s.size();
   set<string> st;
   for (ll l = 0; l < n; ++l) {
-    for (ll r = l+1; r <= n; ++r) {
-      string t = Slice(s, l, r);
-      st.emplace(t);
+    string t;
 
-      if ((ll)st.size() >= k + 1) {
-        auto it = st.end();
-        advance(it, -1);
-        st.erase(*it);
-      }
+    for (ll r = l; r < min(l+k, n); ++r) {
+      t += s[r];
+      st.emplace(t);
     }
   }
 
