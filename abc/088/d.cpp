@@ -4,16 +4,8 @@ using namespace std;
 using ll = long long;
 
 
-void print() { cout << '\n'; }
-template<class T> void print(const T& value) { cout << value << '\n'; }
-template<class T, class... A> void print(const T& first, const A&... tail) { cout << first << " "; print(tail...); }
-template<class... A> void print(const A&... tail) { print(tail...); }
-template<class T> void print(vector<T>& vec) { for (const auto& a : vec) { cout << a << " "; } print(); }
-template<class T> void print(vector<vector<T>>& vec2d) { for (auto& vec : vec2d) { print(vec); } }
-void print(vector<string>& grid) { for (const auto& row : grid) print(row); }
-template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x, y] : mp) { print(x, y); } }
-template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << " "; } print(); }
-void print(vector<pair<ll, ll>>& vp) { for (auto [x, y] : vp) print(x, y); }
+ll di[4] = {0, 1, 0, -1};
+ll dj[4] = {1, 0, -1, 0};
 
 
 int main() {
@@ -23,33 +15,32 @@ int main() {
   vector<string> s(h);
   rep(i, h) cin >> s[i];
 
-  vector seen(h, vector<ll>(w));
-  rep(i, h) rep(j, w) {
-    if (s[i][j] == '#') seen[i][j] = -1;
-  }
-
   using P = pair<ll, ll>;
-  deque<P> que;
   P start = make_pair(0, 0);
+  P goal = make_pair(h-1, w-1);
+
+  deque<P> que;
   que.emplace_back(start);
-
   map<P, ll> dist;
-  dist[start] = 0;
+  dist[start] = 1;
+  bool ok = false;
 
-  ll di[4] = {0, 1, 0, -1};
-  ll dj[4] = {1, 0, -1, 0};
   while (not que.empty()) {
     auto now = que.front();
     auto [i, j] = now; que.pop_front();
-    ll d = dist[now];
 
-    seen[i][j] = true;
+    if (s[i][j] == '#') continue;
+    
+    ll d = dist[now];
+    if (now == goal) ok = true;
 
     rep(k, 4) {
-      if (i + di[k] >= h or i + di[k] < 0) continue;
-      if (j + dj[k] >= w or j + dj[k] < 0) continue;
+      ll ni = i + di[k]; ll nj = j + dj[k];
 
-      P next = make_pair(i+di[k], j+dj[k]);
+      if (ni >= h or ni < 0) continue;
+      if (nj >= w or nj < 0) continue;
+
+      P next = make_pair(ni, nj);
       if (dist.count(next)) continue;
 
       que.emplace_back(next);
@@ -59,9 +50,11 @@ int main() {
 
   ll ans = 0;
   rep(i, h) rep(j, w) {
-    if (seen[i][j] == 0) ++ans;
+    if (s[i][j] == '.') ++ans;
   }
+  ans -= dist[goal];
 
-  cout << ans << '\n';
+  if (ok) cout << ans << '\n';
+  else cout << -1 << '\n';
   return 0;
 }
