@@ -30,7 +30,7 @@ int main() {
     auto [i, j] = now; que.pop_front();
 
     if (s[i][j] == '#') continue;
-    
+
     ll d = dist[now];
     if (now == goal) ok = true;
 
