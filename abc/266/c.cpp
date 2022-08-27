@@ -4,54 +4,70 @@ using namespace std;
 using ll = long long;
 
 
-void print() { cout << '\n'; }
-template<class T> void print(const T& value) { cout << value << '\n'; }
-template<class T, class... A> void print(const T& first, const A&... tail) { cout << first << " "; print(tail...); }
-template<class... A> void print(const A&... tail) { print(tail...); }
-template<class T> void print(vector<T>& vec) { for (const auto& a : vec) { cout << a << " "; } print(); }
-template<class T> void print(vector<vector<T>>& vec2d) { for (auto& vec : vec2d) { print(vec); } }
-void print(vector<string>& grid) { for (const auto& row : grid) print(row); }
-template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x, y] : mp) { print(x, y); } }
-template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << " "; } print(); }
-void print(vector<pair<ll, ll>>& vp) { for (auto [x, y] : vp) print(x, y); }
+using ldouble = long double;
+using Point = complex<ldouble>;
+const ldouble EPS = 1e-7;
+const ldouble PI = acos(-1);
 
 
-struct Vector {
-  ll x;
-  ll y;
-};
+// ラジアン・度変換
+ldouble rad2deg(const ldouble& rad) { return rad * 180.0 / PI; }
+ldouble deg2rad(const ldouble& deg) { return deg * PI / 180.0; }
+
+
+bool equal(const ldouble& a, const ldouble& b) {
+  return fabs(a - b) < EPS;
+}
+
+
+// 単位ベクトル
+Point unit_vector(const Point& a) { return a / abs(a); }
+
+
+// 法線ベクトル
+Point normal_vector(const Point& a) { return a * Point(0, 1); }
+
+
+// 内積
+ldouble dot(const Point& a, const Point& b) {
+  return a.real()*b.real() + a.imag()*b.imag();
+}
+
+
+// 外積
+ldouble cross(const Point& a, const Point& b) {
+  return a.real()*b.imag() - a.imag()*b.real();
+}
+
+
+// 点pを反時計回りにtheta回転
+Point rotate(const Point& p, const ldouble& theta) {
+  return Point( cos(theta)*p.real() - sin(theta)*p.imag(),
+                sin(theta)*p.real() + cos(theta)*p.imag() );
+}
 
 
 int main() {
-  vector<Vector> vec(4);
-  rep(i, 4) {
-    cin >> vec[i].x;
-    cin >> vec[i].y;
+  ll n = 4;
+  vector<Point> p(n);
+  rep(i, n) {
+    ldouble x, y;
+    cin >> x >> y;
+    p[i] = Point(x, y);
   }
-  
-  rep(i, 4) {
-    ll j = (i + 1) % 4;
-    ll k = (i - 1 + 4) % 4;
-    ll l = (i + 2) % 4;
 
-    Vector a;
-    a.x = vec[j].x - vec[i].x;
-    a.y = vec[j].y - vec[i].y;
+  rep(i, n) {
+    ll j = (i+1) % 4;
+    ll k = (i+3) % 4;
 
-    Vector b;
-    b.x = vec[k].x - vec[i].x;
-    b.y = vec[k].y - vec[i].y;
+    Point a = p[j] - p[i];
+    Point b = p[k] - p[i];
 
-    Vector c;
-    c.x = vec[l].x - vec[i].x;
-    c.y = vec[l].y - vec[i].y;
-
-    if ((c.x-a.x < b.x) or (c.y-a.y < b.y)) {
+    if (cross(a, b) < 0) {
       cout << "No" << '\n';
       return 0;
     }
   }
-
   cout << "Yes" << '\n';
   return 0;
 }
