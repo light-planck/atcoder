@@ -1,52 +1,35 @@
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstdint>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
-#define rng(a) (a).begin(),(a).end()
-#define rrng(a) (a).rbegin(),(a).rend()
 using namespace std;
 using ll = long long;
-using P = pair<long long, long long>;
-template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-// #include <atcoder/all>
-// using namespace atcoder;
-// using mint = modint998244353;
-// using mint = modint1000000007;
+
+
+using ldouble = long double;
+using Point = complex<ldouble>;
+const ldouble EPS = 1e-7;
+const ldouble PI = acos(-1);
+
+
+ldouble rad2deg(const ldouble& rad) { return rad * 180.0 / PI; }
+ldouble deg2rad(const ldouble& deg) { return deg * PI / 180.0; }
+
+
+// 点pを反時計回りにtheta回転
+Point rotate(const Point& p, const ldouble& theta) {
+  return Point( cos(theta)*p.real() - sin(theta)*p.imag(),
+                sin(theta)*p.real() + cos(theta)*p.imag() );
+}
 
 
 int main() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-
-  double a, b, d;
+  ldouble a, b, d;
   cin >> a >> b >> d;
 
-  double pi = acos(-1);
-  d = d * pi / 180;
+  d = deg2rad(d);
 
-  double theta = atan2(b, a) + d;
-  double r = hypot(a, b);
-  
-  double x = r * cos(theta);
-  double y = r * sin(theta);
+  Point p(a, b);
+  p = rotate(p, d);
 
-  printf("%.10f\n", x);
-  printf("%.10f\n", y);
+  printf("%.10Lf %.10Lf\n", p.real(), p.imag());
   return 0;
 }
