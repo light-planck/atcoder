@@ -5,6 +5,11 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  // auto round = [](ll a, ll b) { return (a + b - 1) / b; };
+  ll n = s.size() - 1;
+  cout << s[n / 2] << '\n';
   return 0;
 }

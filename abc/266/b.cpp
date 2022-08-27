@@ -5,6 +5,13 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  ll m = 998244353;
+  while (n < 0) {
+    n += m;
+  }
+  cout << n % m << '\n';
   return 0;
 }
