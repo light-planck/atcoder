@@ -20,7 +20,7 @@ using ll = long long;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  
+
   ll n;
   cin >> n;
 
@@ -38,31 +38,20 @@ int main() {
   cin >> q >> k;
   --k;
 
-  auto dijkstra = [&]() {
-    constexpr ll inf = 9e18;
-    vector<ll> dist(n, inf);
-    dist[k] = 0;
+  constexpr ll inf = 9e18;
+  vector<ll> dist(n, inf);
+  dist[k] = 0;
 
-    priority_queue<P, vector<P>> heap;
-    heap.emplace(dist[k], k);
+  auto dfs = [&](auto dfs, ll v, ll p=-1) -> void {
+    for (auto [to, c] : edge[v]) {
+      if (to == p) continue;
 
-    while (not heap.empty()) {
-      auto [d, v] = heap.top(); heap.pop();
-
-      if (dist[v] < d) continue;
-
-      for (auto [to, c] : edge[v]) {
-        if (dist[to] > dist[v] + c) {
-          dist[to] = dist[v] + c;
-          heap.emplace(dist[to], to);
-        }
-      }
+      dist[to] = dist[v] + c;
+      dfs(dfs, to, v);
     }
-
-    return dist;
   };
+  dfs(dfs, k);
 
-  auto dist = dijkstra();
   while (q--) {
     ll x, y;
     cin >> x >> y;
