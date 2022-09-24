@@ -34,7 +34,7 @@ int main() {
   set<ll> st = {0};
 
   auto dfs = [&](auto dfs, ll i, string t) -> void {
-    if (i == m) return;
+    if (i == m+1) return;
 
     if (t != "") {
       ll res = 0;
