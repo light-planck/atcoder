@@ -21,27 +21,17 @@ int main() {
   ll x, y, z;
   cin >> x >> y >> z;
 
-  ll ans = 0;
-  ll now = 0;
-  ll dx = 1;
-  if (x < 0) dx = -1;
-  bool can_break = false;
-
-  while (now != x) {
-    if (now == z) can_break = true;
-    if (now == y and not can_break) {
-      if (x > 0 and z < 0) ans += -2*z;
-      else if (x < 0 and z > 0) ans += 2*z;
-      else {
-        cout << -1 << '\n';
-        return 0;
-      }
-    }
-
-    ++ans;
-    now += dx;
+  if (x < 0) {
+    x *= -1;
+    y *= -1;
+    z *= -1;
   }
 
-  cout << ans << '\n';
+  if (y > x or y < 0) cout << x << '\n';
+  else if (z < y) {
+    if (z > 0) cout << x << '\n';
+    else cout << -2*z + x << '\n';
+  }
+  else cout << -1 << '\n';
   return 0;
 }
