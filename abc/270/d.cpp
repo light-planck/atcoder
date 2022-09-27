@@ -24,20 +24,15 @@ int main() {
   vector<ll> a(k);
   rep(i, k) cin >> a[i];
 
-  ll now = n;
-  ll ans = 0;
-  ll i = k-1;
-
-  while (now > 0) {
-    rep(j, 2) {
-      // ll idx = lower_bound(a.begin(), a.end(), now) - a.begin();
-      // if (idx == n) --idx;
-      while (a[i] > now and i > 0) --i;
-      now -= a[i];
-      if (j == 0) ans += a[i];
+  vector<ll> dp(n + 1);
+  rep(i, n) {
+    rep(j, k) {
+      auto chmax = [](auto& a, auto b) { if (a < b) a = b; };
+      if (i+1-a[j] < 0) break;
+      chmax(dp[i+1], i+1 - dp[i+1-a[j]]);
     }
   }
 
-  cout << ans << '\n';
+  cout << dp[n] << '\n';
   return 0;
 }
