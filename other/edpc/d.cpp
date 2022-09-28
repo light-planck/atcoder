@@ -1,37 +1,41 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <deque>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define all(x) (x).begin(),(x).end()
 using ll = long long;
-const int inf = 1e9;
-const int mod = 1e9+7;
 
-/*
-int wei[110], val[110];
-ll dp[110][100100];
-*/
 
 int main() {
-  int n, w;
-  cin >> n >> w;
-  vector<int> wei(n), val(n);
-  rep(i, n) cin >> wei[i] >> val[i];
-  vector<vector<ll>> dp(n+10, vector<ll>(w+10));
-  
-  //dp[i][w]はval[0], ... val[i-1]を選んだときのwを超えない最大値
-  for (int i = 0; i < n; i++) {
-    for (int sumw = 0; sumw <= w; sumw++) {
+  ll n, max_w;
+  cin >> n >> max_w;
 
-      //dp[i+1][w]はval[i]を選ぶか選ばないか
-      if (sumw - wei[i] >= 0) {
-        dp[i + 1][sumw] = max(dp[i + 1][sumw], dp[i][sumw - wei[i]] + val[i]);
-      }
-      
-      //選ばないとき
-      dp[i + 1][sumw] = max(dp[i + 1][sumw], dp[i][sumw]);
+  vector<ll> w(n), v(n);
+  rep(i, n) cin >> w[i] >> v[i];
+
+  vector<ll> dp(max_w+1);
+  rep(i, n) {
+    vector<ll> prev(max_w+1);
+    swap(dp, prev);
+
+    for (ll j = 0; j <= max_w; ++j) {
+      auto chmax = [](auto& a, auto b) { if (a < b) a = b; };
+      chmax(dp[j], prev[j]);
+      if (j+w[i] <= max_w) chmax(dp[j+w[i]], prev[j]+v[i]);
     }
   }
 
-  cout << dp[n][w] << endl;
+  cout << dp[max_w] << '\n';
   return 0;
 }
