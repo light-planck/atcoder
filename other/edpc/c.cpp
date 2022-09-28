@@ -1,37 +1,45 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <deque>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define all(x) (x).begin(),(x).end()
 using ll = long long;
-const int inf = 1e9;
-const int mod = 1e9+7;
+
 
 int main() {
-  int n;
+  ll n;
   cin >> n;
-  vector<vector<int>> a(n, vector<int>(3));
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < 3; j++) {
-      cin >> a[i][j];
-    }
-  }
 
-  //dp[i][act]はi日目の幸福度の最大値
-  //actはi日目にとった活動を示す0, 1, 2 = a, b, c
-  vector<vector<ll>> dp(n+1, vector<ll>(3));
-  
-  //dp[i][0] -> dp[i+1][1], dp[i+1][2]
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < 3; j++) {
-      for (int k = 0; k < 3; k++) {
+  vector a(n, vector<ll>(3));
+  rep(i, n) rep(j, 3) cin >> a[i][j];
+
+  vector<ll> dp(3);
+  rep(i, n) {
+    vector<ll> prev(3);
+    swap(dp, prev);
+
+    rep(j, 3) {
+      rep(k, 3) {
         if (j == k) continue;
-        dp[i+1][k] = max(dp[i+1][k], dp[i][j] + a[i][k]);
+
+        auto chmax = [](auto& a, auto b) { if (a < b) a = b; };
+        chmax(dp[k], prev[j]+a[i][k]);
       }
     }
   }
 
-  ll ans = 0;
-  for (int i = 0; i < 3; i++) ans = max(ans, dp[n][i]);
-  cout << ans << endl;
+  ll ans = *max_element(dp.begin(), dp.end());
+  cout << ans << '\n';
   return 0;
 }
