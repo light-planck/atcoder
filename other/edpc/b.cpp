@@ -1,25 +1,40 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <deque>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define all(x) (x).begin(),(x).end()
 using ll = long long;
-const int inf = 1e9;
-const int mod = 1e9+7;
+
 
 int main() {
-  int n, k;
+  ll n, k;
   cin >> n >> k;
-  vector<int> h(n);
+
+  vector<ll> h(n);
   rep(i, n) cin >> h[i];
-  //dpのサイズはノード数+遷移数は欲しい
-  vector<int> dp(n+k);
-  rep(i, n+k) dp[i] = inf;
+
+  constexpr ll inf = 9e18;
+  vector<ll> dp(n, inf);
   dp[0] = 0;
-  for (int i = 0; i <= n - 2; i++) {
-    for (int j = 1; j <= k; j++) {
-      dp[i+j] = min(dp[i+j], dp[i] + abs(h[i] - h[i+j]));
+
+  rep(i, n) {
+    for (ll j = 1; j <= k; ++j) {
+      auto chmin = [](auto& a, auto b) { if (a > b) a = b; };
+      if (i+j < n) chmin(dp[i+j], dp[i]+abs(h[i]-h[i+j]));
     }
   }
-  cout << dp[n-1] << endl;
+
+  cout << dp[n-1] << '\n';
   return 0;
 }
