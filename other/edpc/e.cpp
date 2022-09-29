@@ -1,47 +1,55 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <deque>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define all(x) (x).begin(),(x).end()
 using ll = long long;
-const int inf = 1e9;
-const int mod = 1e9+7;
-const long long INF = 1LL<<60;
 
-const int nmax = 110;
-const int vmax = 100100;
-//ll dp[nmax][vmax];
-//ll wei[nmax], val[nmax];
 
 int main() {
-  int n, w;
-  cin >> n >> w;
-  vector<int> wei(n), val(n);
-  rep(i, n) cin >> wei[i] >> val[i];
+  ll n, cap;
+  cin >> n >> cap;
 
-  //dp[i][v] i-1番目までの品物を価値vとなるように選んだときの重さの最小値
-  vector<vector<ll>> dp(n+1, vector<ll>(vmax));
-  rep(i, n+1)rep(j, vmax) dp[i][j] = INF;
-  dp[0][0] = 0;
+  vector<ll> w(n), v(n);
+  rep(i, n) cin >> w[i] >> v[i];
 
-  for (int i = 0; i < n; i++) {
-    for (int sumv = 0; sumv <= vmax; sumv++) {
+  // dp[i][j] i番目の品物まで見たときの価値の総和がjのときの重さの最小値
+  ll max_v = 1e5;
+  constexpr ll inf = 9e18;
+  vector<ll> dp(max_v+1, inf);
+  dp[0] = 0;
 
-      //追加する
-      if (sumv - val[i] >= 0) {
-        dp[i + 1][sumv] = min(dp[i + 1][sumv], dp[i][sumv - val[i]] + wei[i]);
-      }
+  rep(i, n) {
+    vector<ll> prev(max_v+1, inf);
+    swap(prev, dp);
 
-      //しない
-      dp[i + 1][sumv] = min(dp[i + 1][sumv], dp[i][sumv]);
+    for (ll j = 0; j <= max_v; ++j) {
+      auto chmin = [](auto& a, auto b) { if (a > b) a = b; };
+
+      chmin(dp[j], prev[j]);
+      if (j+v[i] <= max_v) chmin(dp[j+v[i]], prev[j]+w[i]);
     }
   }
 
-  //dp[n][0], dp[n][1], ... dp[n][1000]のうち、値がw以下となる最大のsumv
   ll ans = 0;
-  for (int sumv = 0; sumv < vmax; sumv++) {
-    if (dp[n][sumv] <= w) ans = sumv;
+  for (ll i = max_v; i >= 0; --i) {
+    if (dp[i] <= cap) {
+      ans = i;
+      break;
+    }
   }
 
-  cout << ans << endl;
+  cout << ans << '\n';
   return 0;
 }
