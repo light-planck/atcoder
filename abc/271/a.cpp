@@ -18,21 +18,21 @@ using ll = long long;
 
 
 int main() {
-  ll n, m;
-  cin >> n >> m;
+  ll n;
+  cin >> n;
 
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  sort(s.begin(), s.end());
+  string ans;
+  while (n) {
+    ll d = n % 16;
 
-  set<string> st;
-  rep(i, m) {
-    string t;
-    cin >> t;
-    st.emplace(t);
+    if (d >= 10) ans += 'A' + d-10;
+    else ans += d + '0';
+    n /= 16;
   }
 
-  do {
-  } while (next_permutation(s.begin(), s.end()));
+  reverse(ans.begin(), ans.end());
+  ll pad = 2 - ans.size();
+  rep(i, pad) ans = '0' + ans;
+  cout << ans << '\n';
   return 0;
 }

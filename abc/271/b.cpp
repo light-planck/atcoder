@@ -18,21 +18,25 @@ using ll = long long;
 
 
 int main() {
-  ll n, m;
-  cin >> n >> m;
+  ll n, q;
+  cin >> n >> q;
 
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  sort(s.begin(), s.end());
-
-  set<string> st;
-  rep(i, m) {
-    string t;
-    cin >> t;
-    st.emplace(t);
+  vector a(n, vector<ll>());
+  rep(i, n) {
+    ll l;
+    cin >> l;
+    rep(j, l) {
+      ll ai;
+      cin >> ai;
+      a[i].emplace_back(ai);
+    }
   }
 
-  do {
-  } while (next_permutation(s.begin(), s.end()));
+  while (q--) {
+    ll s, t;
+    cin >> s >> t;
+    --s; --t;
+    cout << a[s][t] << '\n';
+  }
   return 0;
 }
