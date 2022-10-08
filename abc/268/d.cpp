@@ -31,8 +31,36 @@ int main() {
     cin >> t;
     st.emplace(t);
   }
+  
+  auto dfs = [&](auto dfs, ll idx, string x) -> void {
+    ll len = x.size();
+    if (idx == n) {
+      if (3 <= len and len <= 16) {
+        if (not st.count(x)) {
+          cout << x << '\n';
+          exit(0);
+        }
+      }
+      return;
+    }
+    else {
+      if (len > 16) return;
+    }
+
+    if (len > 0) {
+      if (x.back() != '_') dfs(dfs, idx, x+'_');
+      else {
+        dfs(dfs, idx, x+'_');
+        dfs(dfs, idx+1, x+s[idx]);
+      }
+    }
+    else dfs(dfs, idx+1, x+s[idx]);
+  };
 
   do {
+    dfs(dfs, 0, "");
   } while (next_permutation(s.begin(), s.end()));
+
+  cout << -1 << '\n';
   return 0;
 }
