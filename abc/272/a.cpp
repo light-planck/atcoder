@@ -18,6 +18,16 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  ll ans = 0;
+  rep(i, n) {
+    ll a;
+    cin >> a;
+    ans += a;
+  }
+
+  cout << ans << '\n';
   return 0;
 }
