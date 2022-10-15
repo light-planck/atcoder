@@ -18,6 +18,22 @@ using ll = long long;
 
 
 int main() {
-  
+  ll x, k;
+  cin >> x >> k;
+
+  ll mod = 10;
+  ll five = 5;
+  rep(i, k) {
+    ll d = x % mod;
+
+    if (d >= five) x += mod;
+    x -= d;
+
+    mod *= 10;
+    five *= 10;
+    // cout << x << '\n';
+  }
+
+  cout << x << '\n';
   return 0;
 }

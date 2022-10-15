@@ -17,7 +17,15 @@ using namespace std;
 using ll = long long;
 
 
+auto f (ll x) {
+  if (x == 0) return 1LL;
+    return x * f(x-1);
+}
+
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  cout << f(n) << '\n';
   return 0;
 }
