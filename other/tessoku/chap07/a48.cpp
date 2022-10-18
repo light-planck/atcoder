@@ -1,4 +1,4 @@
-// p.254 局所探索法
+// p.260 焼きなまし法
 #include <algorithm>
 #include <cctype>
 #include <cmath>
@@ -54,6 +54,11 @@ ll rand_int(ll a, ll b) {
 }
 
 
+ldouble rand_double() {
+  return 1.0 * rand() / RAND_MAX;
+}
+
+
 void greedy() {
   path.emplace_back(0);
 
@@ -82,19 +87,25 @@ void greedy() {
 }
 
 
-void climbing() {
-  ll time_limit = 0.98 * CLOCKS_PER_SEC;
+void burning() {
+  // ll time_limit = 0.98 * CLOCKS_PER_SEC;
   ldouble score = calc_score();
 
-  ll ti = clock();
-  while (clock()-ti < time_limit) {
+  ll limit = 460000;
+  // ll ti = clock();
+  for (ll t = 1; t <= limit; ++t) {
+    // if (clock()-ti >= time_limit) break;
+
     ll l = rand_int(1, n-1); ll r = rand_int(1, n-1);
     if (l > r) swap(l, r);
 
     reverse(path.begin()+l, path.begin()+r+1);
-
     ldouble new_score = calc_score();
-    if (new_score < score) score = new_score;
+
+    ldouble T = 30.0 - 28.0*t/limit;
+    ldouble prob = exp(min((ldouble)0, score-new_score)/T);
+
+    if (rand_double() < prob) score = new_score;
     else reverse(path.begin()+l, path.begin()+r+1);
   }
 }
@@ -109,7 +120,7 @@ int main() {
   input();
 
   greedy();
-  climbing();
+  burning();
 
   output();
   return 0;
