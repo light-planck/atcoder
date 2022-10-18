@@ -24,7 +24,7 @@ int main() {
   vector<ll> a(n);
   iota(a.begin(), a.end(), 1);
 
-  ll reversed = 0;
+  bool reversed = false;
   while (q--) {
     ll type, x, y;
     cin >> type;
