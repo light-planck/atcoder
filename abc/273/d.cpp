@@ -20,7 +20,7 @@ using ll = long long;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  
+
   ll h, w, i, j;
   cin >> h >> w >> i >> j;
   --i; --j;
@@ -29,25 +29,26 @@ int main() {
   cin >> n;
 
   // i行目にある壁の列数
-  map<ll, vector<ll>> ij;
+  map<ll, set<ll>> ij;
   // j列目にある壁の行数
-  map<ll, vector<ll>> ji;
-  rep(_, n) {
+  map<ll, set<ll>> ji;
+
+  rep(i_, n) {
     ll r, c;
     cin >> r >> c;
     --r; --c;
-    ij[r].emplace_back(c);
-    ji[c].emplace_back(r);
-  }
-  for (auto& [_, js] : ij) {
-    js.emplace_back(0);
-    js.emplace_back(w);
-    sort(js.begin(), js.end());
-  }
-  for (auto& [_, is] : ji) {
-    is.emplace_back(0);
-    is.emplace_back(h);
-    sort(is.begin(), is.end());
+
+    if (not ij.count(r)) {
+      ij[r].emplace(-1);
+      ij[r].emplace(w);
+    }
+    ij[r].emplace(c);
+
+    if (not ji.count(c)) {
+      ji[c].emplace(-1);
+      ji[c].emplace(h);
+    }
+    ji[c].emplace(r);
   }
 
   ll q;
@@ -57,24 +58,32 @@ int main() {
     cin >> c >> l;
 
     if (c == 'L') {
-      if (ij[i].size() == 0) j = max(0LL, j-l);
-      else {
-        auto wall = *lower_bound(ij[i].begin(), ij[i].end(), j);
-        j = max(j-l, wall+1);
+      if (ij.count(i)) {
+        auto itr = ij[i].lower_bound(j);
+        j = max(j-l, *(--itr)+1);
       }
-      j = max(0LL, j);
+      else j = max(0LL, j-l);
     }
     if (c == 'R') {
-      auto itr = lower_bound(ij[i].begin(), ij[i].end(), j);
-      j = min({w-1, j+l, *itr-1});
+      if (ij.count(i)) {
+        auto itr = ij[i].lower_bound(j);
+        j = min(j+l, *(itr)-1);
+      }
+      else j = min(w-1, j+l);
     }
     if (c == 'U') {
-      auto itr = lower_bound(ji[j].begin(), ji[j].end(), i);
-      i = max({0LL, i-l, *itr+1});
+      if (ji.count(j)) {
+        auto itr = ji[j].lower_bound(i);
+        i = max(i-l, *(--itr)+1);
+      }
+      else i = max(0LL, i-l);
     }
     if (c == 'D') {
-      auto itr = lower_bound(ji[j].begin(), ji[j].end(), i);
-      i = max({h-1, i+l, *itr-1});
+      if (ji.count(j)) {
+        auto itr  =ji[j].lower_bound(i);
+        i = min(i+l, *(itr)-1);
+      }
+      else i = min(h-1, i+l);
     }
 
     cout << i+1 << " " << j+1 << '\n';
