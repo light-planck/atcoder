@@ -36,35 +36,9 @@ int main() {
   ll s = dx.size();
   ll t = dy.size();
 
-  bool ok1 = false;
-  auto x_dfs = [&](auto x_dfs, ll i, ll sum) -> void {
-    if (i == s) {
-      if (sum == x) {
-        ok1 = true;
-      }
-      return;
-    }
+  vector<ll> dpx(s+1);
+  rep(i, s) {
 
-    x_dfs(x_dfs, i+1, sum+dx[i]);
-    x_dfs(x_dfs, i+1, sum-dx[i]);
-  };
-  x_dfs(x_dfs, 0, 0);
-
-  bool ok2 = false;
-  auto y_dfs = [&](auto y_dfs, ll i, ll sum) -> void {
-    if (i == t) {
-      if (sum == y) {
-        ok2 = true;
-      }
-      return;
-    }
-
-    y_dfs(y_dfs, i+1, sum+dy[i]);
-    y_dfs(y_dfs, i+1, sum-dy[i]);
-  };
-  y_dfs(y_dfs, 0, 0);
-
-  if (ok1 and ok2) cout << "Yes" << '\n';
-  else cout << "No" << '\n';
+  }
   return 0;
 }

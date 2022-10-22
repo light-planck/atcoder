@@ -18,6 +18,8 @@ using ll = long long;
 
 
 int main() {
-  
+  long double a, b;
+  cin >> a >> b;
+  printf("%.3Lf\n", b/a);
   return 0;
 }

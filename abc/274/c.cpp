@@ -18,6 +18,22 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  vector<ll> a(n+1);
+  rep(i, n) cin >> a[i+1];
+
+  vector<ll> dist(2*n + 2);
+  dist[1] = 0;
+
+  for (ll i = 1; i <= n; ++i) {
+    dist[2*i] = dist[a[i]] + 1;
+    dist[2*i + 1] = dist[a[i]] + 1;
+  }
+
+  for (ll i = 1; i <= 2*n + 1; ++i) {
+    cout << dist[i] << '\n';
+  }
   return 0;
 }
