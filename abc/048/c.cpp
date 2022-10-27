@@ -18,6 +18,25 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n, x;
+  cin >> n >> x;
+
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+
+  ll ans = 0;
+  for (ll i = 0; i+1 < n; ++i) {
+    auto f = [&](ll idx, ll t) {
+      ans += a[idx] - t;
+      a[idx] = t;
+    };
+
+    ll now = x;
+    if (a[i] > x) f(i, now);
+    now -= a[i];
+    if (a[i+1] > now) f(i+1, now);
+  }
+
+  cout << ans << '\n';
   return 0;
 }
