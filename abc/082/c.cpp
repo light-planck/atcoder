@@ -18,6 +18,22 @@ using ll = long long;
 
 
 int main() {
+  ll n;
+  cin >> n;
   
+  map<ll, ll> cnt;
+  rep(i, n) {
+    ll a;
+    cin >> a;
+    ++cnt[a];
+  }
+
+  ll ans = 0;
+  for (auto [a, c] : cnt) {
+    if (c >= a) ans += c - a;
+    else ans += c;
+  }
+
+  cout << ans << '\n';
   return 0;
 }
