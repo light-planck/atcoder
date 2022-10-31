@@ -27,11 +27,11 @@ int main() {
     for (ll a1 = 0; a1 <= 100; ++a1) {
       for (ll a2 = 0; a2 <= 100; ++a2) {
         vector<ll> a = {a0, a1, a2};
-        vector<bool> seen_b(3);
+        vector<bool> seen_b(n, false);
         vector<ll> b(n);
         bool ok = true;
 
-        auto f = [&]() {
+        [&] {
           rep(i, n) rep(j, n) {
             if (not seen_b[j]) {
               b[j] = c[i][j] - a[i];
@@ -44,8 +44,7 @@ int main() {
               }
             }
           }
-        };
-        f();
+        } ();
 
         if (ok) {
           cout << "Yes" << '\n';
