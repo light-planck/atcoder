@@ -4,8 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include",
-                "/usr/include/x86_64-linux-gnu/c++/9/bits"
+                "/usr/include"
+                // "/opt/ac-library"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
