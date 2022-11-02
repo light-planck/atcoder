@@ -30,6 +30,14 @@
     "description": "template"
   },
 
+  "include all": {
+  "prefix": "all",
+  "body": [
+    "#include <bits/stdc++.h>"
+  ],
+  "description": "include all"
+  },
+
   // 標準入出力
   "cout << n": {
     "prefix": "cout",
