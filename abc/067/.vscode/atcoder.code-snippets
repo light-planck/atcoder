@@ -1,0 +1,306 @@
+{
+  "template": {
+    "prefix": "cpp",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)",
+      "using namespace std;",
+      "using ll = long long;",
+      "",
+      "",
+      "int main() {",
+      "  $0",
+      "  return 0;",
+      "}"
+    ],
+    "description": "template"
+  },
+
+  "include all": {
+  "prefix": "all",
+  "body": [
+    "#include <bits/stdc++.h>"
+  ],
+  "description": "include all"
+  },
+
+  // 標準入出力
+  "cout << n": {
+    "prefix": "cout",
+    "body": ["cout << $0 << '\\n';"],
+    "description": "cout << "
+  },
+
+  "cout << Yes": {
+    "prefix": "yes",
+    "body": ["cout << \"Yes\" << '\\n';"],
+    "description": "print yes"
+  },
+
+  "cout << No": {
+    "prefix": "no",
+    "body": ["cout << \"No\" << '\\n';"],
+    "description": "print no"
+  },
+
+  "printf": {
+    "prefix": "printf",
+    "body": ["printf(\"%.10Lf\\n\", $0);"],
+    "description": ""
+  },
+
+  // 構文省略
+  "vs": {
+    "prefix": "vs",
+    "body": ["vector<string>"],
+    "description": ""
+  },
+
+  "vector": {
+    "prefix": "vec",
+    "body": ["vector<$0>"],
+    "description": ""
+  },
+
+  "vll": {
+    "prefix": "vll",
+    "body": ["vector<ll>"],
+    "description": ""
+  },
+
+  "vvll": {
+    "prefix": "vv",
+    "body": ["vector $1($2, vector<ll>($0));"],
+    "description": ""
+  },
+
+  "vmint": {
+    "prefix": "vmint",
+    "body": ["vector<mint>"],
+    "description": ""
+  },
+
+  "vvmint": {
+    "prefix": "vvmint",
+    "body": ["vector<vector<mint>> "],
+    "description": ""
+  },
+
+  "vector pair": {
+    "prefix": "vp",
+    "body": ["vector<P>"],
+    "description": "vector pair"
+  },
+
+  "mp": {
+    "prefix": "mp",
+    "body": ["map<ll, ll>"],
+    "description": ""
+  },
+
+  "pq": {
+    "prefix": "pq",
+    "body": ["priority_queue<$1, vector<$1>, greater<$1>>$0"],
+    "description": ""
+  },
+
+  "nextp": {
+    "prefix": "np",
+    "body": [
+      "do {",
+      "  $0",
+      "} while (next_permutation($1.begin(), $1.end()));"
+    ],
+    "description": ""
+  },
+
+  "emplace_back": {
+    "prefix": "emp",
+    "body": ["emplace_back($0);"],
+    "description": "emplace_back"
+  },
+
+  "set": {
+    "prefix": "st",
+    "body": ["set<ll>"],
+    "description": "set"
+  },
+
+  // 省略
+  "inf": {
+    "prefix": "inf",
+    "body": ["constexpr ll inf = 9e18;"],
+    "description": ""
+  },
+
+  "mod": {
+    "prefix": "mod",
+    "body": ["constexpr ll mod = 998244353;"],
+    "description": ""
+  },
+
+  "dxdy": {
+    "prefix": "dxdy",
+    "body": [
+      "constexpr ll dx[] = {1, 0, -1, 0};",
+      "constexpr ll dy[] = {0, 1,  0, -1};"
+    ],
+    "description": "dxdy"
+  },
+
+  "dfs": {
+    "prefix": "dfs",
+    "body": ["auto dfs = [&](auto dfs, ) -> void {", "  ", "};"],
+    "description": "dfs"
+  },
+
+  "edge": {
+    "prefix": "edge",
+    "body": ["vector<vector<ll>> edge(n);"],
+    "description": "edge"
+  },
+
+  "binary_search": {
+    "prefix": "bs",
+    "body": [
+      "ll ok = -1;",
+      "ll ng = n;",
+      "while (abs(ok-ng) > 1) {",
+      "  ll mid = min(ok, ng) + abs(ok-ng)/2;",
+      "",
+      "  auto check = [&]() {",
+      "  };",
+      "",
+      "  if (check()) ok = mid;",
+      "  else ng = mid;",
+      "}"
+    ],
+    "description": "binary_search"
+  },
+
+  "round": {
+    "prefix": "round",
+    "body": ["auto round = [](ll a, ll b) { return (a + b - 1) / b; };"],
+    "description": "round"
+  },
+
+  "lambda expression": {
+    "prefix": "lambda",
+    "body": ["auto $1 = [&]($2) {", "  $0", "};"],
+    "description": "lambda expression"
+  },
+
+  "pow": {
+    "prefix": "pow",
+    "body": [
+      "auto Pow(ll x, ll n) { ll res = 1; while (n > 0) { if (n & 1) res *= x; x *= x; n >>= 1; } return res; }"
+    ],
+    "description": "pow"
+  },
+
+  "": {
+    "prefix": "slice",
+    "body": ["auto Slice(string& s, ll l, ll r) { return s.substr(l, r-l); }"],
+    "description": ""
+  },
+
+  "rep cin": {
+    "prefix": "rep",
+    "body": ["rep(i, n) cin >> $0[i];"],
+    "description": ""
+  },
+
+  "print": {
+    "prefix": "print",
+    "body": [
+      "void print() { cout << '\\n'; }",
+      "template<class T> void print(const T& value) { cout << value << '\\n'; }",
+      "template<class T, class... A> void print(const T& first, const A&... tail) { cout << first << \" \"; print(tail...); }",
+      "template<class... A> void print(const A&... tail) { print(tail...); }",
+      "template<class T> void print(vector<T>& vec) { for (const auto& a : vec) { cout << a << \" \"; } print(); }",
+      "template<class T> void print(vector<vector<T>>& vec2d) { for (auto& vec : vec2d) { print(vec); } }",
+      "void print(vector<string>& grid) { for (const auto& row : grid) print(row); }",
+      "template<class T, class U> void print(const map<T, U>& mp) { for (const auto& [x, y] : mp) { print(x, y); } }",
+      "template<class T> void print(set<T>& st) { for (const auto& a : st) { cout << a << \" \"; } print(); }",
+      "void print(vector<pair<ll, ll>>& vp) { for (auto [x, y] : vp) print(x, y); }",
+      "",
+      ""
+    ],
+    "description": "print"
+  },
+
+  "choose min": {
+    "prefix": "min",
+    "body": ["auto chmin = [](auto& a, auto b) { if (a > b) a = b; };"],
+    "description": "choose min"
+  },
+
+  "choose max": {
+    "prefix": "max",
+    "body": ["auto chmax = [](auto& a, auto b) { if (a < b) a = b; };"],
+    "description": "choose max"
+  },
+
+  "alias pair": {
+    "prefix": "pair",
+    "body": ["using P = pair<ll, ll>;"],
+    "description": "alias pair"
+  },
+
+  "atcoder library": {
+    "prefix": "acl",
+    "body": ["#include <atcoder/all>", "using namespace atcoder;"],
+    "description": "atcoder library"
+  },
+
+  "modint": {
+    "prefix": "modint",
+    "body": [
+      "// using mint = modint998244353;",
+      "// using mint = modint1000000007;"
+    ],
+    "description": "modint"
+  },
+
+  "fast": {
+    "prefix": "fast",
+    "body": ["cin.tie(nullptr);", "ios::sync_with_stdio(false);"],
+    "description": "fast"
+  },
+
+  "range": {
+    "prefix": "rng",
+    "body": ["$1.begin(), $1.end()$0"],
+    "description": "range"
+  },
+
+  "reverse range": {
+    "prefix": "rrng",
+    "body": ["$1.rbegin(), $1.rend()$0"],
+    "description": "reverse range"
+  },
+
+  "delta i, delta j": {
+    "prefix": "didj",
+    "body": ["vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "description": "delta i, delta j"
+  },
+
+  "alias long double": {
+    "prefix": "double",
+    "body": ["using ldouble = long double;"],
+    "description": "alias long double"
+  },
+
+  "alias point structure with complex": {
+    "prefix": "point",
+    "body": ["using Point = complex<ldouble>;"],
+    "description": "alias point structure with complex"
+  },
+
+  "pi": {
+    "prefix": "pi",
+    "body": ["const ldouble PI = acos(-1);"],
+    "description": "pi"
+  }
+}
