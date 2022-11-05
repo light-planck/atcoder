@@ -10,8 +10,9 @@ int main() {
 
   vector<ll> p(n);
   rep(i, n) cin >> p[i];
+  rep(i, n) p[i] *= -1;
 
-  prev_permutation(p.begin(), p.end());
-  for (auto x : p) cout << x << '\n';
+  next_permutation(p.begin(), p.end());
+  for (auto x : p) cout << -x << '\n';
   return 0;
 }
