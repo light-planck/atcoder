@@ -1,17 +1,4 @@
-#include <algorithm>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
@@ -21,17 +8,14 @@ int main() {
   ll x, k;
   cin >> x >> k;
 
-  ll mod = 10;
-  ll five = 5;
+  ll ten = 1;
   rep(i, k) {
-    ll d = x % mod;
+    ll d = (x/ten) % 10;
 
-    if (d >= five) x += mod;
-    x -= d;
-
-    mod *= 10;
-    five *= 10;
-    // cout << x << '\n';
+    x -= d * ten;
+    if (d >= 5) x += ten*10;
+    
+    ten *= 10;
   }
 
   cout << x << '\n';
