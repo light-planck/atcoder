@@ -5,6 +5,23 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  ll cnt = 0;
+  string t = "";
+  char prev = '.';
+
+  for (auto c : s) {
+    if (c == prev) ++cnt;
+    else {
+      if (prev != '.') t += prev;
+      prev = c;
+      cnt = 0;
+    }
+  }
+  t += prev;
+
+  cout << t.size()-1 << '\n';
   return 0;
 }
