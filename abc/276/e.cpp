@@ -2,6 +2,8 @@
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
+#include <atcoder/dsu>
+using namespace atcoder;
 
 
 int main() {
@@ -11,39 +13,53 @@ int main() {
   vector<string> s(h);
   rep(i, h) cin >> s[i];
 
-  ll x = 0; ll y = 0;
-  rep(i, h) rep(j, w) {
-    if (s[i][j] == 'S') {
-      x = i;
-      y = j;
+  auto id = [&](ll i, ll j) {
+    return i*w + j;
+  };
+
+  ll n = h * w;
+  dsu uf(n);
+
+  rep(i, h) {
+    rep(j, w-1) {
+      if (s[i][j] == '.' and s[i][j+1] == '.') {
+        uf.merge(id(i, j), id(i, j+1));
+      }
+    }
+  }
+  rep(j, w) {
+    rep(i, h-1) {
+      if (s[i][j] == '.' and s[i+1][j] == '.') {
+        uf.merge(id(i, j), id(i+1, j));
+      }
     }
   }
 
-  vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-  vector seen(h, vector<ll>(w));
+  const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+  vector<ll> points;
+  rep(i, h) rep(j, w) {
+    if (s[i][j] == 'S') {
+      for (auto [di, dj] : dij) {
+        ll ni = i+di; ll nj = j+dj;
+        if (ni < 0 or ni >= h) continue;
+        if (nj < 0 or nj >= w) continue;
+        if (s[ni][nj] == '#') continue;
 
-  auto dfs = [&](auto dfs, ll i, ll j, ll len) -> void {
-    if (s[i][j] == '#') return;
-    if (i == x and j == y) {
-      if (len >= 4) {
-        cout << "Yes" << '\n';
-        exit(0);
+        points.emplace_back(id(ni, nj));
       }
     }
-    if (seen[i][j]) return;
+  }
 
-    seen[i][j] = true;
-    for (auto [di, dj] : dij) {
-      ll ni = i + di; ll nj = j + dj;
+  for (auto p : points) {
+    for (auto q : points) {
+      if (p == q) continue;
 
-      if (ni < 0 or ni >= h) continue;
-      if (nj < 0 or nj >= w) continue;
-
-      dfs(dfs, ni, nj, len+1);
+      if (uf.same(p, q)) {
+        cout << "Yes" << '\n';
+        return 0;
+      }
     }
-    seen[i][j] = false;
-  };
-  dfs(dfs, x, y, 0);
+  }
 
   cout << "No" << '\n';
   return 0;

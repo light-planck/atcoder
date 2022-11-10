@@ -282,7 +282,7 @@
 
   "delta i, delta j": {
     "prefix": "didj",
-    "body": ["vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "body": ["const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
     "description": "delta i, delta j"
   },
 
