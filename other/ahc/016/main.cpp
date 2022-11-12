@@ -3,7 +3,7 @@
 using namespace std;
 
 
-bool test = true;
+bool test = false;
 
 
 constexpr int n = 15;
@@ -25,8 +25,6 @@ void encode() {
   rep(i, m) {
     g[i] = string(i*step, '1') + string(edge-i*step, '0');
   }
-
-  sort(g.begin(), g.end());
 }
 
 
@@ -54,6 +52,16 @@ string decode(string h) {
 }
 
 
+int predict(string h) {
+  int cnt = count(h.begin(), h.end(), '1');
+  return min(cnt/step, m-1);
+
+  // int idx = lower_bound(g.begin(), g.end(), h) - g.begin();
+  // idx = min(idx, m-1);
+  // return idx;
+}
+
+
 template<class T> void print(const T& value) { cout << value << endl; }
 void output() {
   print(n);
@@ -66,9 +74,7 @@ void output() {
 
     h = decode(h);
 
-    int idx = lower_bound(g.begin(), g.end(), h) - g.begin();
-    idx = min(idx, m-1);
-    print(idx);
+    print(predict(h));
   }
 }
 

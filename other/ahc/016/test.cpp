@@ -3,15 +3,29 @@
 using namespace std;
 using ll = long long;
 
+random_device seed_gen;
+mt19937 engine(seed_gen());
+int rand_int(int l, int r) {
+  uniform_int_distribution<> dist(l, r);
+  return dist(engine);
+}
 
-int main() {
-  for (ll step = 1; step <= 10; ++step) {
-    for (ll n = 4; n <= 100; ++n) {
-      if (n*(n-1) >= 2*step*99) {
-        cout << "step: " << step << " n: " << n << '\n';
-        break;
-      }
+
+string decode(string h) {
+  for (auto& c : h) {
+    bool change = 100*0.04 > rand_int(0, 999);
+    if (change) {
+      if (c == '0') c = '1';
+      else c = '0';
     }
   }
+  return h;
+}
+
+
+int main() {
+  string s = string(1000, '0');
+  s = decode(s);
+  cout << s << '\n';
   return 0;
 }
