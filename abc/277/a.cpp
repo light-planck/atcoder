@@ -5,6 +5,16 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n, x;
+  cin >> n >> x;
+
+  vector<ll> p(n);
+  rep(i, n) cin >> p[i];
+
+  rep(i, n) {
+    if (p[i] == x) {
+      cout << i+1 << '\n';
+    }
+  }
   return 0;
 }
