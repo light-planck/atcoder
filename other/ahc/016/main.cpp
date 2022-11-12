@@ -1,12 +1,14 @@
 #include <bits/stdc++.h>
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 using namespace std;
+template<class T> void print_value(const T& value) { cout << value << '\n'; }
+void print_vs(vector<string>& grid) { for (const auto& row : grid) print_value(row); }
 
 
-bool test = false;
+bool test_flag = false;
 
 
-constexpr int n = 15;
+constexpr int n = 5;
 constexpr int step = 1;
 constexpr int edge = n * (n-1) / 2;
 constexpr int query_times = 100;
@@ -17,6 +19,22 @@ mt19937 engine(seed_gen());
 int m;
 double eps;
 vector<string> g;
+vector<string> s;
+
+
+void generate_all_bit() {
+  s = vector<string>(1<<edge);
+
+  for (int bit = 0; bit<(1<<edge); ++bit) {
+    string now = "";
+    rep(i, edge) {
+      if (bit>>i & 1) now += '1';
+      else now += '0';  
+    }
+    reverse(now.begin(), now.end());
+    s[bit] = now;
+  }
+}
 
 
 void encode() {
@@ -79,13 +97,21 @@ void output() {
 }
 
 
-int main() {
-  init();
-  output();
+void test() {
+  generate_all_bit();
+  print_vs(s);
+}
 
-  if (test) {
-    long long seed;
-    cin >> seed;
-  }
+
+int main() {
+  test();
+
+  // init();
+  // output();
+
+  // if (test_flag) {
+  //   long long seed;
+  //   cin >> seed;
+  // }
   return 0;
 }
