@@ -20,9 +20,9 @@ int main() {
   }
 
   map<ll, bool> seen;
-
   ll ans = -1;
-  auto dfs = [&](auto dfs, ll v, ll p=-1) -> void {
+  
+  auto dfs = [&](auto dfs, ll v) -> void {
     if (seen[v]) return;
 
     seen[v] = true;
@@ -30,8 +30,7 @@ int main() {
 
     if (edge[v].size() > 0) {
       for (auto to : edge[v]) {
-        if (to == p) continue;
-        dfs(dfs, to, v);
+        dfs(dfs, to);
       }
     }
   };
