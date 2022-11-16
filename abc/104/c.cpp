@@ -5,44 +5,42 @@ using ll = long long;
 
 
 int main() {
+  auto chmin = [](auto& a, auto b) { if (a > b) a = b; };
+
   ll d, g;
   cin >> d >> g;
 
   vector<ll> p(d), c(d);
   rep(i, d) cin >> p[i] >> c[i];
 
-  ll ans = 0;
-  ll now = g;
-  for (ll i = d-1; i >= 0; --i) {
-    auto round = [](ll a, ll b) { return (a + b - 1) / b; };
-    ll time = min(round(now, 100*(i+1)), p[i]);
+  ll ans = 9e18;
 
-    if (time == p[i]) now -= c[i];
-    now -= time * 100 * (i+1);
-    ans += time;
+  for (ll bit = 0; bit < (1LL<<d); ++bit) {
+    ll cnt = 0;
+    ll score = 0;
 
-    if (now <= 0) {
-      break;
+    rep(i, d) {
+      if ((bit>>i) & 1LL) {
+        cnt += p[i];
+        score += 100*(i+1)*p[i] + c[i];
+      }
     }
+
+    if (score < g) {
+      for (ll i = d-1; i >= 0; --i) {
+        if ((bit>>i) & 1LL) continue;
+
+        for (ll j = 0; j < p[i]; ++j) {
+          if (score >= g) break;
+          score += 100 * (i+1);
+          ++cnt;
+        }
+      }
+    }
+
+    if (score >= g) chmin(ans, cnt);
   }
 
-  using P = pair<ll, ll>;
-  vector<P> bonus;
-  rep(i, d) {
-    bonus.emplace_back(p[i], -(p[i]*100*(i+1)+c[i]));
-  }
-  sort(bonus.begin(), bonus.end());
-
-  ll ans2 = 0;
-  now = 0;
-  for (auto [cnt, b] : bonus) {
-    b *= -1;
-    now += b;
-    ans2 += cnt;
-
-    if (now >= g) break;
-  }
-
-  cout << min(ans, ans2) << '\n';
+  cout << ans << '\n';
   return 0;
 }
