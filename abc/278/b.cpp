@@ -20,12 +20,13 @@ int main() {
   cin >> h >> m;
 
   while (not ok(h, m)) {
-    if (m <= 58) ++m;
-    else {
-      if (h <= 23) ++h;
-      else h = 0;
+    ++m;
+
+    if (m == 60) {
+      ++h;
       m = 0;
     }
+    if (h == 24) h = 0;
   }
 
   cout << h << " " << m << '\n';
