@@ -11,24 +11,15 @@ int main() {
   cin >> n >> p;
 
   using mint = modint998244353;
-  mint ans = 0;
+  vector<mint> dp(n+1);
+  dp[0] = 0; dp[1] = 1;
 
-  mint inv = ((mint)100).inv();
-  map<ll, mint> memo;
+  rep(i, n-1) {
+    dp[i+2] = 1;
+    dp[i+2] += (1 - (mint)p/100) * dp[i+1];
+    dp[i+2] += ((mint)p/100) * dp[i];
+  }
 
-  auto dfs = [&](auto dfs, ll i, mint prob, ll hp) -> mint {
-    if (hp >= n) {
-      return memo[hp] = prob * i * inv;
-    }
-
-    if (memo.count(hp+1)) ans += memo[hp+1];
-    else dfs(dfs, i+1, prob*p*inv, hp+1);
-    
-    if (memo.count(hp+2)) ans += memo[hp+2];
-    else dfs(dfs, i+1, prob*(1-p)*inv, hp+2);
-  };
-  dfs(dfs, 1, (mint)1, 0);
-
-  cout << ans.val() << '\n';
+  cout << dp[n].val() << '\n';
   return 0;
 }
