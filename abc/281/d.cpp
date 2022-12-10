@@ -4,8 +4,6 @@ using namespace std;
 using ll = long long;
 
 
-ll dp[110][110][100];
-
 int main() {
   ll n, k, d;
   cin >> n >> k >> d;
@@ -13,12 +11,24 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
+  vector dp(k+1, vector<ll>(d, -1));
+  dp[0][0] = 0;
+
   rep(i, n) {
-    rep(j, k) {
+    vector prev(k+1, vector<ll>(d, -1));
+    swap(prev, dp);
+
+    rep(j, k+1) {
       rep(l, d) {
-        dp[i+1][j][l] 
+        if (prev[j][l] == -1) continue;
+
+        auto chmax = [](auto& a, auto b) { if (a < b) a = b; };
+        chmax(dp[j][l], prev[j][l]);
+        if (j+1 <= k) chmax(dp[j+1][(l+a[i]) % d], prev[j][l]+a[i]);
       }
     }
   }
+
+  cout << dp[k][0] << '\n';
   return 0;
 }
