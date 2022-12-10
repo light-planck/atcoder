@@ -5,6 +5,12 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  while (n >= 0) {
+    cout << n << '\n';
+    --n;
+  }
   return 0;
 }
