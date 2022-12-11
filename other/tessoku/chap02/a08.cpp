@@ -13,10 +13,7 @@ int main() {
 
   vector s(h+1, vector<ll>(w+1));
   rep(i, h) rep(j, w) {
-    s[i+1][j+1] = s[i+1][j] + x[i][j];
-  }
-  rep(j, w) rep(i, h) {
-    s[i+1][j+1] += s[i][j+1];
+    s[i+1][j+1] = s[i][j+1] + s[i+1][j] - s[i][j] + x[i][j];
   }
 
   ll q;
