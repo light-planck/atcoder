@@ -2,7 +2,7 @@
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
-#include <atcoder/all>
+#include <atcoder/dsu>
 using namespace atcoder;
 
 
@@ -12,16 +12,18 @@ int main() {
 
   vector<vector<ll>> edge(n);
   dsu uf(n);
+
+  // <leader, edge>
+  map<ll, ll> graph;
+
   rep(i, m) {
     ll u, v;
     cin >> u >> v;
     --u; --v;
     edge[u].emplace_back(v);
     edge[v].emplace_back(u);
-    uf.merge(u, v);
   }
 
-  ll w = 0; ll b = 0; ll e = 0;
   vector<ll> colors(n);
 
   auto dfs = [&](auto dfs, ll v, ll c) -> bool {
@@ -33,21 +35,18 @@ int main() {
     return true;
   };
 
-  set<ll> seen;
-  ll ans = 0;
+  auto is_partial = [&]() {
+    return dfs(dfs, 0, 1);
+  };
 
-  rep(i, n) {
-    if (seen.count(uf.leader(i))) continue;
-
-    seen.emplace(uf.leader(i));
-    bool is_partial = dfs(dfs, uf.leader(i), 0);
-    if (is_partial) ans += w*b - e;
-    w = 0; b = 0; e = 0;
+  if (is_partial()) {
+    ll b = accumulate(colors.begin(), colors.end(), 0) + n;
+    b /= 2;
+    ll w = n-b;
+    cout << b*w - m << '\n';
   }
-
-  // ufで連結させる
-  // グラフのleaderから、グラフを見ていく
-  // そのグラフが二部グラフなら、white, blackの個数を求めて答えに加算
-  // そうでないなら無視
+  else {
+    cout << 0 << '\n';
+  }
   return 0;
 }

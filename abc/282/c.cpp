@@ -5,6 +5,23 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  string s;
+  cin >> s;
+
+  bool can_erase = true;
+  rep(i, n) {
+    if (s[i] == '"') {
+      can_erase ^= 1;
+    }
+    
+    if (s[i] == ',') {
+      if (can_erase) s[i] = '.';
+    }
+  }
+
+  cout << s << '\n';
   return 0;
 }

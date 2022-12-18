@@ -5,6 +5,13 @@ using ll = long long;
 
 
 int main() {
-  
+  ll k;
+  cin >> k;
+
+  string ans = "";
+  rep(i, k) {
+    ans += 'A'+i;
+  }
+  cout << ans << '\n';
   return 0;
 }
