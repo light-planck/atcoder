@@ -4,6 +4,8 @@ using namespace std;
 using ll = long long;
 
 
+ll s[301][301][301];
+
 int main() {
   ll H, W, n, h, w;
   cin >> H >> W >> n >> h >> w;
@@ -11,9 +13,8 @@ int main() {
   vector a(H, vector<ll>(W));
   rep(i, H) rep(j, W) cin >> a[i][j];
 
-  vector s(H, vector<map<ll, ll>>(W));
   rep(i, H) rep(j, W) {
-    s[i+1][j+1][a[i][j]] = ++s[i+1][j][a[i][j]];
+    s[i+1][j+1][a[i][j]] = s[i+1][j][a[i][j]] + 1;
   }
   return 0;
 }
