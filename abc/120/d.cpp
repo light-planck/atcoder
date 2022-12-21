@@ -10,7 +10,7 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  vector<pair> edge;
+  vector<pair<ll, ll>> edge;
   rep
   return 0;
 }

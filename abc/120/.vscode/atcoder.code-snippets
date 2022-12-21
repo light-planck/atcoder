@@ -17,11 +17,9 @@
   },
 
   "include all": {
-  "prefix": "all",
-  "body": [
-    "#include <bits/stdc++.h>"
-  ],
-  "description": "include all"
+    "prefix": "all",
+    "body": ["#include <bits/stdc++.h>"],
+    "description": "include all"
   },
 
   // 標準入出力
@@ -243,7 +241,7 @@
 
   "alias pair": {
     "prefix": "pair",
-    "body": ["using P = pair<ll, ll>;"],
+    "body": ["pair<$1, $2>$0"],
     "description": "alias pair"
   },
 
@@ -282,7 +280,9 @@
 
   "delta i, delta j": {
     "prefix": "didj",
-    "body": ["const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "body": [
+      "const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"
+    ],
     "description": "delta i, delta j"
   },
 
