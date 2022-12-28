@@ -254,7 +254,7 @@
   },
 
   "modint": {
-    "prefix": "modint",
+    "prefix": "mint",
     "body": [
       "// using mint = modint998244353;",
       "// using mint = modint1000000007;"
