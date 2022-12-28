@@ -156,7 +156,7 @@
 
   "edge": {
     "prefix": "edge",
-    "body": ["vector<vector<ll>> edge(n);"],
+    "body": ["vector edge(n, vector<ll>());"],
     "description": "edge"
   },
 
@@ -243,7 +243,7 @@
 
   "alias pair": {
     "prefix": "pair",
-    "body": ["using P = pair<ll, ll>;"],
+    "body": ["pair<$1, $2>$0"],
     "description": "alias pair"
   },
 
