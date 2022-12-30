@@ -5,6 +5,9 @@ using ll = long long;
 
 
 int main() {
-  
+  ll a, b;
+  cin >> a >> b;
+  if (a+b < 10) cout << a+b << '\n';
+  else cout << "error" << '\n';
   return 0;
 }

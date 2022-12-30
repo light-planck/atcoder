@@ -1,23 +1,13 @@
-#include <algorithm>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  cout << s.substr(0, 5) << " " << s.substr(6, 7) << " " << s.substr(14) << '\n';
   return 0;
 }

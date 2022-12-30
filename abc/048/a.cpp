@@ -18,6 +18,13 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n = 3;
+  vector<string> s(n);
+  rep(i, n) cin >> s[i];
+
+  string ans = "";
+  rep(i, n) ans += s[i][0];
+
+  cout << ans << '\n';
   return 0;
 }

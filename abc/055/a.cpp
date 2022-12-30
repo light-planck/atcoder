@@ -5,6 +5,9 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  cout << n*800 - (n/15)*200 << '\n';
   return 0;
 }

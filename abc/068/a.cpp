@@ -5,6 +5,9 @@ using ll = long long;
 
 
 int main() {
-  
+  string n;
+  cin >> n;
+
+  cout << "ABC"+n << '\n';
   return 0;
 }

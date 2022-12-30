@@ -18,6 +18,11 @@ using ll = long long;
 
 
 int main() {
-  
+  ll a, b;
+  char op;
+  cin >> a >> op >> b;
+
+  if (op == '+') cout << a+b << '\n';
+  else cout << a-b << '\n';
   return 0;
 }

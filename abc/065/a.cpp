@@ -5,6 +5,11 @@ using ll = long long;
 
 
 int main() {
+  ll x, a, b;
+  cin >> x >> a >> b;
   
+  if (b-a <= 0) cout << "delicious" << '\n';
+  else if (b-a <= x) cout << "safe" << '\n';
+  else cout << "dangerous" << '\n';
   return 0;
 }

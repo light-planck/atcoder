@@ -5,6 +5,9 @@ using ll = long long;
 
 
 int main() {
-  
+  ll x, t;
+  cin >> x >> t;
+
+  cout << max(x-t, 0ll) << '\n';
   return 0;
 }

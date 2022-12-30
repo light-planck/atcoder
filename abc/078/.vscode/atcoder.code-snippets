@@ -2,21 +2,7 @@
   "template": {
     "prefix": "cpp",
     "body": [
-      "#include <algorithm>",
-      "#include <cctype>",
-      "#include <cmath>",
-      "#include <complex>",
-      "#include <cstdio>",
-      "#include <deque>",
-      "#include <iostream>",
-      "#include <map>",
-      "#include <numeric>",
-      "#include <queue>",
-      "#include <set>",
-      "#include <string>",
-      "#include <tuple>",
-      "#include <utility>",
-      "#include <vector>",
+      "#include <bits/stdc++.h>",
       "#define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)",
       "using namespace std;",
       "using ll = long long;",
@@ -28,6 +14,14 @@
       "}"
     ],
     "description": "template"
+  },
+
+  "include all": {
+  "prefix": "all",
+  "body": [
+    "#include <bits/stdc++.h>"
+  ],
+  "description": "include all"
   },
 
   // 標準入出力
@@ -162,7 +156,7 @@
 
   "edge": {
     "prefix": "edge",
-    "body": ["vector<vector<ll>> edge(n);"],
+    "body": ["vector edge(n, vector<ll>());"],
     "description": "edge"
   },
 
@@ -249,7 +243,7 @@
 
   "alias pair": {
     "prefix": "pair",
-    "body": ["using P = pair<ll, ll>;"],
+    "body": ["pair<$1, $2>$0"],
     "description": "alias pair"
   },
 
@@ -260,7 +254,7 @@
   },
 
   "modint": {
-    "prefix": "modint",
+    "prefix": "mint",
     "body": [
       "// using mint = modint998244353;",
       "// using mint = modint1000000007;"
@@ -288,7 +282,7 @@
 
   "delta i, delta j": {
     "prefix": "didj",
-    "body": ["vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "body": ["const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
     "description": "delta i, delta j"
   },
 
