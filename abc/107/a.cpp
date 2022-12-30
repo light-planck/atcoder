@@ -5,7 +5,9 @@ using ll = long long;
 
 
 int main() {
-  ll x = 9e18;
-  cout << x * x << endl;
+  ll n, i;
+  cin >> n >> i;
+
+  cout << n-i+1 << '\n';
   return 0;
 }
