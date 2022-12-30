@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "cmath": "cpp",
+    "iostream": "cpp"
+  },
+
+  "codesnap.shutterAction": "copy"
+}
