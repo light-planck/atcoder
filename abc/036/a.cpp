@@ -5,6 +5,10 @@ using ll = long long;
 
 
 int main() {
-  
+  ll a, b;
+  cin >> a >> b;
+
+  auto round = [](ll a, ll b) { return (a + b - 1) / b; };
+  cout << round(b, a) << '\n';
   return 0;
 }
