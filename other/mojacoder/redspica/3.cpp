@@ -5,6 +5,11 @@ using ll = long long;
 
 
 int main() {
-  
+  ll k;
+  cin >> k;
+  ++k;
+
+  bitset<64> bit(k);
+  cout << bit << '\n';
   return 0;
 }
