@@ -23,25 +23,10 @@ Point rotate(const Point& p, const ldouble& theta) {
 
 
 int main() {
-  vector<Point> p(4);
-  rep(i, 2) {
-    ldouble x, y;
-    cin >> x >> y;
-    p[i] = Point(x, y);
-  }
+  Point p = {0, 1};
+  cout << p.imag() << " " << p.real() << '\n';
 
-  Point v = p[1] - p[0];
-  Point a = rotate(v, deg2rad(90.0));
-  p[2] = p[1] + a;
-  p[3] = p[0] + a;
-
-  auto print = [](Point p) {
-    // ll x = p.real() + 1e-1; ll y = p.imag() + 1e-1;
-    // cout << x << " " << y << '\n';
-    cout << p.real() << " " << p.imag() << '\n';
-  };
-
-  print(p[2]);
-  print(p[3]);
+  rotate(p, deg2rad(90));
+  cout << p.imag() << " " << p.real() << '\n';
   return 0;
 }

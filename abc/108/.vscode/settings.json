@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "complex": "cpp"
   },
 
   "codesnap.shutterAction": "copy"
