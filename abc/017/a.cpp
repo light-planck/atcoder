@@ -5,6 +5,13 @@ using ll = long long;
 
 
 int main() {
-  
+  ll ans = 0;
+  rep(i, 3) {
+    ll s, e;
+    cin >> s >> e;
+    ans += s * e / 10;
+  }
+
+  cout << ans << '\n';
   return 0;
 }

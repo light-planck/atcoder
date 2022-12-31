@@ -5,6 +5,16 @@ using ll = long long;
 
 
 int main() {
-  
+  ll x;
+  cin >> x;
+
+  ll ans = 0;
+  while (x) {
+    ll r = x % 10;
+    ans += r;
+    x /= 10;
+  }
+
+  cout << ans << '\n';
   return 0;
 }

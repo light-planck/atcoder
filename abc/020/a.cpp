@@ -5,6 +5,10 @@ using ll = long long;
 
 
 int main() {
-  
+  ll q;
+  cin >> q;
+
+  if (q == 1) cout << "ABC" << '\n';
+  else cout << "chokudai" << '\n';
   return 0;
 }

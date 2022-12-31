@@ -5,6 +5,10 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n = 3;
+  vector<ll> a(n);
+  rep(i, n) cin >> a[i];
+  sort(a.begin(), a.end());
+  cout << a[1] << '\n';
   return 0;
 }

@@ -5,6 +5,11 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  ++n;
+  if (n == 13) n = 1;
+  cout << n << '\n';
   return 0;
 }

@@ -16,19 +16,17 @@ int main() {
   ll n = s.size();
   for (ll i = 0; i < n; ++i) {
     for (ll j = i+1; j < n; ++j) {
-      ans.emplace(string{s[i]} + string{s[i]});
-      ans.emplace(string{s[j]} + string{s[j]});
+      ans.emplace(string{s[i], s[i]});
+      ans.emplace(string{s[j], s[j]});
 
-      ans.emplace(string{s[i]} + string{s[j]});
-      ans.emplace(string{s[j]} + string{s[i]});
+      ans.emplace(string{s[i], s[j]});
+      ans.emplace(string{s[j], s[i]});
     }
   }
-  sort(ans.begin(), ans.end());
 
   for (auto x : ans) {
-    cout << x << '\n';
+    if (idx == 0) cout << x << '\n';
+    --idx;
   }
-
-  // cout << ans[idx] << '\n';
   return 0;
 }

@@ -5,6 +5,8 @@ using ll = long long;
 
 
 int main() {
-  
+  ll x, y;
+  cin >> x >> y;
+  cout << y/x << '\n';
   return 0;
 }

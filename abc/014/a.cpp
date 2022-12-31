@@ -5,6 +5,10 @@ using ll = long long;
 
 
 int main() {
-  
+  ll a, b;
+  cin >> a >> b;
+
+  if (a%b == 0) cout << a%b << '\n';
+  else cout << b - a%b << '\n';
   return 0;
 }

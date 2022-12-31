@@ -5,6 +5,10 @@ using ll = long long;
 
 
 int main() {
-  
+  ll m, d;
+  cin >> m >> d;
+
+  if (m%d == 0) cout << "YES" << '\n';
+  else cout << "NO" << '\n';
   return 0;
 }
