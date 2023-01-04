@@ -129,7 +129,7 @@
   // 省略
   "inf": {
     "prefix": "inf",
-    "body": ["constexpr ll inf = 9e18;"],
+    "body": ["constexpr ll inf = 1ll << 60;"],
     "description": ""
   },
 
