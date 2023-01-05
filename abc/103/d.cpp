@@ -14,7 +14,7 @@ int main() {
     cin >> a >> b;
     lr.emplace_back(a, b);
   }
-  sort(lr.begin(), lr.end(), [](pair<ll, ll> a, pair<ll, ll>b ){ return a.second < b.second; });
+  sort(lr.begin(), lr.end(), [](pair<ll, ll> a, pair<ll, ll> b){ return a.second < b.second; });
 
   ll ans = 0;
   ll stop = 0;
