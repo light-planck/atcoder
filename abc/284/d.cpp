@@ -28,6 +28,7 @@ int main() {
           p = n / q;
           p = sqrt(p);
         }
+
         break;
       }
     }
