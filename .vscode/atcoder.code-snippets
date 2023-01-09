@@ -68,9 +68,7 @@
 
   "vvvll": {
     "prefix": "vvv",
-    "body": [
-      "vector $1($2, vector<vector<ll>>($3, vector<ll>($0)));"
-    ],
+    "body": ["vector $1($2, vector<vector<ll>>($3, vector<ll>($0)));"],
     "description": ""
   },
 
@@ -282,7 +280,9 @@
 
   "delta i, delta j": {
     "prefix": "didj",
-    "body": ["const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "body": [
+      "const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"
+    ],
     "description": "delta i, delta j"
   },
 
@@ -302,5 +302,11 @@
     "prefix": "pi",
     "body": ["const ldouble PI = acos(-1);"],
     "description": "pi"
-  }
+  },
+
+  "accumulate": {
+    "prefix": "accumulate",
+    "body": ["accumulate($1.begin(), $1.end(), 0ll)$0"],
+    "description": "accumulate"
+  },
 }

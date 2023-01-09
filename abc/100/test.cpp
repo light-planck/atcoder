@@ -5,13 +5,7 @@ using ll = long long;
 
 
 int main() {
-  ll d, n;
-  cin >> d >> n;
-
-  ll cnt = 0;
-  ll ans = 0;
-  while (cnt < n) {
-    auto count = [](ll x) {
+  auto count = [](ll x) {
       ll res = 0;
       while (x%100 == 0) {
         ++res;
@@ -22,12 +16,6 @@ int main() {
       else return res;
     };
 
-    if (count(ans) == d) ++cnt;
-    ++ans;
-  }
-
-  cout << ans << '\n';
+  cout << count(1000) << '\n';
   return 0;
 }
-
-accumulate
