@@ -9,25 +9,23 @@ int main() {
   cin >> d >> n;
 
   ll cnt = 0;
-  ll ans = 0;
-  while (cnt < n) {
+  ll ans = 1;
+  while (true) {
     auto count = [](ll x) {
       ll res = 0;
       while (x%100 == 0) {
         ++res;
         x /= 100;
       }
-
-      if (x) return 0ll;
-      else return res;
+      return res;
     };
 
     if (count(ans) == d) ++cnt;
+    if (cnt >= n) break;
+
     ++ans;
   }
 
   cout << ans << '\n';
   return 0;
 }
-
-accumulate
