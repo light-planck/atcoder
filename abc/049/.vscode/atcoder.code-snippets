@@ -16,14 +16,6 @@
     "description": "template"
   },
 
-  "include all": {
-  "prefix": "all",
-  "body": [
-    "#include <bits/stdc++.h>"
-  ],
-  "description": "include all"
-  },
-
   // 標準入出力
   "cout << n": {
     "prefix": "cout",
@@ -45,7 +37,7 @@
 
   "printf": {
     "prefix": "printf",
-    "body": ["printf(\"%.10Lf\\n\", $0);"],
+    "body": ["printf(\"%.10f\\n\", $0);"],
     "description": ""
   },
 
@@ -71,6 +63,12 @@
   "vvll": {
     "prefix": "vv",
     "body": ["vector $1($2, vector<ll>($0));"],
+    "description": ""
+  },
+
+  "vvvll": {
+    "prefix": "vvv",
+    "body": ["vector $1($2, vector<vector<ll>>($3, vector<ll>($0)));"],
     "description": ""
   },
 
@@ -122,14 +120,14 @@
 
   "set": {
     "prefix": "st",
-    "body": ["set<ll>"],
+    "body": ["set<$1>$0"],
     "description": "set"
   },
 
   // 省略
   "inf": {
     "prefix": "inf",
-    "body": ["constexpr ll inf = 9e18;"],
+    "body": ["constexpr ll inf = 1ll << 60;"],
     "description": ""
   },
 
@@ -193,7 +191,7 @@
   "pow": {
     "prefix": "pow",
     "body": [
-      "auto Pow(ll x, ll n) { ll res = 1; while (n > 0) { if (n & 1) res *= x; x *= x; n >>= 1; } return res; }"
+      "auto Pow = [](ll x, ll n) { ll res = 1; while (n > 0) { if (n & 1) res *= x; x *= x; n >>= 1; } return res; };"
     ],
     "description": "pow"
   },
@@ -282,7 +280,9 @@
 
   "delta i, delta j": {
     "prefix": "didj",
-    "body": ["const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"],
+    "body": [
+      "const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};"
+    ],
     "description": "delta i, delta j"
   },
 
@@ -302,5 +302,11 @@
     "prefix": "pi",
     "body": ["const ldouble PI = acos(-1);"],
     "description": "pi"
-  }
+  },
+
+  "accumulate": {
+    "prefix": "accumulate",
+    "body": ["accumulate($1.begin(), $1.end(), 0ll)$0"],
+    "description": "accumulate"
+  },
 }
