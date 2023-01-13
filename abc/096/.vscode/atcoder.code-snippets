@@ -92,7 +92,7 @@
 
   "mp": {
     "prefix": "mp",
-    "body": ["map<ll, ll>"],
+    "body": ["map<$1, $1>$0"],
     "description": ""
   },
 
