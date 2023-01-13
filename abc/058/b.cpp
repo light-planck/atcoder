@@ -5,6 +5,14 @@ using ll = long long;
 
 
 int main() {
-  
+  string o;
+  cin >> o;
+
+  string e;
+  cin >> e;
+
+  ll n = e.size();
+  rep(i, n) cout << o[i] << e[i];
+  if (o.size() != e.size()) cout << o.back() << '\n';
   return 0;
 }
