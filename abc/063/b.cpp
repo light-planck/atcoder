@@ -5,6 +5,14 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  set<char> st;
+  for (auto c : s) st.emplace(c);
+  ll n = s.size();
+
+  if ((ll)st.size() == n) cout << "yes" << '\n';
+  else cout << "no" << '\n';
   return 0;
 }
