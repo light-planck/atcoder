@@ -5,6 +5,19 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  map<char, ll> cnt;
+  for (auto c : s) ++cnt[c];
+
+  for (auto [c, x] : cnt) {
+    if (x%2 == 1) {
+      cout << "No" << '\n';
+      return 0;
+    }
+  }
+
+  cout << "Yes" << '\n';
   return 0;
 }
