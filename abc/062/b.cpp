@@ -5,6 +5,16 @@ using ll = long long;
 
 
 int main() {
-  
+  ll h, w;
+  cin >> h >> w;
+
+  vector<string> a(h);
+  rep(i, h) cin >> a[i];
+
+  cout << string(w+2, '#') << '\n';
+  rep(i, h) {
+    cout << '#' << a[i] << '#' << '\n';
+  }
+  cout << string(w+2, '#') << '\n';
   return 0;
 }
