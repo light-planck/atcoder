@@ -5,6 +5,24 @@ using ll = long long;
 
 
 int main() {
-  
+  ll n;
+  cin >> n;
+
+  string s;
+  cin >> s;
+
+  string ans = "";
+  char prev = '.';
+  for (auto c : s) {
+    if (prev == 'n' and c == 'a') {
+      ans.pop_back();
+      ans += "nya";
+    }
+    else ans += c;
+
+    prev = c;
+  }
+
+  cout << ans << '\n';
   return 0;
 }
