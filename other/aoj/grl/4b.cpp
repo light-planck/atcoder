@@ -9,31 +9,29 @@ int main() {
   cin >> n >> m;
 
   vector edge(n, vector<ll>());
-  vector<ll> indegree(n);
   rep(i, m) {
     ll s, t;
     cin >> s >> t;
     edge[s].emplace_back(t);
-    ++indegree[t];
   }
 
-  queue<ll> que;
-  auto push = [&](ll i) {
-    if (indegree[i] == 0) que.emplace(i);
-  };
-  rep(i, n) push(i);
-
+  vector<bool> seen(n);
   vector<ll> ans;
-  while (not que.empty()) {
-    ll v = que.front();
-    que.pop();
-    ans.emplace_back(v);
+  auto dfs = [&](auto dfs, ll v) -> void {
+    seen[v] = true;
     for (auto to : edge[v]) {
-      --indegree[to];
-      push(to);
+      if (seen[to]) continue;
+      dfs(dfs, to);
     }
+    ans.emplace_back(v);
+  };
+
+  rep(i, n) {
+    if (seen[i]) continue;
+    dfs(dfs, i);
   }
 
+  reverse(ans.begin(), ans.end());
   for (auto v : ans) cout << v << ' ';
   cout << '\n';
   return 0;
