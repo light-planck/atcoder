@@ -5,6 +5,12 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  for (auto c : s) {
+    cout << (char)toupper(c);
+  }
+  cout << '\n';
   return 0;
 }
