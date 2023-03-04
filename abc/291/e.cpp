@@ -8,42 +8,43 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  vector edge(n, vector<ll>());
-  vector<ll> indegree(n);
+  vector graph(n, vector<ll>());
+  set<pair<ll, ll>> edge;
   rep(i, m) {
     ll x, y;
     cin >> x >> y;
     --x; --y;
-    edge[x].emplace_back(y);
-    ++indegree[y];
+    graph[x].emplace_back(y);
+    edge.emplace(x, y);
   }
 
-  queue<ll> que;
-  auto push = [&](ll v) {
-    if (indegree[v] == 0) que.emplace(v);
-  };
-  rep(i, n) push(i);
-
   vector<ll> idx;
-  while (not que.empty()) {
-    if ((ll)que.size() != 1) {
+  vector<bool> seen(n);
+  auto dfs = [&](auto dfs, ll v) -> void {
+    seen[v] = true;
+    for (auto to : graph[v]) {
+      if (seen[to]) continue;
+      dfs(dfs, to);
+    }
+    idx.emplace_back(v);
+  };
+
+  rep(i, n) {
+    if (seen[i]) continue;
+    dfs(dfs, i);
+  }
+  reverse(idx.begin(), idx.end());
+
+  rep(i, n-1) {
+    if (not edge.count({idx[i], idx[i+1]})) {
       cout << "No" << '\n';
       return 0;
-    }
-
-    ll v = que.front();
-    que.pop();
-    idx.emplace_back(v);
-
-    for (auto to : edge[v]) {
-      --indegree[to];
-      push(to);
     }
   }
 
   vector<ll> ans(n);
-  for (auto i : idx) ans[idx[i]] = i + 1;
-  
+  rep(i, n) ans[idx[i]] = i + 1;
+
   cout << "Yes" << '\n';
   for (auto v : ans) cout << v << ' ';
   cout << '\n';
