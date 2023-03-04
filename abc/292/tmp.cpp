@@ -5,12 +5,6 @@ using ll = long long;
 
 
 int main() {
-  string s;
-  cin >> s;
-
-  for (auto c : s) {
-    cout << (char)(c - ' ');
-  }
-  cout << '\n';
+  cout << char('a' - 'A') << endl;
   return 0;
 }
