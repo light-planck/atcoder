@@ -9,7 +9,7 @@ int main() {
   cin >> s;
 
   for (auto c : s) {
-    cout << (char)toupper(c);
+    cout << (char)(c - 'a' + 'A');
   }
   cout << '\n';
   return 0;
