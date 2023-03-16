@@ -8,41 +8,34 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  vector graph(n, vector<bool>(n));
   vector edge(n, vector<ll>());
-  rep(i, m) {
+  rep(_, m) {
     ll u, v;
     cin >> u >> v;
     --u; --v;
-    graph[u][v] = true;
     edge[u].emplace_back(v);
   }
 
   ll ans = 0;
+  rep(s, n) {
+    vector<bool> visited(n);
+    visited[s] = true;
 
-  auto merge = [&](auto merge, ll u, ll v) -> void {
-    // cout << "merge u, v: " << u+1 << " " << v+1 << endl;
-    ++ans;
-    graph[u][v] = true;
-    for (auto to : edge[v]) {
-      if (not graph[u][to]) merge(merge, u, to);
-    }
-  };
+    queue<ll> que;
+    que.emplace(s);
+    while (not que.empty()) {
+      ll v = que.front(); que.pop();
 
-  rep(i, n) {
-    for (auto v : edge[i]) {
-      if (i == v) continue;
       for (auto to : edge[v]) {
-        if (v == to) continue;
-        if (i == to) continue;
+        if (visited[to]) continue;
 
-        if (not graph[i][to]) {
-          merge(merge, i, to);
-        }
+        visited[to] = true;
+        que.emplace(to);
+        ++ans;
       }
     }
   }
 
-  cout << ans << '\n';
+  cout << ans-m << '\n';
   return 0;
 }
