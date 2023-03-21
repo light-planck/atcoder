@@ -5,6 +5,13 @@ using ll = long long;
 
 
 int main() {
-  
+  string s;
+  cin >> s;
+
+  ll p = s.size() / 2;
+  for (auto c : s) {
+    if (c == 'p') --p;
+  }
+  cout << p << '\n';
   return 0;
 }
