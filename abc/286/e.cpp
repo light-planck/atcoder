@@ -14,24 +14,33 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-
   constexpr ll inf = 1ll << 60;
-  vector dist(n, vector<ll>(n, 0));
-  vector path(n, vector<ll>(n));
-  rep(i, n) rep(j, n) {
-    if (s[i][j] == 'Y') dist[i][j] = a[j];
-
-    // if (i == j) dist[i][j] = 0;
-    // else if (s[i][j] == 'Y') {
-    //   dist[i][j] = a[j];
-    // }
+  vector dist(n, vector<ll>(n));
+  rep(i, n) {
+    string s;
+    cin >> s;
+    rep(j, n) {
+      if (s[j] == 'Y') dist[i][j] = 1;
+      else dist[i][j] = inf;
+    }
   }
+
+  vector val(n, vector<ll>(n));
+  rep(i, n) rep(j, n) {
+    val[i][j] = a[i];
+  }
+
   rep(k, n) rep(i, n) rep(j, n) {
-    auto chmax = [](auto& a, auto b) { if (a < b) a = b; };
-    // auto chmin = [](auto& a, auto b) { if (a > b) a = b; };
-    chmax(dist[i][j], dist[i][k]+dist[k][j]);
+    if (dist[i][k]+dist[k][j] < dist[i][j]) {
+      dist[i][j] = dist[i][k] + dist[k][j];
+      val[i][j] = val[i][k] + val[k][j];
+    }
+    else if (dist[i][k]+dist[k][j] == dist[i][j]) {
+      if (val[i][k]+val[k][j] > val[i][j]) {
+        dist[i][j] = dist[i][k] + dist[k][j];
+        val[i][j] = val[i][k] + val[k][j];
+      }
+    }
   }
 
   ll q;
@@ -41,9 +50,8 @@ int main() {
     ll u, v;
     cin >> u >> v;
     --u; --v;
-
     if (dist[u][v] == inf) cout << "Impossible" << '\n';
-    else cout << path[u][v] << " " << dist[u][v]+a[u] << '\n';
+    else cout << dist[u][v] << " " << val[u][v]+a[v] << '\n';
   }
   return 0;
 }
