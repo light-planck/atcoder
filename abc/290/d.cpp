@@ -14,20 +14,9 @@ int main() {
   while (t--) {
     ll n, d, k;
     cin >> n >> d >> k;
-    ll l = d % n;
-
-    if (l == 0) {
-      cout << k << '\n';
-      continue;
-    }
-
-    if (n%l == 0) {
-      if (k <= n/l) cout << (l*(k-1)) % n << '\n';
-      else cout << (1+l*k-n-l) % n << '\n';
-    }
-    else {
-      cout << (l*(k-1)) % n << '\n';
-    }
+    --k;
+    ll g = gcd(n, d);
+    cout << (k/(n/g) + k*d) % n << '\n';
   }
   return 0;
 }
