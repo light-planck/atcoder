@@ -16,28 +16,27 @@ int main() {
     animals[0] = a;
     animals[n-1] = b;
     bool ok = true;
+
     rep(i, n) {
       ll prev = (i-1+n) % n;
       ll next = (i+1) % n;
+
+      auto not_flip = [&]() {
+        if (animals[next] == -1) animals[next] = animals[prev];
+        else if (animals[next] != animals[prev]) ok = false;
+      };
+      auto flip = [&]() {
+        if (animals[next] == -1) animals[next] = animals[prev] ^ 1;
+        else if (animals[next] == animals[prev]) ok = false;
+      };
+
       if (animals[i] == 1) {
-        if (s[i] == 'o') {
-          if (animals[next] == -1) animals[next] = animals[prev];
-          else if (animals[next] != animals[prev]) ok = false;
-        }
-        else {
-          if (animals[next] == -1) animals[next] = animals[prev] ^ 1;
-          else if (animals[next] == animals[prev]) ok = false;
-        }
+        if (s[i] == 'o') not_flip();
+        else flip();
       }
       else {
-        if (s[i] == 'o') {
-          if (animals[next] == -1) animals[next] = animals[prev] ^ 1;
-          else if (animals[next] == animals[prev]) ok = false;
-        }
-        else {
-          if (animals[next] == -1) animals[next] = animals[prev];
-          else if (animals[next] != animals[prev]) ok = false;
-        }
+        if (s[i] == 'o') flip();
+        else not_flip();
       }
     }
 

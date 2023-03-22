@@ -4,7 +4,8 @@
     "*.tcc": "cpp",
     "deque": "cpp",
     "vector": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "chrono": "cpp"
   },
 
   "codesnap.shutterAction": "copy"
