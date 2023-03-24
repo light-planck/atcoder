@@ -1,29 +1,17 @@
-#include <algorithm>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <deque>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 #define rep(i, n) for (long long i = 0; i < (long long)(n); ++i)
 using namespace std;
 using ll = long long;
 #include <atcoder/modint>
 using namespace atcoder;
+using mint = modint998244353;
 
 
 int main() {
   ll n, m, k;
   cin >> n >> m >> k;
 
-  using mint = modint998244353;
+  mint inv = (mint)1/m;
   vector<mint> dp(n+1);
   dp[0] = 1;
 
@@ -31,27 +19,20 @@ int main() {
     vector<mint> prev(n+1);
     swap(prev, dp);
 
-    rep(j, n+1) {
-      if (prev[j] == 0) continue;
+    for (ll j = 0; j <= n; ++j) {
+      if (j == n) {
+        dp[j] += prev[j];
+        continue;
+      }
 
-      for (ll dj = 1; dj <= m; ++dj) {
-        ll nj = j + dj;
-        if (nj > n) nj -= n;
-
-        dp[nj] += prev[j];
+      for (ll dice = 1; dice <= m; ++dice) {
+        ll nj = j + dice;
+        if (nj > n) nj = n - (nj-n);
+        dp[nj] += prev[j] * inv;
       }
     }
   }
 
-  if (dp[n] == 0) {
-    cout << 0 << '\n';
-    return 0;
-  }
-
-  mint x = 2;
-  x = x.pow(k) / dp[n];
-
-  mint ans = mint(x).inv();
-  cout << ans.val() << '\n';
+  cout << dp[n].val() << '\n';
   return 0;
 }
