@@ -309,10 +309,4 @@
     "body": ["accumulate($1.begin(), $1.end(), 0ll)$0"],
     "description": "accumulate"
   },
-
-  "long long": {
-    "prefix": "ll",
-    "body": ["long long"],
-    "description": ""
-  }
 }
