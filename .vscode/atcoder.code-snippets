@@ -148,7 +148,7 @@
 
   "dfs": {
     "prefix": "dfs",
-    "body": ["auto dfs = [&](auto dfs, ) -> void {", "  ", "};"],
+    "body": ["auto dfs = [&](auto self, ) -> void {", "  ", "};"],
     "description": "dfs"
   },
 
