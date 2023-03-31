@@ -3,7 +3,8 @@
     "cmath": "cpp",
     "*.tcc": "cpp",
     "deque": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "iostream": "cpp"
   },
 
   "codesnap.shutterAction": "copy"
