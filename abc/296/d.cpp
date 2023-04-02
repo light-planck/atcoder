@@ -8,24 +8,12 @@ int main() {
   ll n, m;
   cin >> n >> m;
 
-  auto Round = [](ll a, ll b) { return (a + b - 1) / b; };
-  if (n < Round(m, n)) {
-    cout << -1 << endl;
-    return 0;
-  }
-
   constexpr ll inf = 1ll << 60;
   ll ans = inf;
-  ll limit = llround(sqrt(m));
-
-  for (ll a = 1; a <= limit; ++a) {
-    ll b = Round(m, a);
-
-    if (a < 1 or a > n) continue;
-    if (b < 1 or b > n) continue;
-    if (a*b < m) continue;
-
-    ans = min(ans, a*b);
+  for (ll a = 1; a <= n; ++a) {
+    ll b = (m+a-1) / a;
+    if (b <= n) ans = min(ans, a*b);
+    if (a > b) break;
   }
 
   if (ans == inf) ans = -1;
