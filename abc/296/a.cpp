@@ -11,13 +11,11 @@ int main() {
   string s;
   cin >> s;
 
-  char prev = 'x';
-  rep(i, n) {
-    if (s[i] == prev) {
+  rep(i, n-1) {
+    if (s[i] == s[i+1]) {
       cout << "No" << '\n';
       return 0;
     }
-    prev = s[i];
   }
 
   cout << "Yes" << '\n';
