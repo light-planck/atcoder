@@ -9,12 +9,15 @@ int main() {
   cin >> s >> t;
 
   ll n = s.size();
-  set<char> st = {'a', 't', 'c', 'o', 'd', 'e', 'r'};
+  set<char> st = {'a', 't', 'c', 'o', 'd', 'e', 'r', '@',};
   rep(i, n) {
+
     bool ng = false;
-    if (t[i] == '@') swap(s[i], t[i]);
-    if (s[i] == '@' and t[i] != '@' and not st.count(t[i])) {
-      ng = true;
+    if (t[i] == '@') {
+      if (not st.count(s[i])) ng = true;
+    }
+    else if (s[i] == '@') {
+      if (not st.count(t[i])) ng = true;
     }
     else if (s[i] != t[i]) ng = true;
 
