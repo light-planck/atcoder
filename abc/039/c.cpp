@@ -22,7 +22,8 @@ int main() {
       cout << melody[step] << '\n';
       return 0;
     }
-    ++step;
+
+    if (s[i] == 'W') ++step;
   }
   return 0;
 }
