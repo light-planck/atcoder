@@ -56,7 +56,7 @@
 
   "vll": {
     "prefix": "vll",
-    "body": ["vector $1($2, 0ll)$0"],
+    "body": ["vector<ll>$0"],
     "description": ""
   },
 
