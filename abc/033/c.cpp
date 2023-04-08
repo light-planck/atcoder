@@ -9,18 +9,15 @@ int main() {
   cin >> s;
 
   ll ans = 0;
-  ll now = 1;
-
-  for (char c : s) {
+  bool zero = false;
+  for (auto c : s) {
     if (c == '+') {
-      if (now != 0) ++ans;
-      now = 1;
+      if (not zero) ++ans;
+      zero = false;
     }
-    else if(isdigit(c)) {
-      now *= (ll)(c - '0');
-    }
+    else if (c == '0') zero = true;
   }
-  if (now != 0) ++ans;
+  if (not zero) ++ans;
 
   cout << ans << '\n';
   return 0;
