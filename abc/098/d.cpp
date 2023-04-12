@@ -8,24 +8,22 @@ int main() {
   ll n;
   cin >> n;
 
-  vector a(n, 0ll);
+  vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
   ll ans = 0;
+  deque<ll> deq;
   ll sum = 0;
-  ll r = 0;
-  rep(l, n) {
-    while ((r<n) and (sum+a[r]==(sum^a[r]))) {
-      sum += a[r];
-      ++r;
+  rep(i, n) {
+    deq.emplace_back(a[i]);
+    sum += a[i];
+
+    while (not deq.empty() and ((sum-a[i]) != (sum^a[i]))) {
+      sum -= deq[0];
+      deq.pop_front();
     }
 
-    ans += r - l;
-
-    // [l, l]が条件を満たさないとき、lだけインクリメントされるので
-    // rもインクリメントする
-    if (r == l) ++r;
-    else sum -= a[l];
+    ans += deq.size();
   }
 
   cout << ans << '\n';
