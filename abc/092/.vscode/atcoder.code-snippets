@@ -56,7 +56,7 @@
 
   "vll": {
     "prefix": "vll",
-    "body": ["vector<ll>"],
+    "body": ["vector<ll>$0"],
     "description": ""
   },
 
@@ -148,7 +148,7 @@
 
   "dfs": {
     "prefix": "dfs",
-    "body": ["auto dfs = [&](auto dfs, ) -> void {", "  ", "};"],
+    "body": ["auto dfs = [&](auto self, ) -> void {", "  ", "};"],
     "description": "dfs"
   },
 
@@ -309,4 +309,10 @@
     "body": ["accumulate($1.begin(), $1.end(), 0ll)$0"],
     "description": "accumulate"
   },
+
+  "long long": {
+    "prefix": "ll",
+    "body": ["long long"],
+    "description": ""
+  }
 }
