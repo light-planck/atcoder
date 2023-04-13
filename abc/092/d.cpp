@@ -17,10 +17,11 @@ int main() {
 
   // 上半分の白をb個黒に塗る
   [&] {
-    rep(i, h) rep(j, w) {
+    for (ll i = 0; i < h/2; ++i) rep(j, w) {
       if (b == 0) return;
       bool ok = true;
 
+      // 上下左右が黒なら塗らない
       for (auto [di, dj] : dij) {
         ll ni = i + di; ll nj = j + dj;
         if (ni < 0 or ni >= h) continue;
@@ -41,6 +42,7 @@ int main() {
       if (a == 0) return;
       bool ok = true;
 
+      // 上下左右が白なら塗らない
       for (auto [di, dj] : dij) {
         ll ni = i + di; ll nj = j + dj;
         if (ni < 0 or ni >= h) continue;
@@ -56,6 +58,12 @@ int main() {
   } ();
 
   cout << h << " " << w << '\n';
-  for (string row : s) cout << row << '\n';
+  // for (string row : s) cout << row << '\n';
+
+  // debug
+  rep(i, h) {
+    cout << i << ' ';
+    cout << s[i] << '\n';
+  }
   return 0;
 }
