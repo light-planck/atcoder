@@ -13,57 +13,31 @@ int main() {
   vector<string> s(h, string(w, '.'));
   for (ll i = h/2; i < h; ++i) s[i] = string(w, '#');
 
-  const vector<pair<ll, ll>> dij = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
   // 上半分の白をb個黒に塗る
-  [&] {
-    for (ll i = 0; i < h/2; ++i) rep(j, w) {
-      if (b == 0) return;
-      bool ok = true;
-
-      // 上下左右が黒なら塗らない
-      for (auto [di, dj] : dij) {
-        ll ni = i + di; ll nj = j + dj;
-        if (ni < 0 or ni >= h) continue;
-        if (nj < 0 or nj >= w) continue;
-        if (s[ni][nj] == '#') ok = false;
-      }
-
-      if (ok){
-        s[i][j] = '#';
-        --b;
-      }
+  for (ll i = 0; i < h/2 - 1; i += 2) for (ll j = 0; j < w; j += 2) {
+    if (b > 0){
+      s[i][j] = '#';
+      --b;
     }
-  } ();
+    if (b == 0) break;
+  }
 
   // 下半分の黒をa個分白に塗る
-  [&] {
-    for (ll i = h/2; i < h; ++i) rep(j, w) {
-      if (a == 0) return;
-      bool ok = true;
-
-      // 上下左右が白なら塗らない
-      for (auto [di, dj] : dij) {
-        ll ni = i + di; ll nj = j + dj;
-        if (ni < 0 or ni >= h) continue;
-        if (nj < 0 or nj >= w) continue;
-        if (s[ni][nj] == '.') ok = false;
-      }
-
-      if (ok) {
-        s[i][j] = '.';
-        --a;
-      }
+  for (ll i = h/2 + 1; i < h; i += 2) for (ll j = 0; j < w; j += 2) {
+    if (a > 0) {
+      s[i][j] = '.';
+      --a;
     }
-  } ();
+    if (a == 0) break;
+  }
 
   cout << h << " " << w << '\n';
-  // for (string row : s) cout << row << '\n';
+  for (string row : s) cout << row << '\n';
 
   // debug
-  rep(i, h) {
-    cout << i << ' ';
-    cout << s[i] << '\n';
-  }
+  // rep(i, h) {
+  //   cout << i << ": ";
+  //   cout << s[i] << '\n';
+  // }
   return 0;
 }
