@@ -11,30 +11,21 @@ int main() {
   vector<ll> a(n);
   rep(i, n) cin >> a[i];
 
-  auto push = [&](set<ll>& st, ll x) {
-    st.emplace(x);
+  set<ll> st = {0};
+
+  auto push = [&](ll x) {
+    rep(i, n) st.emplace(x + a[i]);
     while ((ll)st.size() > k+1) {
-      ll mx = *st.rbegin();
-      st.erase(mx);
+      st.erase(*st.rbegin());
     }
   };
 
-  set<ll> dp;
-  push(dp, 0);
-
-  rep(i, n) {
-    set<ll> prev;
-    swap(prev, dp);
-
-    for (ll x : prev) {
-      rep(j, k) {
-        if ((ll)dp.size() > k+1 and *dp.rbegin() < x+a[i]*j) break;
-        push(dp, x+a[i]*j);
-      }
-    }
+  rep(i, k) {
+    ll mn = *st.begin();
+    push(mn);
+    st.erase(mn);
   }
 
-  auto itr = dp.rbegin();
-  cout << *itr << '\n';
+  cout << *st.begin() << '\n';
   return 0;
 }
