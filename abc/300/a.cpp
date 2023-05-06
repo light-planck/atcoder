@@ -5,6 +5,15 @@ using ll = long long;
 
 
 int main() {
-  cout << "hello" << '\n';
+  ll n, a, b;
+  cin >> n >> a >> b;
+
+  rep(i, n) {
+    ll c;
+    cin >> c;
+    if (c == a+b) {
+      cout << i+1 << '\n';
+    }
+  }
   return 0;
 }
