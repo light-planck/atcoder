@@ -11,7 +11,7 @@ int main() {
   vector<string> s(h);
   rep(i, h) cin >> s[i];
 
-  vector<pair<ll, ll>> dij = {{-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
+  const vector<pair<ll, ll>> dij = {{-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
 
   auto check_ij = [&](ll i, ll j) {
     if (i < 0 or i >= h) return false;
@@ -22,12 +22,12 @@ int main() {
   rep(i, h) {
     rep(j, w) {
       for (auto [di, dj] : dij) {
-        // set<char> st = {'s', 'n', 'u', 'k', 'e'};
         string snuke = "snuke";
         bool ok = true;
-        map<char, pair<ll, ll>> memo;
+        const ll len = 5;
+        vector<pair<ll, ll>> rc(len);
 
-        rep(k, 5) {
+        rep(k, len) {
           ll ni = i + di*k;
           ll nj = j + dj*k;
 
@@ -37,17 +37,13 @@ int main() {
           }
 
           if (snuke[k] != s[ni][nj]) ok = false;
-          else {
-            memo[s[ni][nj]] = {ni+1, nj+1};
-          }
+          else rc[k] = {ni+1, nj+1};
         }
 
         if (ok) {
-          cout << memo['s'].first << " " << memo['s'].second << '\n';
-          cout << memo['n'].first << " " << memo['n'].second << '\n';
-          cout << memo['u'].first << " " << memo['u'].second << '\n';
-          cout << memo['k'].first << " " << memo['k'].second << '\n';
-          cout << memo['e'].first << " " << memo['e'].second << '\n';
+          for (auto [r, c] : rc) {
+            cout << r << " " << c << '\n';
+          }
           exit(0);
         }
       }
