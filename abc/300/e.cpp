@@ -11,29 +11,20 @@ int main() {
   ll n;
   cin >> n;
 
-  vector<mint> dp(n+1);
-  dp[1] = 1;
+  map<ll, mint> memo;
 
-  mint div = (mint)1 / 6;
+  auto dfs = [&](auto self, ll i) -> void {
+    if (memo.count(i)) return memo[i];
 
-  auto loop = [&]() {
-    while (true) {
-      vector<mint> prev(n+1);
-      swap(prev, dp);
-
-      for (ll j = 1; j <= n; ++j) {
-        if (prev[j] == 0) continue;
-
-        for (ll k = 1; k <= n; ++k) {
-          if (j*k > n) return;
-
-          dp[j*k] += prev[j] * div;
-        }
-      }
+    mint res = 0;
+    for (ll j = 2; j <= 6; ++j) {
+      res += memo[j];
     }
-  };
-  loop();
 
-  cout << dp[n].val() << '\n';
+    return memo[i] = res;
+  }
+  dfs();
+
+  cout << memo[n].val() << '\n';
   return 0;
 }
