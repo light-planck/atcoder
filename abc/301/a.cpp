@@ -11,29 +11,16 @@ int main() {
   string s;
   cin >> s;
 
-  ll cnt = 0;
+  ll t = 0;
   for (auto c : s) {
-    if (c == 'T') ++cnt;
+    if (c == 'T') ++t;
   }
 
-  if (cnt > n-cnt) cout << 'T' << '\n';
-  else if (cnt < n-cnt) cout << 'A' << '\n';
+  if (t > n-t) cout << 'T' << '\n';
+  else if (t < n-t) cout << 'A' << '\n';
   else {
-    ll t = 0;
-    ll a = 0;
-    for (auto c : s) {
-      if (c == 'T') ++t;
-      if (c == 'A') ++a;
-
-      if (t == cnt) {
-        cout << 'T' << '\n';
-        exit(0);
-      }
-      if (a == cnt) {
-        cout << 'A' << '\n';
-        exit(0);
-      }
-    }
+    if (s.back() == 'T') cout << 'A' << '\n';
+    else cout << 'T' << '\n';
   }
   return 0;
 }
