@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-problem=$1
-g ${problem}.cpp
-oj t ${problem}.cpp
+file_name=$1
+g++-11 -std=c++17 -g -Wall -Wextra -fsanitize=address,undefined $file_name
+oj t
