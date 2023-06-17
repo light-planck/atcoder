@@ -1,2 +1,4 @@
 *.out
 test/
+tools/
+secrets/
