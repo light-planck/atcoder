@@ -1,0 +1,1 @@
+./a.out | clip.exe

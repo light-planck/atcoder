@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "cmath": "cpp",
+    "*.tcc": "cpp",
+    "deque": "cpp",
+    "vector": "cpp",
+    "iostream": "cpp",
+    "new": "cpp",
+    "type_traits": "cpp"
+  },
+
+  "codesnap.shutterAction": "copy"
+}
