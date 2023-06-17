@@ -1,8 +1,9 @@
 #!/bin/zsh
 
-contest=$1
-number=$2
-problem=$3
+contest=$(basename ${PWD%/*})
+number=$(basename $PWD)
+problem=$1
+
 url="https://atcoder.jp/contests/${contest}${number}/tasks/${contest}${number}_${problem}"
 
 rm -rf test
