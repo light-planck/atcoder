@@ -1,4 +1,6 @@
 # AtCoder
 
-競技プログラミングサイトAtCoderのコードです。  
-[プロフィールはこちら](https://atcoder.jp/users/planck16)  
+## About this
+
+AtCoderの提出コード・シェルスクリプト・テンプレートを管理するリポジトリです。  
+[ID: planck16](https://atcoder.jp/users/planck16)  
