@@ -4,6 +4,12 @@ using namespace std;
 using ll = long long;
 
 int main() { 
-  
+  ll n, p, q;
+  cin >> n >> p >> q;
+
+  vector<ll> d(n);
+  rep(i, n) cin >> d[i];
+
+  cout << min(p, q + *min_element(d.begin(), d.end())) << '\n';
   return 0;
 }
