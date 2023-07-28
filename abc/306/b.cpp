@@ -8,11 +8,11 @@ using ull = unsigned long long;
 int main() { 
   ll n = 64;
   
-  ll ans = 0;
+  ull ans = 0;
   rep(i, n) {
     ull a;
     cin >> a;
-    ans += a * (1ll << i);
+    ans += a << i;
   }
 
   cout << ans << '\n';
