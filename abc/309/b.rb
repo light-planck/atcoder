@@ -1,5 +1,5 @@
 N = gets.to_i
-A = Array.new(N) { gets.chomp.chars }
+A = Array.new(N) { gets.chomp }
 
 B = Marshal.load(Marshal.dump(A))
 (0...N).each do |i|
@@ -13,6 +13,4 @@ B = Marshal.load(Marshal.dump(A))
   end
 end
 
-B.each do |b|
-  puts b.join
-end
+puts B
