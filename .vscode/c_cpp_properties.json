@@ -5,15 +5,14 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include"
-                // "/opt/ac-library"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++17",
+            "compilerPath": "/usr/bin/gcc-11",
+            "cStandard": "gnu23",
+            "cppStandard": "gnu++23",
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
-                "-std=c++17",
+                "-std=c++20",
                 "-g",
                 "-Wall",
                 "-Wextra",
