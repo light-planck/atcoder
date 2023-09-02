@@ -4,5 +4,15 @@ using namespace std;
 using ll = long long;
 
 int main() {
-  
+  ll N, M, P;
+  cin >> N >> M >> P;
+
+  ll ans = 0;
+  ll now = M;
+  while (now <= N) {
+    ++ans;
+    now += P;
+  }
+
+  cout << ans << '\n';
 }
