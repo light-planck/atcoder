@@ -14,9 +14,11 @@ int main() {
 
   dsu uf(N);
   rep(i, N) {
-    if ((X[i] - X[0]) * (X[i] - X[0]) + (Y[i] - Y[0]) * (Y[i] - Y[0]) <=
-        D * D) {
-      uf.merge(i, 0);
+    rep(j, N) {
+      if ((X[i] - X[j]) * (X[i] - X[j]) + (Y[i] - Y[j]) * (Y[i] - Y[j]) <=
+          D * D) {
+        uf.merge(i, j);
+      }
     }
   }
 
