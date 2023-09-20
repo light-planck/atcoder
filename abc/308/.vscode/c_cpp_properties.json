@@ -4,16 +4,15 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include"
-                // "/opt/ac-library"
+                "/opt/ac-library"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++17",
-            "intelliSenseMode": "linux-gcc-x64",
+            "compilerPath": "/opt/homebrew/bin/gcc-13",
+            "cStandard": "gnu23",
+            "cppStandard": "gnu++23",
+            "intelliSenseMode": "macos-gcc-arm64",
             "compilerArgs": [
-                "-std=c++17",
+                "-std=c++20",
                 "-g",
                 "-Wall",
                 "-Wextra",
