@@ -7,20 +7,22 @@ int main() {
   ll N;
   cin >> N;
 
-  vector<long double> A(N), B(N);
+  vector<ll> A(N), B(N);
   rep(i, N) {
-    long double a, b;
+    ll a, b;
     cin >> a >> b;
     A[i] = a;
     B[i] = b;
   }
 
-  vector<pair<long double, ll>> success;
-  rep(i, N) { success.emplace_back(A[i] / (A[i] + B[i]), -i); }
-  ranges::sort(success, ranges::greater());
+  vector<ll> idx(N);
+  iota(idx.begin(), idx.end(), 0);
+  auto compare = [&](ll i, ll j) {
+    return A[i] * (A[j] + B[j]) > A[j] * (A[i] + B[i]);
+  };
+  ranges::stable_sort(idx, compare);
 
-  for (auto [_, i] : success) {
-    cout << -i + 1 << '\n';
+  for (auto i : idx) {
+    cout << i + 1 << '\n';
   }
-  return 0;
 }
