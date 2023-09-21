@@ -152,7 +152,7 @@
 
   "edge": {
     "prefix": "edge",
-    "body": ["vector edge(n, vector<ll>());"],
+    "body": ["vector edge(N, vector<ll>());"],
     "description": "edge"
   },
 

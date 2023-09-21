@@ -3,7 +3,15 @@
 using namespace std;
 using ll = long long;
 
-int main() { 
-  
-  return 0;
+int main() {
+  ll N;
+  cin >> N;
+
+  vector edge(N, vector<ll>());
+  rep(i, N) {
+    ll a;
+    cin >> a;
+    --a;
+    edge[i].emplace_back(a);
+  }
 }
