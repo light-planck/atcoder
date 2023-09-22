@@ -15,26 +15,23 @@ int main() {
     edge[i].emplace_back(a);
   }
 
-  vector<bool> seen(N);
+  vector<ll> idx(N);
+  vector<ll> path;
 
-  auto dfs = [&](auto self, ll v, vector<ll> path) -> void {
-    if (ssize(path) > 1 and v == path[0]) {
-      cout << ssize(path) << '\n';
-      for (auto x : path) cout << x + 1 << '\n';
-      exit(0);
+  ll v = 0;
+  while (true) {
+    if (idx[v] == 0) {
+      idx[v] = ssize(path);
+      path.emplace_back(v);
+      v = edge[v][0];
+      continue;
     }
 
-    for (auto to : edge[v]) {
-      auto new_path = path;
-      path.emplace_back(to);
-      self(self, to, new_path);
+    cout << ssize(path) - idx[v] << '\n';
+    for (int i = idx[v]; i < ssize(path); ++i) {
+      cout << path[i] + 1 << ' ';
     }
-
-    path.pop_back();
-    seen[v] = true;
-  };
-
-  rep(i, N) {
-    if (not seen[i]) dfs(dfs, i, {i});
+    cout << '\n';
+    break;
   }
 }
