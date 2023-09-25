@@ -7,28 +7,30 @@ int main() {
   ll N, M;
   cin >> N >> M;
 
-  vector<ll> A(N);
-  for (auto& a : A) cin >> a;
-
-  vector<ll> B(M);
-  for (auto& b : B) cin >> b;
-
-  ll ng = 0;
-  ll ok = 1e9 + 1;
-  while (abs(ok - ng) > 1) {
-    ll mid = (ok + ng) / 2;
-
-    auto check = [&]() {
-      ll cnt_a = ranges::count_if(A, [&](ll x) { return x <= mid; });
-      ll cnt_b = ranges::count_if(B, [&](ll x) { return x >= mid; });
-      return cnt_a >= cnt_b;
-    };
-
-    if (check())
-      ok = mid;
-    else
-      ng = mid;
+  vector<pair<ll, ll>> events;
+  rep(i, N) {
+    ll a;
+    cin >> a;
+    events.emplace_back(a, 0);
   }
+  rep(i, M) {
+    ll b;
+    cin >> b;
+    events.emplace_back(b + 1, 1);
+  }
+  ranges::sort(events);
 
-  cout << ok << '\n';
+  ll cnt_a = 0;
+  ll cnt_b = M;
+  for (auto [price, type] : events) {
+    if (type == 0)
+      ++cnt_a;
+    else
+      --cnt_b;
+
+    if (cnt_a >= cnt_b) {
+      cout << price << '\n';
+      exit(0);
+    }
+  }
 }
