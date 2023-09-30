@@ -9,13 +9,13 @@ int main() {
 
   vector<ll> A(N);
   for (auto& a : A) cin >> a;
+  ranges::sort(A, ranges::greater());
 
-  long double ans = 0;
-  long double avg = accumulate(A.begin(), A.end(), 0ll) / (long double)N;
-  for (auto a : A) {
-    long double delta = abs(a - avg);
-    if (delta >= 1) ans += abs(a - avg);
-  }
+  ll s = accumulate(A.begin(), A.end(), 0ll);
+  vector<ll> b(N, s / N);
+  rep(i, s % N) b[i] = s / N + 1;
 
-  cout << llround(ans) / 2 << '\n';
+  ll ans = 0;
+  rep(i, N) ans += abs(A[i] - b[i]);
+  cout << ans / 2 << '\n';
 }
