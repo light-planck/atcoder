@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/ac-library"
+            ],
+            "defines": [],
+            "compilerPath": "/opt/homebrew/bin/gcc-13",
+            "cStandard": "gnu23",
+            "cppStandard": "gnu++23",
+            "intelliSenseMode": "macos-gcc-arm64",
+            "compilerArgs": [
+                "-std=c++20",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-Wshadow",
+                "-fsanitize=address,undefined"
+            ]
+        }
+    ],
+    "version": 4
+}
