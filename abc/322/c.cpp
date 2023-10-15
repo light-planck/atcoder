@@ -4,5 +4,22 @@ using namespace std;
 using ll = long long;
 
 int main() {
-  
+  ll N, M;
+  cin >> N >> M;
+
+  queue<ll> A;
+  rep(i, M) {
+    ll a;
+    cin >> a;
+    --a;
+    A.emplace(a);
+  }
+
+  rep(i, N) {
+    cout << A.front() - i << '\n';
+
+    if (i == A.front()) {
+      A.pop();
+    }
+  }
 }
