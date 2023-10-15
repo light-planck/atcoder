@@ -9,13 +9,16 @@ int main() {
 
   vector<ll> A(N);
   for (auto& a : A) cin >> a;
-  ranges::sort(A, ranges::greater());
+
+  ranges::sort(A);
 
   ll s = accumulate(A.begin(), A.end(), 0ll);
   vector<ll> b(N, s / N);
   rep(i, s % N) b[i] = s / N + 1;
+  ranges::sort(b);
 
   ll ans = 0;
   rep(i, N) ans += abs(A[i] - b[i]);
-  cout << ans / 2 << '\n';
+  ans /= 2;
+  cout << ans << '\n';
 }
