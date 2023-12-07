@@ -1,0 +1,27 @@
+version: '3'
+
+tasks:
+  build:
+    cmds:
+      - docker compose build --no-cache
+    silent: true
+
+  up:
+    cmds:
+      - docker compose up -d
+    silent: true
+
+  ex:
+    cmds:
+      - docker compose exec ubuntu bash
+    silent: true
+
+  down:
+    cmds:
+      - docker compose down
+    silent: true
+
+  clean:
+    cmds:
+      - docker compose down --rmi all --volumes --remove-orphans
+    silent: true

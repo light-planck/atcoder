@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 contest=$(basename ${PWD%/*})
 number=$(basename $PWD)
