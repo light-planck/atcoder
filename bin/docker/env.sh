@@ -3,7 +3,8 @@ alias g='g++-12 -std=c++20 -Wall -Wextra -fsanitize=address -fsanitize=undefined
 alias a='./a.out'
 alias py='python3'
 
-alias d='bin/download_samples.sh'
+alias gen='/root/bin/generate_atcoder_info.sh'
+alias d='/root/bin/download_samples.sh'
 alias t='oj t -N'
 alias s='oj s --language 5001'
 
