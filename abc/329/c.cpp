@@ -3,6 +3,24 @@
 using namespace std;
 using ll = long long;
 
+vector<pair<char, ll>> encode(string s) {
+  vector<pair<char, ll>> cnt;
+  deque<char> deq;
+
+  for (auto c : s) {
+    if (ssize(deq) == 0 || deq.back() == c)
+      deq.emplace_back(c);
+    else {
+      cnt.emplace_back(deq.back(), ssize(deq));
+      deq.clear();
+      deq.emplace_back(c);
+    }
+  }
+  cnt.emplace_back(deq.back(), ssize(deq));
+
+  return cnt;
+}
+
 int main() {
   ll N;
   cin >> N;
@@ -10,24 +28,15 @@ int main() {
   string S;
   cin >> S;
 
-  char now = '.';
-  ll length = 0;
-  map<char, ll> max_length;
-  for (auto c : S) {
-    if (c == now) {
-      ++length;
-    } else {
-      max_length[now] = max(max_length[now], length);
-      now = c;
-      length = 1;
-    }
+  auto cnt = encode(S);
+  map<char, ll> max_cnt;
+  for (auto [c, n] : cnt) {
+    max_cnt[c] = max(max_cnt[c], n);
   }
-  max_length[now] = max(max_length[now], length);
 
-  ll ans = 0;
-  for (auto [_, length] : max_length) {
-    ans += length;
-  }
+  ll ans = std::accumulate(
+      max_cnt.begin(), max_cnt.end(), 0LL,
+      [](ll acc, const auto pair) { return acc + pair.second; });
 
   cout << ans << '\n';
 }
