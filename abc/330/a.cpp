@@ -10,10 +10,6 @@ int main() {
   vector<ll> A(N);
   for (auto& a : A) cin >> a;
 
-  ll ans = 0;
-  for (auto a : A) {
-    if (a >= L) ++ans;
-  }
-
+  ll ans = ranges::count_if(A, [L](ll a) { return a >= L; });
   cout << ans << '\n';
 }
