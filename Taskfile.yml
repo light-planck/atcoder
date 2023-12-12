@@ -25,3 +25,9 @@ tasks:
     cmds:
       - docker compose down --rmi all --volumes --remove-orphans
     silent: true
+
+  restart:
+    cmds:
+      - docker compose down
+      - docker compose up -d
+    silent: true
