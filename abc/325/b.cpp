@@ -7,22 +7,19 @@ int main() {
   ll N;
   cin >> N;
 
-  map<ll, ll> numbers;
-  rep(i, N) {
-    ll w, x;
-    cin >> w >> x;
-
-    for (ll h = 9 - x; h <= 18 - x; ++h) {
-      numbers[h] += w;
-    }
-  }
+  constexpr ll HOUR = 24;
+  vector<ll> W(N), X(N);
+  rep(i, N) cin >> W[i] >> X[i];
 
   ll ans = 0;
-  for (const auto [h, w] : numbers) {
-    if (h > 0 and (h < 9 or h > 18)) continue;
-    if (h < 0 and (h + 24 < 9 or h + 24 > 18)) continue;
+  for (ll i = 0; i < HOUR; ++i) {
+    ll sum = 0;
+    rep(j, N) {
+      ll h = (i + X[j]) % HOUR;
+      if (9 <= h and h < 18) sum += W[j];
+    }
 
-    ans = max(ans, w);
+    ans = max(ans, sum);
   }
 
   cout << ans << '\n';
