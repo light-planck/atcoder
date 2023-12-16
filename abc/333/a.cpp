@@ -4,5 +4,11 @@ using namespace std;
 using ll = long long;
 
 int main() {
-  
+  ll N;
+  cin >> N;
+
+  rep(i, N) {
+    cout << N;
+  }
+  cout << '\n';
 }
