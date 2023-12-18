@@ -10,7 +10,8 @@ RUN apt-get update && \
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 90 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 90 && \
   pip3 install --user online-judge-tools && \
-  pip3 install yq
+  pip3 install yq && \
+  git clone https://github.com/atcoder/ac-library.git /opt/ac-library
 
 COPY bin/docker/* /root/bin/
 RUN cat /root/bin/env.sh >> ~/.bashrc
