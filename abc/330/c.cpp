@@ -9,17 +9,9 @@ int main() {
 
   ll ans = 1ll << 60;
   for (ll x = 0; x * x <= D; ++x) {
-    ll c = x * x - D;
-
-    if (c >= 0) {
-      ans = min(ans, c);
-      continue;
-    }
-
-    vector<ll> y = {(ll)sqrt(-c), (ll)ceil(sqrt(-c))};
-    for (auto yi : y) {
-      ans = min(ans, abs(c + yi * yi));
-    }
+    ll y = sqrt(abs(x * x - D));
+    ans = min(ans, abs(x * x + y * y - D));
+    ans = min(ans, abs(x * x + (y + 1) * (y + 1) - D));
   }
 
   cout << ans << '\n';

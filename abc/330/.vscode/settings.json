@@ -5,7 +5,10 @@
     "deque": "cpp",
     "vector": "cpp",
     "iostream": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "queue": "cpp",
+    "stack": "cpp",
+    "random": "cpp"
   },
 
   "codesnap.shutterAction": "copy"
