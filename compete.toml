@@ -22,8 +22,11 @@ test-suite = "{{ manifest_dir }}/testcases/{{ bin_alias }}.yml"
 
 [template]
 src = '''
+use proconio::{fastout, input};
+
+#[fastout]
 fn main() {
-    todo!();
+    input! {}
 }
 '''
 
@@ -99,7 +102,7 @@ platform = "atcoder"
 #
 # - `contest`:      Contest ID. **May be nil**
 # - `package_name`: Package name
-path = "./{{ contest }}"
+path = "./abc/{{ contest }}"
 
 #[new]
 #kind = "oj-api"
@@ -135,8 +138,8 @@ path = "./{{ contest }}"
 [submit]
 kind = "file"
 path = "{{ src_path }}"
-language_id = "4050"
+language_id = "5054"
 #[submit]
 #kind = "command"
 #args = ["cargo", "equip", "--exclude-atcoder-crates", "--resolve-cfgs", "--remove", "docs", "--minify", "libs", "--rustfmt", "--check", "--bin", "{{ bin_name }}"]
-#language_id = "4050"
+#language_id = "5054"
