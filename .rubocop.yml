@@ -1,9 +1,0 @@
-AllCops:
-  TargetRubyVersion: 3.2
-  NewCops: enable
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/NumericPredicate:
-  Enabled: false
