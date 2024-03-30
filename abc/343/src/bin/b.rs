@@ -8,7 +8,7 @@ fn main() {
     }
 
     for row in a {
-        for (idx, &ai) in row.iter().enumerate() {
+        for (idx, ai) in row.into_iter().enumerate() {
             if ai == 1 {
                 print!("{} ", idx + 1);
             }
