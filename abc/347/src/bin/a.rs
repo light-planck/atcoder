@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use proconio::{fastout, input};
 
 #[fastout]
@@ -8,9 +9,10 @@ fn main() {
         a: [i64; n],
     }
 
-    for a in &a {
-        if a % k == 0 {
-            println!("{}", a / k);
-        }
-    }
+    let ans = a
+        .into_iter()
+        .filter(|a| a % k == 0)
+        .map(|a| a / k)
+        .join(" ");
+    println!("{}", ans);
 }
