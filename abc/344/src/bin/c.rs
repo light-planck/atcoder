@@ -25,10 +25,9 @@ fn main() {
     }
 
     for x in x {
-        if st.contains(&x) {
-            println!("Yes");
-        } else {
-            println!("No");
+        match st.contains(&x) {
+            true => println!("Yes"),
+            false => println!("No"),
         }
     }
 }
