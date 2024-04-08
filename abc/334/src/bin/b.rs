@@ -12,10 +12,15 @@ fn main() {
     l -= a;
     r -= a;
 
-    let d = 1e18 as i64 / m + 1;
-    l += d * m;
-    r += d * m;
+    let ans;
+    if l <= 0 && r >= 0 {
+        ans = l.abs() / m + r / m + 1;
+    } else {
+        if l < 0 {
+            (l, r) = (-r, -l);
+        }
+        ans = r / m - (l - 1) / m;
+    }
 
-    let ans = r / m - (l - 1) / m;
     println!("{}", ans);
 }
