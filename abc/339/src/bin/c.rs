@@ -7,14 +7,13 @@ fn main() {
         a: [i64; n],
     }
 
-    let mut now = 0;
-    for a in &a {
-        if now + a < 0 {
-            now = 0;
-        } else {
-            now += a;
-        }
+    let mut min_sum = 0;
+    let mut sum = 0;
+    for a in a {
+        sum += a;
+        min_sum = min_sum.min(sum);
     }
 
-    println!("{}", now);
+    let ans = sum - min_sum;
+    println!("{}", ans);
 }
