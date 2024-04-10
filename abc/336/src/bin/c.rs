@@ -6,18 +6,18 @@ fn main() {
         mut n: i64,
     }
 
-    if n == 1 {
-        println!("0");
-        return;
-    }
-
     n -= 1;
-
     let mut digits = Vec::new();
+
     while n > 0 {
         digits.push(n % 5);
         n /= 5;
     }
+
+    if digits.is_empty() {
+        digits.push(0);
+    }
+
     digits.reverse();
 
     let ans = digits
