@@ -8,8 +8,8 @@ fn main() {
     }
 
     let mut cnt: HashMap<char, i64> = HashMap::new();
-    for c in &s {
-        *cnt.entry(*c).or_insert(0) += 1;
+    for c in s {
+        *cnt.entry(c).or_insert(0) += 1;
     }
 
     let mut types: HashMap<i64, Vec<char>> = HashMap::new();
