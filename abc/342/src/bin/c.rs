@@ -10,10 +10,7 @@ fn main() {
         cd: [(char, char); q],
     }
 
-    let mut converter: HashMap<char, char> = HashMap::new();
-    for c in 'a'..='z' {
-        converter.insert(c, c);
-    }
+    let mut converter: HashMap<char, char> = ('a'..='z').map(|c| (c, c)).collect();
 
     for (c, d) in cd {
         for (k, v) in converter.clone() {
@@ -23,9 +20,6 @@ fn main() {
         }
     }
 
-    let ans = s
-        .into_iter()
-        .map(|c| converter.get(&c).unwrap())
-        .collect::<String>();
+    let ans = s.into_iter().map(|c| converter[&c]).collect::<String>();
     println!("{}", ans);
 }
