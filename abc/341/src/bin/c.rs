@@ -8,6 +8,16 @@ fn main() {
         s: [Chars; h],
     }
 
+    let get_dij = |c: char| -> (i64, i64) {
+        match c {
+            'U' => (-1, 0),
+            'D' => (1, 0),
+            'L' => (0, -1),
+            'R' => (0, 1),
+            _ => unreachable!(),
+        }
+    };
+
     let is_valid_land = |i: i64, j: i64| -> bool {
         if (i < 0 || i >= h) || (j < 0 || j >= w) {
             return false;
@@ -47,14 +57,4 @@ fn main() {
     }
 
     println!("{}", ans);
-}
-
-fn get_dij(c: char) -> (i64, i64) {
-    match c {
-        'U' => (-1, 0),
-        'D' => (1, 0),
-        'L' => (0, -1),
-        'R' => (0, 1),
-        _ => unreachable!(),
-    }
 }
