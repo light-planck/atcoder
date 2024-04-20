@@ -22,11 +22,10 @@ fn main() {
                 }
 
                 let (di, dj) = get_dij(c);
-                if let Some(head) = deq.front() {
-                    let (hi, hj) = head;
-                    deq.push_front((hi + di, hj + dj));
-                    deq.pop_back();
-                }
+                let (hi, hj) = deq.front().unwrap();
+
+                deq.push_front((hi + di, hj + dj));
+                deq.pop_back();
             }
             2 => {
                 input! {
