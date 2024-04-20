@@ -15,12 +15,15 @@ fn main() {
 
         while (ok - ng).abs() > 1 {
             let mid = (ok + ng) / 2;
-            let can_cook = (0..n).map(|i| rem_q[i] - b[i] * mid).all(|x| x >= 0);
+            let can_cook = rem_q
+                .iter()
+                .zip(b.iter())
+                .map(|(&rem_q, &b)| rem_q - b * mid)
+                .all(|x| x >= 0);
 
-            if can_cook {
-                ok = mid;
-            } else {
-                ng = mid;
+            match can_cook {
+                true => ok = mid,
+                false => ng = mid,
             }
         }
 
@@ -35,6 +38,7 @@ fn main() {
             .zip(a.iter())
             .map(|(&qi, &ai)| qi - ai * a_cnt)
             .collect::<Vec<i64>>();
+
         if rem_q.iter().any(|&x| x < 0) {
             break;
         }
