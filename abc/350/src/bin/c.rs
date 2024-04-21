@@ -1,5 +1,6 @@
 use im_rc::HashMap;
 use proconio::{fastout, input};
+use std::mem::swap;
 
 #[fastout]
 fn main() {
@@ -25,7 +26,7 @@ fn main() {
         }
 
         if i >= j {
-            (i, j) = (j, i);
+            swap(&mut i, &mut j);
         }
 
         ans.push((i + 1, j + 1));
