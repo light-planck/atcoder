@@ -3,34 +3,26 @@ use proconio::{fastout, input};
 #[fastout]
 fn main() {
     input! {
-        _: String,
+        k: usize,
     }
 
-    let mut k = 1;
+    let n = 10;
+    let mut ans: Vec<i64> = vec![];
 
-    for i in 1.. {
-        if k > 100 {
-            break;
+    for bit in 0..1 << n {
+        let mut number: i64 = 0;
+
+        for i in (0..n as usize).rev() {
+            if bit & (1 << i) > 0 {
+                number = number * 10 + i as i64;
+            }
         }
 
-        if is_321(i) {
-            println!("k: {}, f: {}", k, i);
-            k += 1;
-        }
-    }
-}
-
-fn is_321(k: i64) -> bool {
-    let s = k.to_string().chars().collect::<Vec<char>>();
-    let mut prev = '.';
-
-    for c in s {
-        match prev {
-            '.' => prev = c,
-            _ if c < prev => prev = c,
-            _ => return false,
+        if number > 0 {
+            ans.push(number);
         }
     }
 
-    true
+    ans.sort_unstable();
+    println!("{}", ans[k - 1]);
 }
