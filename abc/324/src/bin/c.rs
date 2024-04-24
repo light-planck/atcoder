@@ -1,5 +1,3 @@
-use std::mem::swap;
-
 use proconio::{fastout, input, marker::Chars};
 
 #[fastout]
@@ -9,60 +7,65 @@ fn main() {
         s: [Chars; n],
     }
 
+    let solve = |s: &Vec<char>| -> bool {
+        if (s.len() as i32 - t.len() as i32).abs() > 1 {
+            return false;
+        }
+
+        if *s == t {
+            return true;
+        }
+        if hamming_distance(&s, &t) == 1 {
+            return true;
+        }
+        if is_substring(&s, &t) || is_substring(&t, &s) {
+            return true;
+        }
+
+        false
+    };
+
     let mut ans = vec![];
-
     for (i, s) in s.iter().enumerate() {
-        if s.len() == t.len() {
-            if *s == t {
-                ans.push(i + 1);
-            } else if diff_char(&s, &t) == 1 {
-                ans.push(i + 1);
-            }
-        } else if (s.len() as i32 - t.len() as i32).abs() == 1 {
-            let mut short = s.clone();
-            let mut long = t.clone();
-
-            if short.len() > long.len() {
-                swap(&mut short, &mut long);
-            }
-
-            if removed_one_char_strings(&long)
-                .into_iter()
-                .any(|str| str == short)
-            {
-                ans.push(i + 1);
-            }
+        if solve(s) {
+            ans.push(i + 1);
         }
     }
 
     println!("{}", ans.len());
     println!(
         "{}",
-        ans.iter()
+        ans.into_iter()
             .map(|x| x.to_string())
             .collect::<Vec<String>>()
             .join(" ")
     );
 }
 
-fn diff_char(s: &Vec<char>, t: &Vec<char>) -> usize {
-    let mut diff = 0;
+fn hamming_distance(s: &Vec<char>, t: &Vec<char>) -> usize {
+    if s.len() != t.len() {
+        return usize::MAX;
+    }
 
-    for i in 0..s.len() {
-        if s[i] != t[i] {
-            diff += 1;
+    s.iter().zip(t.iter()).filter(|&(a, b)| a != b).count()
+}
+
+// sがtの1文字だけ削除した部分文字列か判定
+fn is_substring(s: &Vec<char>, t: &Vec<char>) -> bool {
+    if s.len() + 1 != t.len() {
+        return false;
+    }
+
+    let mut si = 0;
+    for t in t {
+        if *t == s[si] {
+            si += 1;
+
+            if si == s.len() {
+                return true;
+            }
         }
     }
 
-    diff
-}
-
-fn removed_one_char_strings(s: &Vec<char>) -> Vec<Vec<char>> {
-    (0..s.len())
-        .map(|i| {
-            let mut t = s.clone();
-            t.remove(i);
-            t
-        })
-        .collect()
+    false
 }
