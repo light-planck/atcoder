@@ -8,29 +8,18 @@ fn main() {
     }
 
     let solve = |s: &Vec<char>| -> bool {
-        if (s.len() as i32 - t.len() as i32).abs() > 1 {
-            return false;
-        }
-
-        if *s == t {
-            return true;
-        }
-        if hamming_distance(&s, &t) == 1 {
-            return true;
-        }
-        if is_substring(&s, &t) || is_substring(&t, &s) {
-            return true;
-        }
-
-        false
+        (s.len() as i32 - t.len() as i32).abs() <= 1
+            && (*s == t
+                || hamming_distance(&s, &t) == 1
+                || is_substring(&s, &t)
+                || is_substring(&t, &s))
     };
 
-    let mut ans = vec![];
-    for (i, s) in s.iter().enumerate() {
-        if solve(s) {
-            ans.push(i + 1);
-        }
-    }
+    let ans = s
+        .iter()
+        .enumerate()
+        .filter_map(|(i, s)| if solve(&s) { Some(i + 1) } else { None })
+        .collect::<Vec<usize>>();
 
     println!("{}", ans.len());
     println!(
