@@ -11,7 +11,7 @@ fn main() {
         n: usize,
     }
 
-    let mut s: Vec<Vec<i64>> = vec![vec![-1; n]; n];
+    let mut s: Vec<Vec<String>> = vec![vec![String::from(""); n]; n];
     let mut dir = 0;
     let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
     let mut seen: i64 = 1;
@@ -19,7 +19,7 @@ fn main() {
 
     while seen < n as i64 * n as i64 {
         let Pos { i, j } = pos;
-        s[i][j] = seen;
+        s[i][j] = seen.to_string();
 
         loop {
             let (di, dj) = dirs[dir];
@@ -29,7 +29,7 @@ fn main() {
                 || nj < 0
                 || ni >= n as i64
                 || nj >= n as i64
-                || s[ni as usize][nj as usize] != -1
+                || s[ni as usize][nj as usize] != ""
             {
                 dir = (dir + 1) % 4;
             } else {
@@ -48,7 +48,7 @@ fn main() {
         println!(
             "{}",
             row.iter()
-                .map(|&x| if x != -1 {
+                .map(|x| if x != "" {
                     x.to_string()
                 } else {
                     "T".to_string()
