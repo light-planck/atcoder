@@ -9,15 +9,16 @@ fn main() {
     }
 
     r.sort_unstable();
+
     let cusum: Vec<i64> = r
-        .iter()
-        .scan(0, |acc, &x| {
+        .into_iter()
+        .scan(0, |acc, x| {
             *acc += x;
             Some(*acc)
         })
         .collect();
 
-    for query in queries.into_iter() {
+    for query in queries {
         let idx = cusum.partition_point(|x| x <= &query);
         println!("{}", idx);
     }
