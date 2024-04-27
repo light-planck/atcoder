@@ -22,9 +22,8 @@ test-suite = "{{ manifest_dir }}/testcases/{{ bin_alias }}.yml"
 
 [template]
 src = '''
-use proconio::{fastout, input};
+use proconio::{input};
 
-#[fastout]
 fn main() {
     input! {
         
