@@ -14,19 +14,20 @@ fn main() {
         edge[b].push(a);
     }
 
-    let ans =
-        bfs(&edge, 0).iter().max().unwrap() + bfs(&edge, n1 + n2 - 1).iter().max().unwrap() + 1;
+    let dist1 = bfs(&edge, 0);
+    let dist2 = bfs(&edge, n1 + n2 - 1);
+    let ans = dist1.into_iter().max().unwrap() + dist2.into_iter().max().unwrap() + 1;
     println!("{}", ans);
 }
 
-fn bfs(edge: &Vec<Vec<usize>>, start: usize) -> Vec<i64> {
+fn bfs(edge: &[Vec<usize>], start: usize) -> Vec<i64> {
     let mut que: VecDeque<usize> = VecDeque::from([start]);
     let mut dist: Vec<i64> = vec![-1; edge.len()];
     dist[start] = 0;
 
     while let Some(v) = que.pop_front() {
         for &u in &edge[v] {
-            if dist[u] >= 0 {
+            if dist[u] != -1 {
                 continue;
             }
 
