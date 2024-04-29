@@ -6,24 +6,24 @@ fn main() {
         a: [i64; n],
     }
 
-    let mut b: Vec<i64> = Vec::new();
+    let mut stack: Vec<i64> = Vec::new();
 
-    for a in &a {
-        b.push(*a);
+    for a in a {
+        stack.push(a);
 
-        while b.len() > 1 && b[b.len() - 1] == b[b.len() - 2] {
-            let c = b.pop().unwrap();
-            let d = b.pop().unwrap();
+        while stack.len() > 1 && stack[stack.len() - 1] == stack[stack.len() - 2] {
+            let last = stack.pop().unwrap();
+            let second_last = stack.pop().unwrap();
 
-            if c != d {
-                b.push(c);
-                b.push(d);
+            if second_last != last {
+                stack.push(second_last);
+                stack.push(last);
                 break;
             }
 
-            b.push(c + 1);
+            stack.push(last + 1);
         }
     }
 
-    println!("{}", b.len());
+    println!("{}", stack.len());
 }
