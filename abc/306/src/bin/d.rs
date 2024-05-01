@@ -12,11 +12,10 @@ fn main() {
         let prev = vec![dp[0], dp[1]];
 
         if x == 0 {
-            dp[0] = (prev[0] + y).max(prev[0]);
-            dp[0] = (prev[1] + y).max(prev[0]).max(dp[0]);
-            dp[1] = (prev[0] + y).max(prev[1]);
+            dp[0] = prev[0].max((prev[0] + y).max(prev[1] + y));
+            dp[1] = prev[1].max(prev[0] + y);
         } else if x == 1 {
-            dp[1] = (prev[0] + y).max(prev[1]);
+            dp[1] = prev[1].max(prev[0] + y);
         }
     }
 
