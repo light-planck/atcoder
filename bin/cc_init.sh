@@ -2,7 +2,8 @@
 
 base_dir=~/workspace/atcoder
 
-cargo compete new abc$1
+number=$(basename "$PWD")
+cargo compete new abc$number
 
-mv ${base_dir}/abc/abc$1/* ${base_dir}/abc/$1
-rmdir ${base_dir}/abc/abc$1
+mv ${base_dir}/abc/abc$number/* ${base_dir}/abc/$number
+rmdir ${base_dir}/abc/abc$number
