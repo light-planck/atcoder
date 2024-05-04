@@ -16,5 +16,5 @@ fn main() {
         }
     }
 
-    println!("{}", ans.iter().join(" "));
+    println!("{}", ans.into_iter().join(" "));
 }
