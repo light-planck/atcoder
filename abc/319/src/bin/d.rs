@@ -10,8 +10,8 @@ fn main() {
         let mut x = 0;
         let mut row = 1;
 
-        for (i, l) in l.iter().enumerate() {
-            if *l > width {
+        for (i, &l) in l.iter().enumerate() {
+            if l > width {
                 return false;
             }
 
@@ -21,7 +21,7 @@ fn main() {
                 x += l + padding;
             } else {
                 row += 1;
-                x = *l;
+                x = l;
             }
         }
 
