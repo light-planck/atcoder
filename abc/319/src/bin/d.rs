@@ -11,22 +11,17 @@ fn main() {
         let mut row = 1;
 
         for (i, l) in l.iter().enumerate() {
-            if i == 0 {
-                if *l <= width {
-                    x = *l;
-                    continue;
-                } else {
-                    return false;
-                }
+            if *l > width {
+                return false;
             }
 
-            if x + l + 1 <= width {
-                x += l + 1;
-            } else if *l <= width {
+            let padding = if i == 0 { 0 } else { 1 };
+
+            if x + l + padding <= width {
+                x += l + padding;
+            } else {
                 row += 1;
                 x = *l;
-            } else {
-                return false;
             }
         }
 
