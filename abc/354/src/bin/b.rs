@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
@@ -7,8 +8,7 @@ fn main() {
     }
 
     let t = sc.iter().map(|(_, c)| c).sum::<i64>();
-    let mut s = sc.iter().map(|(s, _)| s).collect::<Vec<&String>>();
-    s.sort_unstable();
+    let s = sc.iter().map(|(s, _)| s).sorted().collect::<Vec<&String>>();
 
     let idx = (t as usize) % n;
     println!("{}", s[idx]);
